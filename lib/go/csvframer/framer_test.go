@@ -7,9 +7,9 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/experimental"
 	"github.com/grafana/infinity-libs/lib/go/csvframer"
+	"github.com/grafana/infinity-libs/lib/go/gframer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/gframer"
 )
 
 func TestCsvStringToFrame(t *testing.T) {

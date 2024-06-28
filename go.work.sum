@@ -340,7 +340,7 @@ github.com/googleapis/gax-go/v2 v2.0.5/go.mod h1:DWXyrwAJ9X0FpwwEdw+IPEYBICEFu5m
 github.com/googleapis/gax-go/v2 v2.12.0/go.mod h1:y+aIqrI5eb1YGMVJfuV3185Ts/D7qKpsEkdD5+I6QGU=
 github.com/grafana/grafana-plugin-sdk-go v0.167.0/go.mod h1:dPhljkVno3Bg/ZYafMrR/BfYjtCRJD2hU2719Nl3QzM=
 github.com/grafana/grafana-plugin-sdk-go v0.199.0/go.mod h1:XDTbWaz2ajuAubya8kaogWt6nfeWk2mLDOKUNZH/wJA=
-github.com/grafana/infinity-libs/lib/go/utils v1.0.0/go.mod h1:86US+G1Ujk61fibdPSEHWl+atBjXGGeibuEOMfMU2v4=
+github.com/grafana/infinity-libs/lib/go/gframer v1.0.0/go.mod h1:tCjLSNFQnuYiNeBIAyb51jNV8ad0eI/M69P1rxm77Fc=
 github.com/grpc-ecosystem/go-grpc-middleware v1.4.0/go.mod h1:g5qyo/la0ALbONm6Vbp88Yd8NsDy6rZz+RcrMPxvld8=
 github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0/go.mod h1:8NvIoxWQoOIhqOTXgfV/d3M/q6VIi02HzZEHgUlZvzk=
 github.com/grpc-ecosystem/grpc-gateway v1.16.0 h1:gmcG1KaJ57LophUzW0Hy8NmPhnMZb4M0+kPpLofRdBo=

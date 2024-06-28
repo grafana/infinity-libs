@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/gframer"
+	"github.com/grafana/infinity-libs/lib/go/gframer"
 )
 
 type FramerOptions struct {
