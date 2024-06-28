@@ -1,5 +1,9 @@
 # @grafana/infinity-gframer
 
+## 1.0.0
+
+- chore release
+
 ## 0.2.1
 
 - 873e734: cleanup

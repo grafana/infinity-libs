@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/utils"
+	"github.com/grafana/infinity-libs/lib/go/utils"
 )
 
 func anyToNullableString(input []any, fieldName string, labels data.Labels, o []any) *data.Field {
