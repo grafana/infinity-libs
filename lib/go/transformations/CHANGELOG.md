@@ -1,5 +1,9 @@
 # @grafana/infinity-transformations
 
+## 1.0.0
+
+- chore release
+
 ## 0.0.3
 
 - Added new expression functions `totime` and `tomillis` (experimental)

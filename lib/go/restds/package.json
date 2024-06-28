@@ -1,9 +1,0 @@
-{
-  "name": "@grafana/infinity-restds",
-  "private": true,
-  "version": "0.0.5",
-  "scripts": {
-    "tidy": "go mod tidy",
-    "test:backend": "go test -v  ./..."
-  }
-}

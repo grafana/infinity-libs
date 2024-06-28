@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/framesql"
+	"github.com/grafana/infinity-libs/lib/go/framesql"
 )
 
 func GetSummaryFrame(frame *data.Frame, expression string, by string, alias string) (*data.Frame, error) {
