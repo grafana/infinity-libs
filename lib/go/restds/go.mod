@@ -1,8 +1,6 @@
-module github.com/yesoreyeram/grafana-plugins/lib/go/restds
+module github.com/grafana/infinity-libs/lib/go/restds
 
-go 1.22
-
-toolchain go1.22.3
+go 1.22.1
 
 require (
 	github.com/gorilla/mux v1.8.1

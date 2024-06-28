@@ -1,28 +1,23 @@
 {
-  "name": "@yesoreyeram/grafana-plugins",
-  "version": "0.0.1",
+  "name": "@grafana/infinity-libs",
+  "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "lib/config",
-    "lib/go/*",
-    "lib/ts/*"
+    "lib/go/*"
   ],
-  "description": "My experiments with Grafana plugins.",
+  "description": "Libraries used by Grafana Infinity data source plugin",
   "keywords": [],
-  "author": "Sriramajeyam Sugumaran",
+  "author": "Grafana Labs",
   "license": "MIT",
   "scripts": {
-    "clean": "turbo run clean",
     "tidy": "turbo run tidy",
-    "build": "turbo run build:backend build:frontend",
-    "test": "turbo run test:backend test:frontend",
-    "lint": "turbo run lint:backend lint:frontend",
+    "test": "turbo run test:backend",
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\""
   },
   "packageManager": "yarn@1.22.22",
   "dependencies": {},
   "devDependencies": {
-    "@changesets/cli": "^2.27.3",
+    "@changesets/cli": "^2.27.6",
     "cspell": "^8.8.1",
     "turbo": "2.0.5"
   }

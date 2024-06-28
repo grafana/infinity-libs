@@ -1,5 +1,5 @@
 {
-  "name": "@yesoreyeram/grafana-go-xmlframer",
+  "name": "@grafana/infinity-xmlframer",
   "private": true,
   "version": "0.0.7",
   "scripts": {

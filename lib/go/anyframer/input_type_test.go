@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/grafana/infinity-libs/lib/go/anyframer"
 	"github.com/stretchr/testify/require"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/anyframer"
 )
 
 func TestGuessType(t *testing.T) {

@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/experimental"
+	af "github.com/grafana/infinity-libs/lib/go/anyframer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	af "github.com/yesoreyeram/grafana-plugins/lib/go/anyframer"
 )
 
 func TestStructToFrame(t *testing.T) {

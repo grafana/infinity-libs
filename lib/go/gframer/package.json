@@ -1,5 +1,5 @@
 {
-  "name": "@yesoreyeram/grafana-go-gframer",
+  "name": "@grafana/infinity-gframer",
   "private": true,
   "version": "0.2.1",
   "scripts": {

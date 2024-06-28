@@ -1,4 +1,4 @@
-# @yesoreyeram/grafana-go-transformations
+# @grafana/infinity-transformations
 
 ## 0.0.3
 

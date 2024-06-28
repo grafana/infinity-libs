@@ -1,13 +1,11 @@
-module github.com/yesoreyeram/grafana-plugins/lib/go/csvframer
+module github.com/grafana/infinity-libs/lib/go/csvframer
 
-go 1.22
-
-toolchain go1.22.1
+go 1.22.1
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.231.0
 	github.com/stretchr/testify v1.9.0
-	github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.0.1
+	github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.2.0
 )
 
 require (
@@ -22,7 +20,6 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/elazarl/goproxy v0.0.0-20231117061959-7cc037d33fb5 // indirect
 	github.com/fatih/color v1.16.0 // indirect
-	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/getkin/kin-openapi v0.124.0 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -91,7 +88,6 @@ require (
 	golang.org/x/text v0.15.0 // indirect
 	golang.org/x/tools v0.15.0 // indirect
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
-	gonum.org/v1/gonum v0.14.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240415180920-8c6c420018be // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240415180920-8c6c420018be // indirect
 	google.golang.org/grpc v1.63.2 // indirect

@@ -1,35 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "clean": {
-      "cache": false,
-      "outputs": []
-    },
     "tidy": {
       "cache": false,
       "inputs": ["go.mod"],
       "outputs": ["go.mod", "go.sum"]
     },
-    "lint:backend": {
-      "cache": true,
-      "inputs": ["**/*.go", "go.mod", "go.sum"],
-      "outputs": []
-    },
     "test:backend": {
       "inputs": ["**/*.go", "go.mod", "go.sum"],
       "outputs": []
-    },
-    "build:backend": {
-      "cache": true
-    },
-    "lint:frontend": {
-      "cache": true
-    },
-    "test:frontend": {
-      "cache": true
-    },
-    "build:frontend": {
-      "cache": true
     }
   }
 }

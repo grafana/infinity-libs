@@ -1,3 +1,3 @@
-module github.com/yesoreyeram/grafana-plugins/lib/go/utils
+module github.com/grafana/infinity-libs/lib/go/utils
 
-go 1.22
+go 1.22.1

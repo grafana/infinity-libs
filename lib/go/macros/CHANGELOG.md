@@ -1,4 +1,4 @@
-# @yesoreyeram/grafana-go-macros
+# @grafana/infinity-macros
 
 ## 0.3.0
 

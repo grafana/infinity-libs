@@ -1,5 +1,5 @@
 {
-  "name": "@yesoreyeram/grafana-go-framesql",
+  "name": "@grafana/infinity-framesql",
   "private": true,
   "version": "0.0.2",
   "scripts": {

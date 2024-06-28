@@ -1,19 +1,17 @@
-name: Backed libraries
+name: Test & Build
 on:
   pull_request:
-    paths:
-      - "lib/go/**"
   push:
     branches:
       - main
-    paths:
-      - "lib/go/**"
 defaults:
   run:
     shell: bash
     working-directory: ./
 permissions:
   contents: read
+env:
+  DO_NOT_TRACK: 1
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,11 +21,25 @@ jobs:
         with:
           egress-policy: audit
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          fetch-depth: 1
+      - name: Setup NodeJS environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+      - name: Install frontend dependencies
+        run: yarn install --frozen-lockfile;
+      - name: Spellcheck
+        run: yarn spellcheck;
       - name: Setup Go environment
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: "1.22.1"
+          cache-dependency-path: "**/*.sum"
       - name: Validate environment
         run: |
           echo "-------- node version -----"
@@ -38,5 +50,5 @@ jobs:
           yarn --version
           echo "-------- go version -----"
           go version
-      - name: Test backend
-        run: npx --package=turbo@2.0.5 -- turbo test:backend
+      - name: Test
+        run: yarn test

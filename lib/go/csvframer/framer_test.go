@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/grafana/grafana-plugin-sdk-go/experimental"
+	"github.com/grafana/infinity-libs/lib/go/csvframer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/csvframer"
 	"github.com/yesoreyeram/grafana-plugins/lib/go/gframer"
 )
 

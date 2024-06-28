@@ -1,8 +1,6 @@
-module github.com/yesoreyeram/grafana-plugins/lib/go/anyframer
+module github.com/grafana/infinity-libs/lib/go/anyframer
 
-go 1.22
-
-toolchain go1.22.1
+go 1.22.1
 
 require (
 	github.com/basgys/goxml2json v1.1.0
