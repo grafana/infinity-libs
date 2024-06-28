@@ -1,5 +1,9 @@
 # @grafana/infinity-csvframer
 
+## 1.0.0
+
+- chore release
+
 ## 0.0.5
 
 - 873e734: cleanup

@@ -4,11 +4,11 @@ go 1.22.1
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.231.0
+	github.com/grafana/infinity-libs/lib/go/gframer v1.0.0
 	github.com/noborus/trdsql v0.13.0
 	github.com/stretchr/testify v1.9.0
 	github.com/tidwall/gjson v1.17.0
 	github.com/xiatechs/jsonata-go v1.7.1
-	github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.2.0
 )
 
 require (
@@ -39,6 +39,7 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
+	github.com/grafana/infinity-libs/lib/go/utils v1.0.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.1.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1 // indirect
@@ -92,7 +93,6 @@ require (
 	github.com/unknwon/com v1.0.1 // indirect
 	github.com/unknwon/log v0.0.0-20200308114134-929b1006e34a // indirect
 	github.com/urfave/cli v1.22.15 // indirect
-	github.com/yesoreyeram/grafana-plugins/lib/go/utils v0.0.1 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.51.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace v0.51.0 // indirect

@@ -1,5 +1,9 @@
 # @grafana/infinity-jsonframer
 
+## 1.0.0
+
+- chore release
+
 ## 0.2.3
 
 - Fixed a bug in multi framer where long frame conversion
