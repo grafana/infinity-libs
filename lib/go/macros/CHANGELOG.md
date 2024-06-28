@@ -1,5 +1,9 @@
 # @grafana/infinity-macros
 
+## 1.0.0
+
+- chore release
+
 ## 0.3.0
 
 - Updated macros argument signature

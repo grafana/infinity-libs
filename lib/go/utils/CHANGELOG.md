@@ -1,5 +1,11 @@
 # @grafana/infinity-utils
 
+## 1.0.0
+
+### Major Changes
+
+- chore release
+
 ## 0.0.4
 
 - 873e734: cleanup
