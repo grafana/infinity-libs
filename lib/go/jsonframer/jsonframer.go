@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
+	"github.com/grafana/infinity-libs/lib/go/gframer"
 	"github.com/tidwall/gjson"
 	jsonata "github.com/xiatechs/jsonata-go"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/gframer"
 )
 
 type FramerType string
