@@ -4,8 +4,8 @@ go 1.22.1
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.231.0
+	github.com/grafana/infinity-libs/lib/go/utils v1.0.0
 	github.com/stretchr/testify v1.9.0
-	github.com/yesoreyeram/grafana-plugins/lib/go/utils v0.0.1
 )
 
 require (

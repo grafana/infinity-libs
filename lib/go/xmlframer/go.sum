@@ -206,6 +206,7 @@ github.com/xiatechs/jsonata-go v1.7.1/go.mod h1:qc/5uRtTKE5mil6PncK/ogxFQyhqlI6Y
 github.com/yesoreyeram/goxml2json v0.0.0-20181031222924-996d9fc8d313 h1:vp9ffMzYUIikfYTcyFd1C8uxHroLHKFrZBPy02fNwOU=
 github.com/yesoreyeram/goxml2json v0.0.0-20181031222924-996d9fc8d313/go.mod h1:2wBri9DNpmznBip4s1sqf5SdolEXkGbdaZN6hl4eino=
 github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.2.0 h1:FU1ABOCoJdT5e4F7Av7mciVz7ArWvf/xBkoopztVrG0=
+github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.2.0/go.mod h1:gSSkuGl3yyRoEgrrttRrw1log8XLW5n4HfKwQm8rqqs=
 github.com/yesoreyeram/grafana-plugins/lib/go/jsonframer v0.0.5 h1:twVL+0rP5tBVUG3awRLMoPjn0FSLnJw10pguEbxvQ1M=
 github.com/yesoreyeram/grafana-plugins/lib/go/jsonframer v0.0.5/go.mod h1:HXRwHBoppq1tTQIDxm/g24C4qmjhpfYR+nnDkpaclOA=
 github.com/yesoreyeram/grafana-plugins/lib/go/utils v0.0.1 h1:A4C+oGjvMq8sINwXqKh19OfdKmB8BD2+Yhc2SND70L8=

@@ -183,6 +183,7 @@ github.com/urfave/cli v1.22.1/go.mod h1:Gos4lmkARVdJ6EkW0WaNv/tZAAMe9V7XWyB60NtX
 github.com/urfave/cli v1.22.15 h1:nuqt+pdC/KqswQKhETJjo7pvn/k4xMUxgW6liI7XpnM=
 github.com/urfave/cli v1.22.15/go.mod h1:wSan1hmo5zeyLGBjRJbzRTNk8gwoYa2B9n4q9dmRIc0=
 github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.2.0 h1:FU1ABOCoJdT5e4F7Av7mciVz7ArWvf/xBkoopztVrG0=
+github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.2.0/go.mod h1:gSSkuGl3yyRoEgrrttRrw1log8XLW5n4HfKwQm8rqqs=
 github.com/yesoreyeram/grafana-plugins/lib/go/utils v0.0.1 h1:A4C+oGjvMq8sINwXqKh19OfdKmB8BD2+Yhc2SND70L8=
 github.com/yesoreyeram/grafana-plugins/lib/go/utils v0.0.1/go.mod h1:4uhug7R1Gu7qDisf6y6p2lI+wdNbLyM0Og1wJJDDLr0=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
