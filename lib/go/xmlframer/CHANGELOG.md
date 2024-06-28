@@ -1,5 +1,9 @@
 # @grafana/infinity-xmlframer
 
+## 1.0.0
+
+- chore release
+
 ## 0.0.7
 
 - 873e734: cleanup

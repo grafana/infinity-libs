@@ -6,7 +6,7 @@ import (
 
 	xj "github.com/basgys/goxml2json"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/jsonframer"
+	"github.com/grafana/infinity-libs/lib/go/jsonframer"
 )
 
 type FramerOptions struct {

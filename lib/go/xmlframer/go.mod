@@ -5,7 +5,7 @@ go 1.22.1
 require (
 	github.com/basgys/goxml2json v1.1.0
 	github.com/grafana/grafana-plugin-sdk-go v0.231.0
-	github.com/yesoreyeram/grafana-plugins/lib/go/jsonframer v0.0.5
+	github.com/grafana/infinity-libs/lib/go/jsonframer v1.0.0
 )
 
 require (
@@ -21,6 +21,8 @@ require (
 	github.com/google/flatbuffers v23.5.26+incompatible // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/grafana/infinity-libs/lib/go/gframer v1.0.0 // indirect
+	github.com/grafana/infinity-libs/lib/go/utils v1.0.0 // indirect
 	github.com/iancoleman/orderedmap v0.3.0 // indirect
 	github.com/itchyny/gojq v0.12.13 // indirect
 	github.com/itchyny/timefmt-go v0.1.5 // indirect
@@ -30,6 +32,7 @@ require (
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/klauspost/compress v1.17.3 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.6 // indirect
+	github.com/kr/pretty v0.3.1 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattetti/filebuffer v1.0.1 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
@@ -54,8 +57,6 @@ require (
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/ulikunitz/xz v0.5.11 // indirect
 	github.com/xiatechs/jsonata-go v1.7.1 // indirect
-	github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.2.0 // indirect
-	github.com/yesoreyeram/grafana-plugins/lib/go/utils v0.0.1 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
