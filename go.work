@@ -7,7 +7,6 @@ use (
 	./lib/go/gframer
 	./lib/go/jsonframer
 	./lib/go/macros
-	./lib/go/restds
 	./lib/go/transformations
 	./lib/go/utils
 	./lib/go/xmlframer
