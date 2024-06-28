@@ -1,4 +1,4 @@
-# @yesoreyeram/grafana-go-jsonframer
+# @grafana/infinity-jsonframer
 
 ## 0.2.3
 

@@ -1,8 +1,6 @@
-module github.com/yesoreyeram/grafana-plugins/lib/go/xmlframer
+module github.com/grafana/infinity-libs/lib/go/xmlframer
 
-go 1.22
-
-toolchain go1.22.1
+go 1.22.1
 
 require (
 	github.com/basgys/goxml2json v1.1.0
@@ -15,9 +13,7 @@ require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de // indirect
 	github.com/bitly/go-simplejson v0.5.1 // indirect
 	github.com/cheekybits/genny v1.0.0 // indirect
-	github.com/chromedp/cdproto v0.0.0-20231114014204-3e458d5176f9 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
-	github.com/elazarl/goproxy v0.0.0-20231117061959-7cc037d33fb5 // indirect
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
@@ -57,9 +53,8 @@ require (
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/ulikunitz/xz v0.5.11 // indirect
-	github.com/unknwon/log v0.0.0-20200308114134-929b1006e34a // indirect
 	github.com/xiatechs/jsonata-go v1.7.1 // indirect
-	github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.1.0 // indirect
+	github.com/yesoreyeram/grafana-plugins/lib/go/gframer v0.2.0 // indirect
 	github.com/yesoreyeram/grafana-plugins/lib/go/utils v0.0.1 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
@@ -73,8 +68,6 @@ require (
 	golang.org/x/tools v0.15.0 // indirect
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	gonum.org/v1/gonum v0.14.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20240415180920-8c6c420018be // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240415180920-8c6c420018be // indirect
 	lukechampine.com/uint128 v1.3.0 // indirect
 	modernc.org/cc/v3 v3.41.0 // indirect
 	modernc.org/ccgo/v3 v3.16.15 // indirect

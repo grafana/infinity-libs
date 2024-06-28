@@ -10,8 +10,8 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/grafana-plugin-sdk-go/experimental"
+	"github.com/grafana/infinity-libs/lib/go/jsonframer"
 	"github.com/stretchr/testify/require"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/jsonframer"
 )
 
 func TestJsonStringToFrame(t *testing.T) {

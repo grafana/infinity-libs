@@ -1,6 +1,8 @@
-# Grafana Plugins
+# Infinity libs
 
-My experiments with [Grafana](https://grafana.com) [plugins](https://grafana.com/plugins) eco-system. This is a mono-repo of following plugins and grafana related packages.
+The libs used by [Grafana Infinity data source plugin](https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource) and other grafana plugins. This repository contains only the libraries but not the actual plugins. If you are looking forward to contribute to the infinity data source plugin, consider using it's [repository](https://github.com/grafana/grafana-infinity-datasource) instead.
+
+> **NOTE**: This is a forked/detached version of [original libs](https://github.com/yesoreyeram/grafana-plugins) developed by [@yesoreyeram](https://github.com/yesoreyeram).
 
 ## Included go packages
 

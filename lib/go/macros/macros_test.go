@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
+	"github.com/grafana/infinity-libs/lib/go/macros"
 	"github.com/stretchr/testify/require"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/macros"
 )
 
 func TestApplyMacros(t *testing.T) {

@@ -1,5 +1,5 @@
 {
-  "name": "@yesoreyeram/grafana-go-macros",
+  "name": "@grafana/infinity-macros",
   "private": true,
   "version": "0.3.0",
   "scripts": {

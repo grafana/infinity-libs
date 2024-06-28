@@ -3,8 +3,8 @@ package framesql_test
 import (
 	"testing"
 
+	"github.com/grafana/infinity-libs/lib/go/framesql"
 	"github.com/stretchr/testify/require"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/framesql"
 )
 
 func TestGetValuePointer(t *testing.T) {

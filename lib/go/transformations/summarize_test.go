@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
+	"github.com/grafana/infinity-libs/lib/go/transformations"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/yesoreyeram/grafana-plugins/lib/go/transformations"
 )
 
 func TestGetSummaryFrame(t *testing.T) {

@@ -1,15 +1,5 @@
 # CHANGELOG
 
-## v0.0.2
+## v1.0.0
 
-- **Chore**: Cleanup / removed plugins from the monorepo
-
-## v0.0.1
-
-- **plugin - blank** [yesoreyeram-blank-datasource](./plugins/yesoreyeram-blank-datasource/) added
-- **plugin - hello** [yesoreyeram-hello-datasource](./plugins/yesoreyeram-hello-datasource/) added
-- **plugin - petstore** [yesoreyeram-petstore-datasource](./plugins/yesoreyeram-petstore-datasource/) added
-- **plugin - vercel** [yesoreyeram-vercel-datasource](./plugins/yesoreyeram-vercel-datasource) added
-- **backend package** new backend package `macros` added
-- **backend package** new backend package `restds` added
-- **backend package** new backend package `anyframer` added
+- **Chore**: Initial version forked from [yesoreyeram's repo](https://github.com/yesoreyeram/grafana-plugins)

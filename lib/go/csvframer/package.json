@@ -1,5 +1,5 @@
 {
-  "name": "@yesoreyeram/grafana-go-csvframer",
+  "name": "@grafana/infinity-csvframer",
   "private": true,
   "version": "0.0.5",
   "scripts": {

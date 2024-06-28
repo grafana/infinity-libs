@@ -1,8 +1,6 @@
-module github.com/yesoreyeram/grafana-plugins/lib/go/transformations
+module github.com/grafana/infinity-libs/lib/go/transformations
 
-go 1.22
-
-toolchain go1.22.1
+go 1.22.1
 
 require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de

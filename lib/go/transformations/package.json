@@ -1,5 +1,5 @@
 {
-  "name": "@yesoreyeram/grafana-go-transformations",
+  "name": "@grafana/infinity-transformations",
   "private": true,
   "version": "0.0.3",
   "scripts": {
