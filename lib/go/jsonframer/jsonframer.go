@@ -15,8 +15,7 @@ import (
 type FramerType string
 
 const (
-	FramerTypeGJSON   FramerType = "gjson"
-	FramerTypeSQLite3 FramerType = "sqlite3"
+	FramerTypeGJSON FramerType = "gjson"
 )
 
 type FrameFormat string
@@ -27,8 +26,7 @@ const (
 )
 
 type FramerOptions struct {
-	FramerType      FramerType // `gjson` | `sqlite3`
-	SQLite3Query    string
+	FramerType      FramerType // `gjson`
 	FrameName       string
 	RootSelector    string
 	Columns         []ColumnSelector
@@ -59,8 +57,6 @@ func ToFrames(jsonString string, options FramerOptions) (frames []*data.Frame, e
 		return frames, err
 	}
 	switch options.FramerType {
-	case "sqlite3":
-		return frames, errors.New("multi frame support not implemented for sqlite3 parser")
 	default:
 		outString, err := GetRootData(jsonString, options.RootSelector)
 		if err != nil {
@@ -127,14 +123,7 @@ func ToFrame(jsonString string, options FramerOptions) (frame *data.Frame, err e
 	if err != nil {
 		return frame, err
 	}
-	outString := jsonString
 	switch options.FramerType {
-	case "sqlite3":
-		outString, err = QueryJSONUsingSQLite3(outString, options.SQLite3Query, options.RootSelector)
-		if err != nil {
-			return frame, err
-		}
-		return getFrameFromResponseString(outString, options)
 	default:
 		outString, err := GetRootData(jsonString, options.RootSelector)
 		if err != nil {

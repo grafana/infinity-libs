@@ -1,5 +1,9 @@
 # @grafana/infinity-jsonframer
 
+## 1.1.0
+
+- removed sqlite3 framer
+
 ## 1.0.0
 
 - chore release
