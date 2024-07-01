@@ -1,5 +1,9 @@
 # @grafana/infinity-xmlframer
 
+## 1.0.1
+
+- updated jsonframer dependency
+
 ## 1.0.0
 
 - chore release
