@@ -7,8 +7,8 @@
   ],
   "description": "Libraries used by Grafana Infinity data source plugin",
   "keywords": [],
+  "license": "Apache-2.0",
   "author": "Grafana Labs",
-  "license": "MIT",
   "scripts": {
     "tidy": "turbo run tidy",
     "test": "turbo run test:backend",
