@@ -1,9 +1,0 @@
-{
-  "name": "@grafana/infinity-anyframer",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": {
-    "tidy": "go mod tidy",
-    "test:backend": "go test -v  ./..."
-  }
-}
