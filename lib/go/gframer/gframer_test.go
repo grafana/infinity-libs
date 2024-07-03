@@ -14,7 +14,7 @@ import (
 func TestToDataFrame(t *testing.T) {
 	updateGoldenText := false
 	t.Run("nil", func(t *testing.T) {
-		var input interface{}
+		var input any
 		options := gframer.FramerOptions{FrameName: t.Name(), ExecutedQueryString: ""}
 		gotFrame, err := gframer.ToDataFrame(input, options)
 		require.Nil(t, err)
@@ -57,7 +57,7 @@ func TestToDataFrame(t *testing.T) {
 	t.Run("object", func(t *testing.T) {
 		input := `{ "name":"foo", "age": 12, "hobbies":["cricket","music"], "isPrimeUser": true, "fullname": { "first": "foo", "last":"bar" } }`
 		options := gframer.FramerOptions{FrameName: t.Name(), ExecutedQueryString: input}
-		var out interface{}
+		var out any
 		err := json.Unmarshal([]byte(input), &out)
 		require.Nil(t, err)
 		gotFrame, err := gframer.ToDataFrame(out, options)
@@ -68,7 +68,7 @@ func TestToDataFrame(t *testing.T) {
 	t.Run("string-array", func(t *testing.T) {
 		input := `["foo","bar"]`
 		options := gframer.FramerOptions{FrameName: t.Name(), ExecutedQueryString: input}
-		var out interface{}
+		var out any
 		err := json.Unmarshal([]byte(input), &out)
 		require.Nil(t, err)
 		gotFrame, err := gframer.ToDataFrame(out, options)
@@ -79,7 +79,7 @@ func TestToDataFrame(t *testing.T) {
 	t.Run("number-array", func(t *testing.T) {
 		input := `[12,14.56,0,30]`
 		options := gframer.FramerOptions{FrameName: t.Name(), ExecutedQueryString: input}
-		var out interface{}
+		var out any
 		err := json.Unmarshal([]byte(input), &out)
 		require.Nil(t, err)
 		gotFrame, err := gframer.ToDataFrame(out, options)
@@ -90,7 +90,7 @@ func TestToDataFrame(t *testing.T) {
 	t.Run("array-inside-array", func(t *testing.T) {
 		input := `[["one","two"],["three"]]`
 		options := gframer.FramerOptions{FrameName: t.Name(), ExecutedQueryString: input}
-		var out interface{}
+		var out any
 		err := json.Unmarshal([]byte(input), &out)
 		require.Nil(t, err)
 		gotFrame, err := gframer.ToDataFrame(out, options)
@@ -101,7 +101,7 @@ func TestToDataFrame(t *testing.T) {
 	t.Run("all-null-array", func(t *testing.T) {
 		input := `[null,null]`
 		options := gframer.FramerOptions{FrameName: t.Name(), ExecutedQueryString: input}
-		var out interface{}
+		var out any
 		err := json.Unmarshal([]byte(input), &out)
 		require.Nil(t, err)
 		gotFrame, err := gframer.ToDataFrame(out, options)
@@ -123,7 +123,7 @@ func TestToDataFrameSlices(t *testing.T) {
 				fileContent, err := os.ReadFile("./testdata/slices/" + f.Name())
 				require.Nil(t, err)
 				options := gframer.FramerOptions{FrameName: t.Name(), ExecutedQueryString: ""}
-				var out interface{}
+				var out any
 				err = json.Unmarshal(fileContent, &out)
 				require.Nil(t, err)
 				gotFrame, err := gframer.ToDataFrame(out, options)

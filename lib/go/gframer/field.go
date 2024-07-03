@@ -31,7 +31,7 @@ func anyToNullableString(input []any, fieldName string, labels data.Labels, o []
 	return field
 }
 
-func anyToNullableBool(input []any, fieldName string, labels data.Labels, o []interface{}) *data.Field {
+func anyToNullableBool(input []any, fieldName string, labels data.Labels, o []any) *data.Field {
 	field := data.NewFieldFromFieldType(data.FieldTypeNullableBool, len(input))
 	field.Name = fieldName
 	field.Labels = labels
@@ -55,7 +55,7 @@ func anyToNullableBool(input []any, fieldName string, labels data.Labels, o []in
 	return field
 }
 
-func anyToNullableNumber(input []any, fieldName string, labels data.Labels, o []interface{}) *data.Field {
+func anyToNullableNumber(input []any, fieldName string, labels data.Labels, o []any) *data.Field {
 	field := data.NewFieldFromFieldType(data.FieldTypeNullableFloat64, len(input))
 	field.Name = fieldName
 	field.Labels = labels
@@ -76,7 +76,7 @@ func anyToNullableNumber(input []any, fieldName string, labels data.Labels, o []
 	return field
 }
 
-func anyToNullableTimestamp(input []any, fieldName string, labels data.Labels, o []interface{}, timeFormat string) *data.Field {
+func anyToNullableTimestamp(input []any, fieldName string, labels data.Labels, o []any, timeFormat string) *data.Field {
 	field := data.NewFieldFromFieldType(data.FieldTypeNullableTime, len(input))
 	field.Name = fieldName
 	field.Labels = labels
@@ -105,7 +105,7 @@ func anyToNullableTimestamp(input []any, fieldName string, labels data.Labels, o
 	return field
 }
 
-func anyToNullableTimestampEpoch(input []any, fieldName string, labels data.Labels, o []interface{}) *data.Field {
+func anyToNullableTimestampEpoch(input []any, fieldName string, labels data.Labels, o []any) *data.Field {
 	field := data.NewFieldFromFieldType(data.FieldTypeNullableTime, len(input))
 	field.Name = fieldName
 	field.Labels = labels
@@ -126,7 +126,7 @@ func anyToNullableTimestampEpoch(input []any, fieldName string, labels data.Labe
 	return field
 }
 
-func anyToNullableTimestampEpochSecond(input []any, fieldName string, labels data.Labels, o []interface{}) *data.Field {
+func anyToNullableTimestampEpochSecond(input []any, fieldName string, labels data.Labels, o []any) *data.Field {
 	field := data.NewFieldFromFieldType(data.FieldTypeNullableTime, len(input))
 	field.Name = fieldName
 	field.Labels = labels

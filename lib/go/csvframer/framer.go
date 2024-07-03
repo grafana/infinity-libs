@@ -14,6 +14,7 @@ import (
 type FramerOptions struct {
 	FrameName          string
 	Columns            []gframer.ColumnSelector
+	OverrideColumns    []gframer.ColumnSelector
 	Delimiter          string
 	SkipLinesWithError bool
 	Comment            string
@@ -50,7 +51,7 @@ func ToFrame(csvString string, options FramerOptions) (frame *data.Frame, err er
 			return frame, fmt.Errorf("error reading csv response. %w, %v", err, record)
 		}
 	}
-	out := []interface{}{}
+	out := []any{}
 	header := []string{}
 	records := [][]string{}
 	if !options.NoHeaders {
@@ -73,7 +74,7 @@ func ToFrame(csvString string, options FramerOptions) (frame *data.Frame, err er
 		}
 	}
 	for _, row := range records {
-		item := map[string]interface{}{}
+		item := map[string]any{}
 		for colId, col := range header {
 			if colId < len(row) {
 				item[col] = row[colId]
@@ -82,8 +83,9 @@ func ToFrame(csvString string, options FramerOptions) (frame *data.Frame, err er
 		out = append(out, item)
 	}
 	framerOptions := gframer.FramerOptions{
-		FrameName: options.FrameName,
-		Columns:   options.Columns,
+		FrameName:       options.FrameName,
+		Columns:         options.Columns,
+		OverrideColumns: options.OverrideColumns,
 	}
 	return gframer.ToDataFrame(out, framerOptions)
 }

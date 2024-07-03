@@ -5,6 +5,7 @@ go 1.22.1
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.236.0
 	github.com/grafana/infinity-libs/lib/go/gframer v1.0.0
+	github.com/grafana/infinity-libs/lib/go/utils v1.0.0
 	github.com/stretchr/testify v1.9.0
 	github.com/tidwall/gjson v1.17.1
 	github.com/xiatechs/jsonata-go v1.8.7
@@ -34,7 +35,6 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
-	github.com/grafana/infinity-libs/lib/go/utils v1.0.0 // indirect
 	github.com/grafana/otel-profiling-go v0.5.1 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.7 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 // indirect
