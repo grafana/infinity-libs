@@ -7,7 +7,6 @@ The libs used by [Grafana Infinity data source plugin](https://grafana.com/grafa
 ## Included go packages
 
 - [macros](./lib/go/macros/)
-- [anyframer](./lib/go/anyframer/)
 - [jsonframer](./lib/go/jsonframer/)
 - [csvframer](./lib/go/csvframer/)
 - [xmlframer](./lib/go/xmlframer/)

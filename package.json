@@ -12,6 +12,7 @@
   "scripts": {
     "tidy": "turbo run tidy",
     "test": "turbo run test:backend",
+    "watch": "turbo watch test:backend",
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\""
   },
   "packageManager": "yarn@1.22.22",
