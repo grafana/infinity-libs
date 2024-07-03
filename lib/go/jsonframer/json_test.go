@@ -342,7 +342,7 @@ func TestAzureFrame(t *testing.T) {
 			{Selector: "3"},
 		},
 	}
-	var out interface{}
+	var out any
 	err = json.Unmarshal(fileContent, &out)
 	require.Nil(t, err)
 	gotFrame, err := jsonframer.ToFrame(string(fileContent), options)
@@ -372,7 +372,7 @@ func TestCloudFrameFrames(t *testing.T) {
 			},
 			FrameFormat: jsonframer.FrameFormatTimeSeries,
 		}
-		var out interface{}
+		var out any
 		err = json.Unmarshal(fileContent, &out)
 		require.Nil(t, err)
 		gotFrame, err := jsonframer.ToFrames(string(fileContent), options)
@@ -400,7 +400,7 @@ func TestCloudFrameFrames(t *testing.T) {
 			},
 			FrameFormat: jsonframer.FrameFormatTimeSeries,
 		}
-		var out interface{}
+		var out any
 		err = json.Unmarshal(fileContent, &out)
 		require.Nil(t, err)
 		gotFrame, err := jsonframer.ToFrames(string(fileContent), options)
@@ -428,7 +428,7 @@ func TestCloudFrameFrames(t *testing.T) {
 			},
 			FrameFormat: jsonframer.FrameFormatTimeSeries,
 		}
-		var out interface{}
+		var out any
 		err = json.Unmarshal(fileContent, &out)
 		require.Nil(t, err)
 		gotFrame, err := jsonframer.ToFrames(string(fileContent), options)

@@ -23,28 +23,28 @@ type FramerOptions struct {
 	OverrideColumns     []ColumnSelector
 }
 
-func noOperation(x interface{}) {}
+func noOperation(x any) {}
 
-func ToDataFrame(input interface{}, options FramerOptions) (frame *data.Frame, err error) {
+func ToDataFrame(input any, options FramerOptions) (frame *data.Frame, err error) {
 	switch x := input.(type) {
 	case nil, string, float64, float32, int64, int32, int16, int, bool:
-		return structToFrame(options.FrameName, map[string]interface{}{options.FrameName: input}, options.ExecutedQueryString)
-	case []interface{}:
-		return sliceToFrame(options.FrameName, input.([]interface{}), options)
+		return structToFrame(options.FrameName, map[string]any{options.FrameName: input}, options.ExecutedQueryString)
+	case []any:
+		return sliceToFrame(options.FrameName, input.([]any), options)
 	default:
 		noOperation(x)
 		return structToFrame(options.FrameName, input, options.ExecutedQueryString)
 	}
 }
 
-func structToFrame(name string, input interface{}, executedQueryString string) (frame *data.Frame, err error) {
+func structToFrame(name string, input any, executedQueryString string) (frame *data.Frame, err error) {
 	frame = data.NewFrame(name)
 	if executedQueryString != "" {
 		frame.Meta = &data.FrameMeta{
 			ExecutedQueryString: executedQueryString,
 		}
 	}
-	if in, ok := input.(map[string]interface{}); ok {
+	if in, ok := input.(map[string]any); ok {
 		fields := map[string]*data.Field{}
 		for key, value := range in {
 			switch x := value.(type) {
@@ -79,7 +79,7 @@ func structToFrame(name string, input interface{}, executedQueryString string) (
 	return frame, err
 }
 
-func sliceToFrame(name string, input []interface{}, options FramerOptions) (frame *data.Frame, err error) {
+func sliceToFrame(name string, input []any, options FramerOptions) (frame *data.Frame, err error) {
 	frame = data.NewFrame(name)
 	if options.ExecutedQueryString != "" {
 		frame.Meta = &data.FrameMeta{
@@ -100,7 +100,7 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 					field.Set(idx, ToPointer(i))
 				}
 				frame.Fields = append(frame.Fields, field)
-			case []interface{}:
+			case []any:
 				field := data.NewFieldFromFieldType(data.FieldTypeNullableString, len(input))
 				field.Name = name
 				for idx, i := range input {
@@ -110,12 +110,12 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 				}
 				frame.Fields = append(frame.Fields, field)
 			default:
-				results := map[string]map[int]interface{}{}
+				results := map[string]map[int]any{}
 				for idx, id := range input {
-					if o, ok := id.(map[string]interface{}); ok {
+					if o, ok := id.(map[string]any); ok {
 						for k, v := range o {
 							if results[k] == nil {
-								results[k] = map[int]interface{}{}
+								results[k] = map[int]any{}
 							}
 							results[k][idx] = v
 						}
@@ -136,7 +136,7 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 				}
 				for _, k := range keys {
 					if results[k] != nil {
-						o := []interface{}{}
+						o := []any{}
 						for i := 0; i < len(input); i++ {
 							o = append(o, results[k][i])
 						}
@@ -208,7 +208,7 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 	return frame, nil
 }
 
-func getFieldTypeAndValue(value interface{}) (t data.FieldType, out interface{}) {
+func getFieldTypeAndValue(value any) (t data.FieldType, out any) {
 	switch x := value.(type) {
 	case nil:
 		return data.FieldTypeNullableString, value
@@ -228,7 +228,7 @@ func getFieldTypeAndValue(value interface{}) (t data.FieldType, out interface{})
 		return data.FieldTypeNullableFloat64, float64(value.(int))
 	case bool:
 		return data.FieldTypeNullableBool, value
-	case interface{}:
+	case any:
 		return data.FieldTypeJSON, value
 	default:
 		noOperation(x)
@@ -236,7 +236,7 @@ func getFieldTypeAndValue(value interface{}) (t data.FieldType, out interface{})
 	}
 }
 
-func getFieldTypeFromSlice(value []interface{}) (t data.FieldType) {
+func getFieldTypeFromSlice(value []any) (t data.FieldType) {
 	for _, item := range value {
 		if item != nil {
 			a, _ := getFieldTypeAndValue(item)
@@ -246,8 +246,8 @@ func getFieldTypeFromSlice(value []interface{}) (t data.FieldType) {
 	return data.FieldTypeNullableString
 }
 
-func sortedKeys(in interface{}) []string {
-	if input, ok := in.(map[string]interface{}); ok {
+func sortedKeys(in any) []string {
+	if input, ok := in.(map[string]any); ok {
 		keys := make([]string, len(input))
 		var idx int
 		for key := range input {
@@ -257,7 +257,7 @@ func sortedKeys(in interface{}) []string {
 		sort.Strings(keys)
 		return keys
 	}
-	if input, ok := in.(map[string]map[int]interface{}); ok {
+	if input, ok := in.(map[string]map[int]any); ok {
 		keys := make([]string, len(input))
 		var idx int
 		for key := range input {
@@ -270,7 +270,7 @@ func sortedKeys(in interface{}) []string {
 	return []string{}
 }
 
-func ToPointer(value interface{}) interface{} {
+func ToPointer(value any) any {
 	if value == nil {
 		return nil
 	}
