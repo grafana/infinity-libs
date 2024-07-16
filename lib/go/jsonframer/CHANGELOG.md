@@ -1,5 +1,11 @@
 # @grafana/infinity-jsonframer
 
+## 1.1.1
+
+### Patch Changes
+
+- Added numeric frame type
+
 ## 1.1.0
 
 - removed sqlite3 framer

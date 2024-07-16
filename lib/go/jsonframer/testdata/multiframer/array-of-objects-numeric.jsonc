@@ -1,0 +1,80 @@
+//  🌟 This was machine generated.  Do not edit. 🌟
+//  
+//  Frame[0] {
+//      "type": "numeric-long",
+//      "typeVersion": [
+//          0,
+//          1
+//      ]
+//  }
+//  Name: 
+//  Dimensions: 3 Fields by 2 Rows
+//  +------------------+-----------------+------------------+
+//  | Name: age        | Name: name      | Name: salary     |
+//  | Labels:          | Labels:         | Labels:          |
+//  | Type: []*float64 | Type: []*string | Type: []*float64 |
+//  +------------------+-----------------+------------------+
+//  | 2                | foo             | 2430             |
+//  | 3                | bar             | 3000             |
+//  +------------------+-----------------+------------------+
+//  
+//  
+//  🌟 This was machine generated.  Do not edit. 🌟
+{
+  "status": 200,
+  "frames": [
+    {
+      "schema": {
+        "meta": {
+          "type": "numeric-long",
+          "typeVersion": [
+            0,
+            1
+          ]
+        },
+        "fields": [
+          {
+            "name": "age",
+            "type": "number",
+            "typeInfo": {
+              "frame": "float64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "typeInfo": {
+              "frame": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "salary",
+            "type": "number",
+            "typeInfo": {
+              "frame": "float64",
+              "nullable": true
+            }
+          }
+        ]
+      },
+      "data": {
+        "values": [
+          [
+            2,
+            3
+          ],
+          [
+            "foo",
+            "bar"
+          ],
+          [
+            2430,
+            3000
+          ]
+        ]
+      }
+    }
+  ]
+}

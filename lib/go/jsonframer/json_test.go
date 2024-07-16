@@ -300,7 +300,7 @@ func TestJsonStringToMultiFrame(t *testing.T) {
 				{"name": "bar", "age": 3}
 			],[
 				{"name": "foo", "salary": 2430 },
-				{"name": "foo", "salary": 3000 }
+				{"name": "bar", "salary": 3000 }
 			]
 		]`, jsonframer.FramerOptions{})
 		require.Nil(t, err)
@@ -327,6 +327,44 @@ func TestJsonStringToMultiFrame(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, frames)
 		experimental.CheckGoldenJSONResponse(t, "testdata/multiframer", "regular-object", &backend.DataResponse{Frames: frames}, true)
+	})
+	t.Run("numeric frame", func(t *testing.T) {
+		t.Run("array of arrays", func(t *testing.T) {
+			frames, err := jsonframer.ToFrames(`[
+			[
+				{"name": "foo", "age": 2},
+				{"name": "bar", "age": 3}
+			],[
+				{"name": "foo", "salary": 2430 },
+				{"name": "bar", "salary": 3000 }
+			]
+		]`, jsonframer.FramerOptions{FrameFormat: jsonframer.FrameFormatNumeric})
+			require.Nil(t, err)
+			require.NotNil(t, frames)
+			experimental.CheckGoldenJSONResponse(t, "testdata/multiframer", "array-of-array-numeric", &backend.DataResponse{Frames: frames}, true)
+		})
+		t.Run("array of objects", func(t *testing.T) {
+			frames, err := jsonframer.ToFrames(`[
+				{ "name": "foo", "age": 2, "salary": 2430 },
+				{ "name": "bar", "age": 3, "salary": 3000 }
+		]`, jsonframer.FramerOptions{FrameFormat: jsonframer.FrameFormatNumeric})
+			require.Nil(t, err)
+			require.NotNil(t, frames)
+			experimental.CheckGoldenJSONResponse(t, "testdata/multiframer", "array-of-objects-numeric", &backend.DataResponse{Frames: frames}, true)
+		})
+		t.Run("array of items", func(t *testing.T) {
+			frames, err := jsonframer.ToFrames(`["foo","bar"]`, jsonframer.FramerOptions{FrameName: "result", FrameFormat: jsonframer.FrameFormatNumeric})
+			require.Nil(t, err)
+			require.NotNil(t, frames)
+			experimental.CheckGoldenJSONResponse(t, "testdata/multiframer", "array-of-items-numeric", &backend.DataResponse{Frames: frames}, true)
+		})
+		t.Run("regular object", func(t *testing.T) {
+			frames, err := jsonframer.ToFrames(`{"name": "foo", "age": 2, "salary": 2430}`, jsonframer.FramerOptions{FrameFormat: jsonframer.FrameFormatNumeric})
+			require.Nil(t, err)
+			require.NotNil(t, frames)
+			experimental.CheckGoldenJSONResponse(t, "testdata/multiframer", "regular-object-numeric", &backend.DataResponse{Frames: frames}, true)
+		})
+
 	})
 }
 

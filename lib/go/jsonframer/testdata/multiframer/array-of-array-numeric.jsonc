@@ -1,6 +1,12 @@
 //  🌟 This was machine generated.  Do not edit. 🌟
 //  
-//  Frame[0] 
+//  Frame[0] {
+//      "type": "numeric-long",
+//      "typeVersion": [
+//          0,
+//          1
+//      ]
+//  }
 //  Name: 
 //  Dimensions: 2 Fields by 2 Rows
 //  +------------------+-----------------+
@@ -14,7 +20,13 @@
 //  
 //  
 //  
-//  Frame[1] 
+//  Frame[1] {
+//      "type": "numeric-long",
+//      "typeVersion": [
+//          0,
+//          1
+//      ]
+//  }
 //  Name: 
 //  Dimensions: 2 Fields by 2 Rows
 //  +-----------------+------------------+
@@ -33,6 +45,13 @@
   "frames": [
     {
       "schema": {
+        "meta": {
+          "type": "numeric-long",
+          "typeVersion": [
+            0,
+            1
+          ]
+        },
         "fields": [
           {
             "name": "age",
@@ -67,6 +86,13 @@
     },
     {
       "schema": {
+        "meta": {
+          "type": "numeric-long",
+          "typeVersion": [
+            0,
+            1
+          ]
+        },
         "fields": [
           {
             "name": "name",

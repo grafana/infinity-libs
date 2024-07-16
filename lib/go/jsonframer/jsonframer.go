@@ -23,6 +23,7 @@ type FrameFormat string
 const (
 	FrameFormatTable      FrameFormat = "table"
 	FrameFormatTimeSeries FrameFormat = "timeseries"
+	FrameFormatNumeric    FrameFormat = "numeric"
 )
 
 type FramerOptions struct {
@@ -105,7 +106,6 @@ func ToFrames(jsonString string, options FramerOptions) (frames []*data.Frame, e
 			return frames, err
 		}
 		if frame != nil {
-
 			if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
 				frame, err = data.LongToWide(frame, nil)
 				if err != nil {
@@ -164,7 +164,6 @@ func GetRootData(jsonString string, rootSelector string) (string, error) {
 		return string(r2), nil
 	}
 	return jsonString, nil
-
 }
 
 func getColumnValuesFromResponseString(responseString string, columns []ColumnSelector) (string, error) {
@@ -230,11 +229,19 @@ func getFrameFromResponseString(responseString string, options FramerOptions) (f
 			TimeFormat: c.TimeFormat,
 		})
 	}
-	return gframer.ToDataFrame(out, gframer.FramerOptions{
+	frame, err = gframer.ToDataFrame(out, gframer.FramerOptions{
 		FrameName:       options.FrameName,
 		Columns:         columns,
 		OverrideColumns: overrides,
 	})
+	if options.FrameFormat == FrameFormatNumeric {
+		if frame.Meta == nil {
+			frame.Meta = &data.FrameMeta{}
+		}
+		frame.Meta.Type = data.FrameTypeNumericLong
+		frame.Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+	}
+	return frame, err
 }
 
 func convertFieldValueType(input interface{}, _ ColumnSelector) interface{} {
