@@ -255,7 +255,7 @@ func getFrameFromResponseString(responseString string, options FramerOptions) (f
 		frame.Meta = &data.FrameMeta{}
 	}
 	if options.FrameFormat == FrameFormatTimeSeries {
-		frame.Meta.Type = data.FrameTypeTimeSeriesLong
+		frame.Meta.Type = data.FrameTypeTimeSeriesWide
 		frame.Meta.TypeVersion = data.FrameTypeVersion{0, 1}
 	}
 	if options.FrameFormat == FrameFormatNumeric {
