@@ -4,7 +4,7 @@ go 1.22.1
 
 require (
 	github.com/basgys/goxml2json v1.1.0
-	github.com/grafana/grafana-plugin-sdk-go v0.236.0
+	github.com/grafana/grafana-plugin-sdk-go v0.240.0
 	github.com/grafana/infinity-libs/lib/go/jsonframer v1.1.0
 )
 

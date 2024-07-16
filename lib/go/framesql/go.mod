@@ -3,7 +3,7 @@ module github.com/grafana/infinity-libs/lib/go/framesql
 go 1.22.1
 
 require (
-	github.com/grafana/grafana-plugin-sdk-go v0.236.0
+	github.com/grafana/grafana-plugin-sdk-go v0.240.0
 	github.com/stretchr/testify v1.9.0
 	gopkg.in/Knetic/govaluate.v3 v3.0.0
 )
@@ -38,7 +38,6 @@ require (
 	golang.org/x/mod v0.18.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.21.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
 	golang.org/x/tools v0.22.0 // indirect
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	gonum.org/v1/gonum v0.14.0 // indirect
