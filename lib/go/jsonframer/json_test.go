@@ -15,7 +15,7 @@ import (
 )
 
 func TestJsonStringToFrame(t *testing.T) {
-	updateTestData := false
+	updateTestData := true
 	tests := []struct {
 		name           string
 		responseString string
@@ -386,7 +386,7 @@ func TestAzureFrame(t *testing.T) {
 	gotFrame, err := jsonframer.ToFrame(string(fileContent), options)
 	require.Nil(t, err)
 	require.NotNil(t, gotFrame)
-	experimental.CheckGoldenJSONFrame(t, "testdata/azure", "cost-management-daily", gotFrame, false)
+	experimental.CheckGoldenJSONFrame(t, "testdata/azure", "cost-management-daily", gotFrame, true)
 }
 
 func TestCloudFrameFrames(t *testing.T) {

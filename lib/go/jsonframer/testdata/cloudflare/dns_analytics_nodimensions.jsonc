@@ -1,6 +1,12 @@
 //  🌟 This was machine generated.  Do not edit. 🌟
 //  
-//  Frame[0] 
+//  Frame[0] {
+//      "type": "timeseries-multi",
+//      "typeVersion": [
+//          0,
+//          1
+//      ]
+//  }
 //  Name: 
 //  Dimensions: 2 Fields by 4 Rows
 //  +------------------+-------------------------------+
@@ -16,7 +22,13 @@
 //  
 //  
 //  
-//  Frame[1] 
+//  Frame[1] {
+//      "type": "timeseries-multi",
+//      "typeVersion": [
+//          0,
+//          1
+//      ]
+//  }
 //  Name: 
 //  Dimensions: 2 Fields by 4 Rows
 //  +-------------------------------+---------------------+
@@ -37,6 +49,13 @@
   "frames": [
     {
       "schema": {
+        "meta": {
+          "type": "timeseries-multi",
+          "typeVersion": [
+            0,
+            1
+          ]
+        },
         "fields": [
           {
             "name": "queryCount",
@@ -75,6 +94,13 @@
     },
     {
       "schema": {
+        "meta": {
+          "type": "timeseries-multi",
+          "typeVersion": [
+            0,
+            1
+          ]
+        },
         "fields": [
           {
             "name": "time",

@@ -89,7 +89,6 @@ func ToFrames(jsonString string, options FramerOptions) (frames []*data.Frame, e
 					return frames, err
 				}
 				if frame != nil {
-
 					if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
 						frame, err = data.LongToWide(frame, nil)
 						if err != nil {
@@ -97,6 +96,24 @@ func ToFrames(jsonString string, options FramerOptions) (frames []*data.Frame, e
 						}
 					}
 					frames = append(frames, frame)
+				}
+			}
+			if options.FrameFormat == FrameFormatTimeSeries && len(frames) > 1 {
+				for k := range frames {
+					if frames[k].Meta == nil {
+						frames[k].Meta = &data.FrameMeta{}
+					}
+					frames[k].Meta.Type = data.FrameTypeTimeSeriesMulti
+					frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+				}
+			}
+			if options.FrameFormat == FrameFormatNumeric && len(frames) > 1 {
+				for k := range frames {
+					if frames[k].Meta == nil {
+						frames[k].Meta = &data.FrameMeta{}
+					}
+					frames[k].Meta.Type = data.FrameTypeNumericMulti
+					frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
 				}
 			}
 			return frames, err
@@ -234,10 +251,14 @@ func getFrameFromResponseString(responseString string, options FramerOptions) (f
 		Columns:         columns,
 		OverrideColumns: overrides,
 	})
+	if frame.Meta == nil {
+		frame.Meta = &data.FrameMeta{}
+	}
+	if options.FrameFormat == FrameFormatTimeSeries {
+		frame.Meta.Type = data.FrameTypeTimeSeriesLong
+		frame.Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+	}
 	if options.FrameFormat == FrameFormatNumeric {
-		if frame.Meta == nil {
-			frame.Meta = &data.FrameMeta{}
-		}
 		frame.Meta.Type = data.FrameTypeNumericLong
 		frame.Meta.TypeVersion = data.FrameTypeVersion{0, 1}
 	}

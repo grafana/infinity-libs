@@ -1,8 +1,10 @@
 # @grafana/infinity-jsonframer
 
-## 1.1.1
+## 1.1.2
 
-### Patch Changes
+- added timeseries multi type
+
+## 1.1.1
 
 - Added numeric frame type
 
