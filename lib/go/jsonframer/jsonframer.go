@@ -44,10 +44,10 @@ type ColumnSelector struct {
 
 func validateJson(jsonString string) (err error) {
 	if strings.TrimSpace(jsonString) == "" {
-		return errors.New("empty json received")
+		return errors.Join(errors.New("empty json received"), ErrInvalidJSONContent)
 	}
 	if !gjson.Valid(jsonString) {
-		return errors.New("invalid json response received")
+		return errors.Join(errors.New("invalid json response received"), ErrInvalidJSONContent)
 	}
 	return err
 }
@@ -140,18 +140,15 @@ func ToFrame(jsonString string, options FramerOptions) (frame *data.Frame, err e
 	if err != nil {
 		return frame, err
 	}
-	switch options.FramerType {
-	default:
-		outString, err := GetRootData(jsonString, options.RootSelector)
-		if err != nil {
-			return frame, err
-		}
-		outString, err = getColumnValuesFromResponseString(outString, options.Columns)
-		if err != nil {
-			return frame, err
-		}
-		return getFrameFromResponseString(outString, options)
+	outString, err := GetRootData(jsonString, options.RootSelector)
+	if err != nil {
+		return frame, err
 	}
+	outString, err = getColumnValuesFromResponseString(outString, options.Columns)
+	if err != nil {
+		return frame, err
+	}
+	return getFrameFromResponseString(outString, options)
 }
 
 func GetRootData(jsonString string, rootSelector string) (string, error) {
@@ -160,13 +157,15 @@ func GetRootData(jsonString string, rootSelector string) (string, error) {
 		if r.Exists() {
 			return r.String(), nil
 		}
-		expr := jsonata.MustCompile(rootSelector)
-		if expr == nil {
-			err := errors.New("invalid root selector:" + rootSelector)
+		expr, err := jsonata.Compile(rootSelector)
+		if err != nil {
 			return "", errors.Join(ErrInvalidRootSelector, err)
 		}
-		var data interface{}
-		err := json.Unmarshal([]byte(jsonString), &data)
+		if expr == nil {
+			return "", errors.Join(ErrInvalidRootSelector)
+		}
+		var data any
+		err = json.Unmarshal([]byte(jsonString), &data)
 		if err != nil {
 			return "", errors.Join(ErrInvalidJSONContent, err)
 		}
@@ -215,7 +214,7 @@ func getColumnValuesFromResponseString(responseString string, columns []ColumnSe
 		}
 		a, err := json.Marshal(out)
 		if err != nil {
-			return "", err
+			return "", errors.Join(err, ErrInvalidJSONContent)
 		}
 		return string(a), nil
 	}
@@ -226,7 +225,7 @@ func getFrameFromResponseString(responseString string, options FramerOptions) (f
 	var out interface{}
 	err = json.Unmarshal([]byte(responseString), &out)
 	if err != nil {
-		return frame, fmt.Errorf("error while un-marshaling response. %s", err.Error())
+		return frame, errors.Join(fmt.Errorf("error while un-marshaling response. %s", err.Error()), ErrInvalidJSONContent)
 	}
 	columns := []gframer.ColumnSelector{}
 	for _, c := range options.Columns {
@@ -251,16 +250,18 @@ func getFrameFromResponseString(responseString string, options FramerOptions) (f
 		Columns:         columns,
 		OverrideColumns: overrides,
 	})
-	if frame.Meta == nil {
-		frame.Meta = &data.FrameMeta{}
-	}
-	if options.FrameFormat == FrameFormatTimeSeries {
-		frame.Meta.Type = data.FrameTypeTimeSeriesWide
-		frame.Meta.TypeVersion = data.FrameTypeVersion{0, 1}
-	}
-	if options.FrameFormat == FrameFormatNumeric {
-		frame.Meta.Type = data.FrameTypeNumericLong
-		frame.Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+	if frame != nil {
+		if frame.Meta == nil {
+			frame.Meta = &data.FrameMeta{}
+		}
+		if options.FrameFormat == FrameFormatTimeSeries {
+			frame.Meta.Type = data.FrameTypeTimeSeriesWide
+			frame.Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+		}
+		if options.FrameFormat == FrameFormatNumeric {
+			frame.Meta.Type = data.FrameTypeNumericLong
+			frame.Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+		}
 	}
 	return frame, err
 }

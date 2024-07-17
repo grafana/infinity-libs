@@ -29,12 +29,12 @@ func TestJsonStringToFrame(t *testing.T) {
 		{
 			name:           "empty string should throw error",
 			responseString: "",
-			wantErr:        errors.New("empty json received"),
+			wantErr:        errors.Join(errors.New("empty json received"), jsonframer.ErrInvalidJSONContent),
 		},
 		{
 			name:           "invalid json should throw error",
 			responseString: "{",
-			wantErr:        errors.New("invalid json response received"),
+			wantErr:        errors.Join(errors.New("invalid json response received"), jsonframer.ErrInvalidJSONContent),
 		},
 		{
 			name:           "valid json object should not throw error",

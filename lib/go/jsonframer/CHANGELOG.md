@@ -1,5 +1,9 @@
 # @grafana/infinity-jsonframer
 
+## 1.1.4
+
+- improved error messages
+
 ## 1.1.3
 
 - fixed timeseries single series type
