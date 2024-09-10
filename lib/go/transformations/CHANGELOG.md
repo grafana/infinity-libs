@@ -2,7 +2,7 @@
 
 ## 1.0.1
 
-- improved error messages
+- ⚙️ **Chore**: improved error messages
 
 ## 1.0.0
 
