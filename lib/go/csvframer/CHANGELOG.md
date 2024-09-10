@@ -1,5 +1,9 @@
 # @grafana/infinity-csvframer
 
+## 1.0.1
+
+- improved error messages
+
 ## 1.0.0
 
 - chore release

@@ -42,7 +42,7 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 	fieldKeys := map[string]bool{}
 	for _, field := range frame.Fields {
 		if fieldKeys[field.Name] {
-			return frame, errors.New("field names are not unique. Not applying filter")
+			return frame, ErrNotUniqueFieldNames
 		}
 		fieldKeys[field.Name] = true
 	}
@@ -57,7 +57,7 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 		}
 		result, err := parsedExpression.Evaluate(parameters)
 		if err != nil {
-			return frame, fmt.Errorf("error evaluating filter expression for row %d. error: %w. Not applying filter", inRowIdx, err)
+			return frame, errors.Join(ErrEvaluatingFilterExpression,  fmt.Errorf("error: %w. row %d. Not applying filter", err, inRowIdx))
 		}
 		if currentMatch, ok := result.(bool); ok {
 			match = &currentMatch

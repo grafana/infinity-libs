@@ -79,7 +79,7 @@ func GetSummarizeByFrame(frame *data.Frame, expression, by string, alias string)
 		}
 	}
 	if byField == nil {
-		return frame, errors.New("summarize by field not found. Not applying summarize")
+		return frame, ErrSummarizeByFieldNotFound
 	}
 	uniqueValuesArray := []any{}
 	uniqueValues := map[any]bool{}

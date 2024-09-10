@@ -1,8 +1,6 @@
 package transformations
 
 import (
-	"errors"
-
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
@@ -17,7 +15,7 @@ type MergeFramesOptions struct {
 // Ref: https://github.com/grafana/grafana/blob/v9.5.2/packages/grafana-data/src/transformations/transformers/merge.ts
 func Merge(inputFrames []*data.Frame, option MergeFramesOptions) (*data.Frame, error) {
 	if len(inputFrames) < 1 {
-		return nil, errors.New("no frames supplied for merge frame transformation")
+		return nil, ErrMergeTransformationNoFrameSupplied
 	}
 	outFrame := inputFrames[0]
 	for frameId, frame := range inputFrames {
@@ -25,14 +23,14 @@ func Merge(inputFrames []*data.Frame, option MergeFramesOptions) (*data.Frame, e
 			continue
 		}
 		if len(outFrame.Fields) != len(frame.Fields) {
-			return nil, errors.New("unable to merge fields due to different fields")
+			return nil, ErrMergeTransformationDifferentFields
 		}
 		for fi, f := range frame.Fields {
 			if f.Name != outFrame.Fields[fi].Name {
-				return nil, errors.New("unable to merge field due to different field names")
+				return nil, ErrMergeTransformationDifferentFieldNames
 			}
 			if f.Type() != outFrame.Fields[fi].Type() {
-				return nil, errors.New("unable to merge fields due to different field types")
+				return nil, ErrMergeTransformationDifferentFieldTypes
 			}
 		}
 		for rowId := 0; rowId < frame.Rows(); rowId++ {

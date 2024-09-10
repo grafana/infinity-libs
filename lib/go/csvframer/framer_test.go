@@ -1,7 +1,6 @@
 package csvframer_test
 
 import (
-	"errors"
 	"strings"
 	"testing"
 
@@ -21,7 +20,7 @@ func TestCsvStringToFrame(t *testing.T) {
 	}{
 		{
 			name:      "empty csv should return error",
-			wantError: errors.New("empty/invalid csv"),
+			wantError: csvframer.ErrEmptyCsv,
 		},
 		{
 			name:      "valid csv should not return error",

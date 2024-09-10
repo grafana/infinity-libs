@@ -23,7 +23,7 @@ type FramerOptions struct {
 
 func ToFrame(csvString string, options FramerOptions) (frame *data.Frame, err error) {
 	if strings.TrimSpace(csvString) == "" {
-		return frame, errors.New("empty/invalid csv")
+		return frame, ErrEmptyCsv
 	}
 	r := csv.NewReader(strings.NewReader(csvString))
 	r.LazyQuotes = true
@@ -47,7 +47,7 @@ func ToFrame(csvString string, options FramerOptions) (frame *data.Frame, err er
 			continue
 		}
 		if !options.SkipLinesWithError {
-			return frame, fmt.Errorf("error reading csv response. %w, %v", err, record)
+			return frame, errors.Join(ErrReadingCsvResponse, fmt.Errorf("%w, %v", err, record))
 		}
 	}
 	out := []interface{}{}
