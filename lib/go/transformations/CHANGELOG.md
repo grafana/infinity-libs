@@ -1,5 +1,9 @@
 # @grafana/infinity-transformations
 
+## 1.0.1
+
+- ⚙️ **Chore**: improved error messages
+
 ## 1.0.0
 
 - chore release

@@ -2,7 +2,6 @@ package framesql
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 	"strings"
 
@@ -12,7 +11,7 @@ import (
 
 func EvaluateInFrame(expression string, input *data.Frame) (any, error) {
 	if strings.TrimSpace(expression) == "" {
-		return nil, errors.New(strings.TrimSpace(fmt.Sprintf("empty/invalid expression. %s", expression)))
+		return nil, ErrEmptySummarizeExpression
 	}
 	parsedExpression, err := govaluate.NewEvaluableExpressionWithFunctions(expression, expressionFunctions)
 	if err != nil {

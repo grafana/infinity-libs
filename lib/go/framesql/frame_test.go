@@ -1,7 +1,6 @@
 package framesql_test
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
@@ -19,7 +18,7 @@ func TestEvaluateInFrame(t *testing.T) {
 		wantErr    error
 	}{
 		{
-			wantErr: errors.New("empty/invalid expression."),
+			wantErr: framesql.ErrEmptySummarizeExpression,
 		},
 		{
 			input:      data.NewFrame("test", data.NewField("sample", nil, []*float64{toFP(1), toFP(2), toFP(0.5), toFP(1.5)})),
