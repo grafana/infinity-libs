@@ -26,6 +26,11 @@ func EvaluateInFrame(expression string, input *data.Frame) (any, error) {
 		}
 	}
 	result, err := parsedExpression.Evaluate(parameters)
+	if err != nil {
+		if checkIfExpressionFoundInFields(err) {
+			return result, errors.Join(err, ErrExpressionNotFoundInFields)
+		}
+	}
 	return result, err
 }
 
@@ -205,4 +210,11 @@ func toFloat64p(input any) (*float64, bool) {
 		return &v1, true
 	}
 	return nil, false
+}
+
+func checkIfExpressionFoundInFields(err error) bool {
+	r := regexp.MustCompile(`No parameter '(.+)' found\.`)
+	// Check if the message matches the pattern
+  matches := r.FindStringSubmatch(err.Error())
+	return len(matches) > 0
 }
