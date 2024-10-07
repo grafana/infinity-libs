@@ -1,5 +1,9 @@
 # @grafana/infinity-framesql
 
+## 1.0.2
+
+- ⚙️ **Chore**: improved error messages
+
 ## 1.0.1
 
 - ⚙️ **Chore**: improved error messages

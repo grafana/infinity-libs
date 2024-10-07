@@ -6,6 +6,7 @@ var (
 	ErrSummarizeByFieldNotFound = errors.New("summarize by field not found. Not applying summarize")
 	ErrNotUniqueFieldNames = errors.New("field names are not unique. Not applying filter")
 	ErrEvaluatingFilterExpression = errors.New("error evaluating filter expression")
+	ErrInvalidToken = errors.New("invalid token")
 	
 	ErrMergeTransformationNoFrameSupplied = errors.New("no frames supplied for merge frame transformation")
 	ErrMergeTransformationDifferentFields = errors.New("unable to merge fields due to different fields")
