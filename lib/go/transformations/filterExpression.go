@@ -37,6 +37,9 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 	}
 	parsedExpression, err := govaluate.NewEvaluableExpressionWithFunctions(filterExpression, ExpressionFunctions)
 	if err != nil {
+		if checkIfInvalidFilterExpression(err) {
+			return frame, fmt.Errorf("%w. %w", ErrInvalidFilterExpression, err)
+		}
 		return frame, err
 	}
 	fieldKeys := map[string]bool{}
@@ -74,4 +77,11 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 		filteredFrame.AppendRow(frame.RowCopy(inRowIdx)...)
 	}
 	return filteredFrame, nil
+}
+
+
+func checkIfInvalidFilterExpression(err error) bool {
+	// Check if the error is due to an invalid token
+	// This error is not exported by the govaluate library, so we need to check the error message
+	return strings.Contains(err.Error(), "Invalid token:")
 }
