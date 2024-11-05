@@ -27,10 +27,17 @@ func FilterExpression(input []*data.Frame, options FilterExpressionOptions) ([]*
 }
 
 func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error) {
+	if frame == nil {
+		return frame, nil
+	}
+	if frame.Rows() == 0 {
+		return frame, nil
+	}
 	if strings.TrimSpace(filterExpression) == "" {
 		return frame, nil
 	}
 	filteredFrame := frame.EmptyCopy()
+	filteredFrame.Meta = frame.Meta
 	rowLen, err := frame.RowLen()
 	if err != nil {
 		return frame, err
@@ -54,13 +61,16 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 		var err error
 		parameters := map[string]any{"frame": frame, "null": nil, "nil": nil, "rowIndex": inRowIdx}
 		for _, field := range frame.Fields {
-			v := framesql.GetValue(field.At(inRowIdx))
+			var v any = nil
+			if fieldOriginalValue, ok := field.ConcreteAt(inRowIdx); fieldOriginalValue != nil && ok {
+				v = framesql.GetValue(fieldOriginalValue)
+			}
 			parameters[framesql.SlugifyFieldName(field.Name)] = v
 			parameters[field.Name] = v
 		}
 		result, err := parsedExpression.Evaluate(parameters)
 		if err != nil {
-			return frame, errors.Join(ErrEvaluatingFilterExpression,  fmt.Errorf("error: %w. row %d. Not applying filter", err, inRowIdx))
+			return frame, errors.Join(ErrEvaluatingFilterExpression, fmt.Errorf("error: %w. row %d. Not applying filter", err, inRowIdx))
 		}
 		if currentMatch, ok := result.(bool); ok {
 			match = &currentMatch
@@ -69,7 +79,7 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 			match = currentMatch
 		}
 		if match == nil {
-			return frame, fmt.Errorf("filter expression for row %d didn't produce binary result. error: %w. Not applying filter", inRowIdx, err)
+			return frame, fmt.Errorf("filter expression for row %d didn't produce binary result. Not applying filter", inRowIdx)
 		}
 		if !*match {
 			continue
@@ -78,7 +88,6 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 	}
 	return filteredFrame, nil
 }
-
 
 func checkIfInvalidFilterExpression(err error) bool {
 	// Check if the error is due to an invalid token
