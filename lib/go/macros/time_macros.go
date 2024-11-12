@@ -10,28 +10,28 @@ import (
 
 func from(inputString string, timeRange backend.TimeRange) (string, error) {
 	res, err := applyMacro("$$from", inputString, func(query string, args []string) (string, error) {
-		return expandTimeMacro(timeRange.From, args)
+		return expandTimeMacro(timeRange.From.UTC(), args)
 	})
 	return res, err
 }
 
 func timeFrom(inputString string, timeRange backend.TimeRange) (string, error) {
 	res, err := applyMacro("$$timeFrom", inputString, func(query string, args []string) (string, error) {
-		return expandTimeMacro(timeRange.From, args)
+		return expandTimeMacro(timeRange.From.UTC(), args)
 	})
 	return res, err
 }
 
 func to(inputString string, timeRange backend.TimeRange) (string, error) {
 	res, err := applyMacro("$$to", inputString, func(query string, args []string) (string, error) {
-		return expandTimeMacro(timeRange.To, args)
+		return expandTimeMacro(timeRange.To.UTC(), args)
 	})
 	return res, err
 }
 
 func timeTo(inputString string, timeRange backend.TimeRange) (string, error) {
 	res, err := applyMacro("$$timeTo", inputString, func(query string, args []string) (string, error) {
-		return expandTimeMacro(timeRange.To, args)
+		return expandTimeMacro(timeRange.To.UTC(), args)
 	})
 	return res, err
 }
