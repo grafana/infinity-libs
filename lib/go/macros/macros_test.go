@@ -11,8 +11,8 @@ import (
 
 func TestApplyMacros(t *testing.T) {
 	// https://grafana.com/docs/grafana/latest/dashboards/variables/add-template-variables/#__from-and-__to
-	from := time.UnixMilli(1594671549254).In(time.UTC)
-	to := time.UnixMilli(1500549352001).In(time.UTC)
+	from := time.UnixMilli(1594671549254)
+	to := time.UnixMilli(1500549352001)
 	tests := []struct {
 		name        string
 		inputString string
