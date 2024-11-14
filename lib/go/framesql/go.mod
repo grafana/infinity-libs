@@ -4,6 +4,7 @@ go 1.22.1
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.240.0
+	github.com/grafana/infinity-libs/lib/go/utils v1.0.0
 	github.com/stretchr/testify v1.9.0
 	gopkg.in/Knetic/govaluate.v3 v3.0.0
 )
