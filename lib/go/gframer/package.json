@@ -1,7 +1,7 @@
 {
   "name": "@grafana/infinity-gframer",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "tidy": "go mod tidy",
     "test:backend": "go test -v  ./..."

@@ -3,6 +3,7 @@ package gframer
 import (
 	"encoding/json"
 	"errors"
+	"slices"
 	"sort"
 	"time"
 
@@ -28,13 +29,17 @@ func noOperation(x interface{}) {}
 func ToDataFrame(input interface{}, options FramerOptions) (frame *data.Frame, err error) {
 	switch x := input.(type) {
 	case nil, string, float64, float32, int64, int32, int16, int, bool:
-		return structToFrame(options.FrameName, map[string]interface{}{options.FrameName: input}, options.ExecutedQueryString)
+		frame, err = structToFrame(options.FrameName, map[string]interface{}{options.FrameName: input}, options.ExecutedQueryString)
 	case []interface{}:
-		return sliceToFrame(options.FrameName, input.([]interface{}), options)
+		frame, err = sliceToFrame(options.FrameName, input.([]interface{}), options)
 	default:
 		noOperation(x)
-		return structToFrame(options.FrameName, input, options.ExecutedQueryString)
+		frame, err = structToFrame(options.FrameName, input, options.ExecutedQueryString)
 	}
+	if err != nil {
+		return frame, err
+	}
+	return convertStringFieldToJsonField(frame, options)
 }
 
 func structToFrame(name string, input interface{}, executedQueryString string) (frame *data.Frame, err error) {
@@ -53,7 +58,7 @@ func structToFrame(name string, input interface{}, executedQueryString string) (
 				a, b := getFieldTypeAndValue(value)
 				field := data.NewFieldFromFieldType(a, 1)
 				field.Name = key
-				field.Set(0, ToPointer(b))
+				field.Set(0, pointer(b))
 				fields[key] = field
 			default:
 				fieldType, b := getFieldTypeAndValue(value)
@@ -63,7 +68,7 @@ func structToFrame(name string, input interface{}, executedQueryString string) (
 				field := data.NewFieldFromFieldType(fieldType, 1)
 				field.Name = key
 				if o, err := json.Marshal(b); err == nil {
-					field.Set(0, ToPointer(string(o)))
+					field.Set(0, pointer(string(o)))
 					fields[key] = field
 				}
 			}
@@ -97,7 +102,7 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 				field := data.NewFieldFromFieldType(a, len(input))
 				field.Name = name
 				for idx, i := range input {
-					field.Set(idx, ToPointer(i))
+					field.Set(idx, pointer(i))
 				}
 				frame.Fields = append(frame.Fields, field)
 			case []interface{}:
@@ -105,7 +110,7 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 				field.Name = name
 				for idx, i := range input {
 					if o, err := json.Marshal(i); err == nil {
-						field.Set(idx, ToPointer(string(o)))
+						field.Set(idx, pointer(string(o)))
 					}
 				}
 				frame.Fields = append(frame.Fields, field)
@@ -146,7 +151,7 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 							field.Name = k
 							for i := 0; i < len(input); i++ {
 								if o, err := json.Marshal(o[i]); err == nil {
-									field.Set(i, ToPointer(string(o)))
+									field.Set(i, pointer(string(o)))
 								}
 							}
 							frame.Fields = append(frame.Fields, field)
@@ -178,7 +183,8 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 											field := data.NewFieldFromFieldType(fieldType, len(input))
 											field.Name = k
 											for i := 0; i < len(input); i++ {
-												field.Set(i, ToPointer(o[i]))
+												_, value := getFieldTypeAndValue(o[i])
+												field.Set(i, pointer(value))
 											}
 											frame.Fields = append(frame.Fields, field)
 										}
@@ -189,7 +195,7 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 								field := data.NewFieldFromFieldType(fieldType, len(input))
 								field.Name = k
 								for i := 0; i < len(input); i++ {
-									field.Set(i, ToPointer(o[i]))
+									field.Set(i, pointer(o[i]))
 								}
 								frame.Fields = append(frame.Fields, field)
 							}
@@ -228,6 +234,8 @@ func getFieldTypeAndValue(value interface{}) (t data.FieldType, out interface{})
 		return data.FieldTypeNullableFloat64, float64(value.(int))
 	case bool:
 		return data.FieldTypeNullableBool, value
+	case json.RawMessage:
+		return data.FieldTypeNullableJSON, value
 	case interface{}:
 		return data.FieldTypeJSON, value
 	default:
@@ -270,11 +278,53 @@ func sortedKeys(in interface{}) []string {
 	return []string{}
 }
 
-func ToPointer(value interface{}) interface{} {
+func convertStringFieldToJsonField(frame *data.Frame, options FramerOptions) (*data.Frame, error) {
+	fieldRequireConversion := map[string]bool{}
+	for _, v := range slices.Concat(options.Columns, options.OverrideColumns) {
+		if v.Type == "json" {
+			fieldName := v.Selector
+			if v.Alias != "" {
+				fieldName = v.Alias
+			}
+			fieldRequireConversion[fieldName] = true
+		}
+	}
+	for i, f := range frame.Fields {
+		if fieldRequireConversion[f.Name] {
+			newField := data.NewFieldFromFieldType(data.FieldTypeNullableJSON, f.Len())
+			newField.Name = f.Name
+			newField.Config = f.Config
+			newField.Labels = f.Labels
+			for i := 0; i < f.Len(); i++ {
+				fieldValue := f.At(i)
+				if fieldValue == nil {
+					continue
+				}
+				fieldValueBytes, err := json.Marshal(fieldValue)
+				if err != nil {
+					continue
+				}
+				if string(fieldValueBytes) == `"null"` {
+					continue
+				}
+				fieldValueJSONRawMessage := json.RawMessage(fieldValueBytes)
+				newField.Set(i, pointer(fieldValueJSONRawMessage))
+			}
+			frame.Fields[i] = newField
+		}
+	}
+	return frame, nil
+}
+
+func pointer(value interface{}) interface{} {
 	if value == nil {
 		return nil
 	}
 	switch v := value.(type) {
+	case int:
+		return &v
+	case *int:
+		return value
 	case int8:
 		return &v
 	case *int8:
@@ -326,6 +376,10 @@ func ToPointer(value interface{}) interface{} {
 	case time.Time:
 		return &v
 	case *time.Time:
+		return value
+	case json.RawMessage:
+		return &v
+	case *json.RawMessage:
 		return value
 	default:
 		return nil
