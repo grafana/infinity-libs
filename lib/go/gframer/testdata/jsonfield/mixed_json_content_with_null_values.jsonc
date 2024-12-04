@@ -1,0 +1,79 @@
+//  🌟 This was machine generated.  Do not edit. 🌟
+//  
+//  Frame[0] 
+//  Name: 
+//  Dimensions: 4 Fields by 2 Rows
+//  +---------------+--------------------------+------------------+-----------------+
+//  | Name: bool    | Name: json               | Name: num        | Name: str       |
+//  | Labels:       | Labels:                  | Labels:          | Labels:         |
+//  | Type: []*bool | Type: []*json.RawMessage | Type: []*float64 | Type: []*string |
+//  +---------------+--------------------------+------------------+-----------------+
+//  | false         | "[3]"                    | 1                | two             |
+//  | null          | null                     | null             | null            |
+//  +---------------+--------------------------+------------------+-----------------+
+//  
+//  
+//  🌟 This was machine generated.  Do not edit. 🌟
+{
+  "status": 200,
+  "frames": [
+    {
+      "schema": {
+        "fields": [
+          {
+            "name": "bool",
+            "type": "boolean",
+            "typeInfo": {
+              "frame": "bool",
+              "nullable": true
+            }
+          },
+          {
+            "name": "json",
+            "type": "other",
+            "typeInfo": {
+              "frame": "json.RawMessage",
+              "nullable": true
+            }
+          },
+          {
+            "name": "num",
+            "type": "number",
+            "typeInfo": {
+              "frame": "float64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "str",
+            "type": "string",
+            "typeInfo": {
+              "frame": "string",
+              "nullable": true
+            }
+          }
+        ]
+      },
+      "data": {
+        "values": [
+          [
+            false,
+            null
+          ],
+          [
+            "[3]",
+            null
+          ],
+          [
+            1,
+            null
+          ],
+          [
+            "two",
+            null
+          ]
+        ]
+      }
+    }
+  ]
+}
