@@ -2,10 +2,12 @@ package framesql
 
 import (
 	"errors"
+	"fmt"
 	"regexp"
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
+	dataFrameField "github.com/grafana/infinity-libs/lib/go/framesql/field"
 	"gopkg.in/Knetic/govaluate.v3"
 )
 
@@ -13,7 +15,7 @@ func EvaluateInFrame(expression string, input *data.Frame) (any, error) {
 	if strings.TrimSpace(expression) == "" {
 		return nil, ErrEmptySummarizeExpression
 	}
-	parsedExpression, err := govaluate.NewEvaluableExpressionWithFunctions(expression, expressionFunctions)
+	parsedExpression, err := govaluate.NewEvaluableExpressionWithFunctions(expression, ExpressionFunctions)
 	if err != nil {
 		return nil, err
 	}
@@ -34,133 +36,55 @@ func EvaluateInFrame(expression string, input *data.Frame) (any, error) {
 	return result, err
 }
 
-var expressionFunctions = map[string]govaluate.ExpressionFunction{
+var ExpressionFunctions = map[string]govaluate.ExpressionFunction{
 	"count": func(arguments ...any) (any, error) {
-		if len(arguments) < 1 {
-			return nil, errors.New("invalid arguments to count method")
+		field, err := getFieldFromArguments("count", arguments...)
+		if err != nil {
+			return nil, err
 		}
-		field, ok := arguments[0].(*data.Field)
-		if !ok {
-			return nil, errors.New("first argument is not a valid field")
-		}
-		return float64(field.Len()), nil
+		return dataFrameField.Count(field)
 	},
 	"first": func(arguments ...any) (any, error) {
-		if len(arguments) < 1 {
-			return nil, errors.New("invalid arguments to first method")
+		field, err := getFieldFromArguments("first", arguments...)
+		if err != nil {
+			return nil, err
 		}
-		field, ok := arguments[0].(*data.Field)
-		if !ok {
-			return nil, errors.New("first argument is not a valid field")
-		}
-		if v, ok := field.At(0).(*float64); ok {
-			return *v, nil
-		}
-		if v, ok := field.At(0).(*int); ok {
-			return *v, nil
-		}
-		if v, ok := field.At(0).(*string); ok {
-			return *v, nil
-		}
-		if v, ok := field.At(0).(*bool); ok {
-			return *v, nil
-		}
-		return field.At(0), nil
+		return dataFrameField.First(field)
 	},
 	"last": func(arguments ...any) (any, error) {
-		if len(arguments) < 1 {
-			return nil, errors.New("invalid arguments to last method")
+		field, err := getFieldFromArguments("last", arguments...)
+		if err != nil {
+			return nil, err
 		}
-		field, ok := arguments[0].(*data.Field)
-		if !ok {
-			return nil, errors.New("first argument is not a valid field")
-		}
-		if v, ok := field.At(field.Len() - 1).(*float64); ok {
-			return *v, nil
-		}
-		if v, ok := field.At(field.Len() - 1).(*int); ok {
-			return *v, nil
-		}
-		if v, ok := field.At(field.Len() - 1).(*string); ok {
-			return *v, nil
-		}
-		if v, ok := field.At(field.Len() - 1).(*bool); ok {
-			return *v, nil
-		}
-		return nil, errors.New("unable to find first value")
+		return dataFrameField.Last(field)
 	},
 	"sum": func(arguments ...any) (any, error) {
-		if len(arguments) < 1 {
-			return nil, errors.New("invalid arguments to sum method")
+		field, err := getFieldFromArguments("sum", arguments...)
+		if err != nil {
+			return nil, err
 		}
-		field, ok := arguments[0].(*data.Field)
-		if !ok {
-			return nil, errors.New("first argument is not a valid field")
-		}
-		sum := float64(0)
-		for i := 0; i < field.Len(); i++ {
-			if v, ok := toFloat64p(field.At(i)); ok && v != nil {
-				sum += *v
-			}
-
-		}
-		return sum, nil
+		return dataFrameField.Sum(field)
 	},
 	"min": func(arguments ...any) (any, error) {
-		if len(arguments) < 1 {
-			return nil, errors.New("invalid arguments to min method")
+		field, err := getFieldFromArguments("min", arguments...)
+		if err != nil {
+			return nil, err
 		}
-		field, ok := arguments[0].(*data.Field)
-		if !ok {
-			return nil, errors.New("first argument is not a valid field")
-		}
-		var min *float64
-		for i := 0; i < field.Len(); i++ {
-			if v, ok := toFloat64p(field.At(i)); ok && v != nil {
-				if min == nil || *v < *min {
-					min = v
-				}
-			}
-		}
-		return *min, nil
+		return dataFrameField.Min(field)
 	},
 	"max": func(arguments ...any) (any, error) {
-		if len(arguments) < 1 {
-			return nil, errors.New("invalid arguments to max method")
+		field, err := getFieldFromArguments("max", arguments...)
+		if err != nil {
+			return nil, err
 		}
-		field, ok := arguments[0].(*data.Field)
-		if !ok {
-			return nil, errors.New("first argument is not a valid field")
-		}
-		var max *float64
-		for i := 0; i < field.Len(); i++ {
-			if v, ok := toFloat64p(field.At(i)); ok && v != nil {
-				if max == nil || *v > *max {
-					max = v
-				}
-			}
-		}
-		return *max, nil
+		return dataFrameField.Max(field)
 	},
 	"mean": func(arguments ...any) (any, error) {
-		if len(arguments) < 1 {
-			return nil, errors.New("invalid arguments to mean method")
+		field, err := getFieldFromArguments("mean", arguments...)
+		if err != nil {
+			return nil, err
 		}
-		field, ok := arguments[0].(*data.Field)
-		if !ok {
-			return nil, errors.New("first argument is not a valid field")
-		}
-		sum := float64(0)
-		for i := 0; i < field.Len(); i++ {
-			if v, ok := toFloat64p(field.At(i)); ok && v != nil {
-				sum += *v
-			}
-
-		}
-		if field.Len() < 1 {
-			return 0, nil
-		}
-		return sum / float64(field.Len()), nil
+		return dataFrameField.Mean(field)
 	},
 }
 
@@ -170,51 +94,20 @@ func SlugifyFieldName(input string) string {
 	return input
 }
 
-func toFloat64p(input any) (*float64, bool) {
-	if v, ok := input.(*float64); ok {
-		return v, true
-	}
-	if v, ok := input.(float64); ok {
-		return &v, true
-	}
-	if v, ok := input.(*float32); ok {
-		v1 := float64(*v)
-		return &v1, true
-	}
-	if v, ok := input.(float32); ok {
-		v1 := float64(v)
-		return &v1, true
-	}
-	if v, ok := input.(*int); ok {
-		v1 := float64(*v)
-		return &v1, true
-	}
-	if v, ok := input.(int); ok {
-		v1 := float64(v)
-		return &v1, true
-	}
-	if v, ok := input.(*int64); ok {
-		v1 := float64(*v)
-		return &v1, true
-	}
-	if v, ok := input.(int64); ok {
-		v1 := float64(v)
-		return &v1, true
-	}
-	if v, ok := input.(*int32); ok {
-		v1 := float64(*v)
-		return &v1, true
-	}
-	if v, ok := input.(int32); ok {
-		v1 := float64(v)
-		return &v1, true
-	}
-	return nil, false
-}
-
 func checkIfExpressionFoundInFields(err error) bool {
 	r := regexp.MustCompile(`No parameter '(.+)' found\.`)
 	// Check if the message matches the pattern
-  matches := r.FindStringSubmatch(err.Error())
+	matches := r.FindStringSubmatch(err.Error())
 	return len(matches) > 0
+}
+
+func getFieldFromArguments(functionName string, arguments ...any) (*data.Field, error) {
+	if len(arguments) < 1 {
+		return nil, fmt.Errorf("invalid arguments to %s method", functionName)
+	}
+	field, ok := arguments[0].(*data.Field)
+	if !ok {
+		return nil, fmt.Errorf("first argument is not a valid field to %s method", functionName)
+	}
+	return field, nil
 }
