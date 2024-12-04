@@ -53,7 +53,7 @@ func structToFrame(name string, input interface{}, executedQueryString string) (
 		fields := map[string]*data.Field{}
 		for key, value := range in {
 			switch x := value.(type) {
-			case nil, string, float64, float32, int64, int32, int16, int, bool:
+			case nil, string, float64, float32, int64, int32, int16, int8, int, uint64, uint32, uint16, uint8, uint, bool, time.Time, json.RawMessage:
 				noOperation(x)
 				a, b := getFieldTypeAndValue(value)
 				field := data.NewFieldFromFieldType(a, 1)
@@ -230,10 +230,24 @@ func getFieldTypeAndValue(value interface{}) (t data.FieldType, out interface{})
 		return data.FieldTypeNullableFloat64, float64(value.(int32))
 	case int16:
 		return data.FieldTypeNullableFloat64, float64(value.(int16))
+	case int8:
+		return data.FieldTypeNullableFloat64, float64(value.(int8))
 	case int:
 		return data.FieldTypeNullableFloat64, float64(value.(int))
+	case uint64:
+		return data.FieldTypeNullableFloat64, float64(value.(uint64))
+	case uint32:
+		return data.FieldTypeNullableFloat64, float64(value.(uint32))
+	case uint16:
+		return data.FieldTypeNullableFloat64, float64(value.(uint16))
+	case uint8:
+		return data.FieldTypeNullableFloat64, float64(value.(uint8))
+	case uint:
+		return data.FieldTypeNullableFloat64, float64(value.(uint))
 	case bool:
 		return data.FieldTypeNullableBool, value
+	case time.Time:
+		return data.FieldTypeNullableTime, value
 	case json.RawMessage:
 		return data.FieldTypeNullableJSON, value
 	case interface{}:
