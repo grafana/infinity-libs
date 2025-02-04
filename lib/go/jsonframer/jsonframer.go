@@ -8,6 +8,7 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/gframer"
+	"github.com/itchyny/gojq"
 	"github.com/tidwall/gjson"
 	jsonata "github.com/xiatechs/jsonata-go"
 )
@@ -15,7 +16,9 @@ import (
 type FramerType string
 
 const (
-	FramerTypeGJSON FramerType = "gjson"
+	FramerTypeGJSON   FramerType = "gjson"
+	FramerTypeJsonata FramerType = "jsonata"
+	FramerTypeJQ      FramerType = "jq"
 )
 
 type FrameFormat string
@@ -27,7 +30,7 @@ const (
 )
 
 type FramerOptions struct {
-	FramerType      FramerType // `gjson`
+	FramerType      FramerType // `gjson` | `jsonata` | `jq`
 	FrameName       string
 	RootSelector    string
 	Columns         []ColumnSelector
@@ -59,7 +62,7 @@ func ToFrames(jsonString string, options FramerOptions) (frames []*data.Frame, e
 	}
 	switch options.FramerType {
 	default:
-		outString, err := GetRootData(jsonString, options.RootSelector)
+		outString, err := GetRootData(jsonString, options.RootSelector, options.FramerType)
 		if err != nil {
 			return frames, err
 		}
@@ -140,7 +143,7 @@ func ToFrame(jsonString string, options FramerOptions) (frame *data.Frame, err e
 	if err != nil {
 		return frame, err
 	}
-	outString, err := GetRootData(jsonString, options.RootSelector)
+	outString, err := GetRootData(jsonString, options.RootSelector, options.FramerType)
 	if err != nil {
 		return frame, err
 	}
@@ -151,35 +154,76 @@ func ToFrame(jsonString string, options FramerOptions) (frame *data.Frame, err e
 	return getFrameFromResponseString(outString, options)
 }
 
-func GetRootData(jsonString string, rootSelector string) (string, error) {
-	if rootSelector != "" {
-		r := gjson.Get(string(jsonString), rootSelector)
-		if r.Exists() {
-			return r.String(), nil
-		}
-		expr, err := jsonata.Compile(rootSelector)
+func GetRootData(jsonString string, rootSelector string, framerType FramerType) (string, error) {
+	if rootSelector == "" {
+		return jsonString, nil
+	}
+	if framerType == FramerTypeJQ {
+		query, err := gojq.Parse(rootSelector)
 		if err != nil {
-			return "", errors.Join(ErrInvalidRootSelector, err)
-		}
-		if expr == nil {
-			return "", errors.Join(ErrInvalidRootSelector)
+			return "", errors.Join(ErrInvalidJQSelector, err)
 		}
 		var data any
 		err = json.Unmarshal([]byte(jsonString), &data)
 		if err != nil {
-			return "", errors.Join(ErrInvalidJSONContent, err)
+			return "", errors.Join(ErrUnMarshalingJSON, err)
 		}
-		res, err := expr.Eval(data)
+		iter := query.Run(data)
+		out := []any{}
+		for {
+			v, ok := iter.Next()
+			if !ok {
+				break
+			}
+			if err, ok := v.(error); ok {
+				if err, ok := err.(*gojq.HaltError); ok && err.Value() == nil {
+					break
+				}
+				return "", errors.Join(ErrExecutingJQ, err)
+			}
+			out = append(out, v)
+		}
+		// if the result is array of 1 element array, the  ignore the outer array and return that single element from inner array
+		if len(out) == 1 {
+			if v, ok := out[0].([]any); ok {
+				outStr, err := json.Marshal(v)
+				if err != nil {
+					return "", errors.Join(ErrMarshalingJSON, err)
+				}
+				return string(outStr), nil
+			}
+		}
+		outStr, err := json.Marshal(out)
 		if err != nil {
-			return "", errors.Join(ErrEvaluatingJSONata, err)
+			return "", errors.Join(ErrMarshalingJSON, err)
 		}
-		r2, err := json.Marshal(res)
-		if err != nil {
-			return "", errors.Join(ErrInvalidJSONContent, err)
-		}
-		return string(r2), nil
+		return string(outStr), nil
 	}
-	return jsonString, nil
+	r := gjson.Get(string(jsonString), rootSelector)
+	if r.Exists() {
+		return r.String(), nil
+	}
+	expr, err := jsonata.Compile(rootSelector)
+	if err != nil {
+		return "", errors.Join(ErrInvalidRootSelector, err)
+	}
+	if expr == nil {
+		return "", errors.Join(ErrInvalidRootSelector)
+	}
+	var data any
+	err = json.Unmarshal([]byte(jsonString), &data)
+	if err != nil {
+		return "", errors.Join(ErrInvalidJSONContent, err)
+	}
+	res, err := expr.Eval(data)
+	if err != nil {
+		return "", errors.Join(ErrEvaluatingJSONata, err)
+	}
+	r2, err := json.Marshal(res)
+	if err != nil {
+		return "", errors.Join(ErrInvalidJSONContent, err)
+	}
+	return string(r2), nil
 }
 
 func getColumnValuesFromResponseString(responseString string, columns []ColumnSelector) (string, error) {

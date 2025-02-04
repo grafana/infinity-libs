@@ -1,5 +1,9 @@
 # @grafana/infinity-jsonframer
 
+## 1.2.0
+
+- Added support for JQ syntax in root selector
+
 ## 1.1.4
 
 - improved error messages
