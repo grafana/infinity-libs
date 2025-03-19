@@ -1,6 +1,6 @@
 module github.com/grafana/infinity-libs/lib/go/framesql
 
-go 1.23.5
+go 1.24.1
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.274.0

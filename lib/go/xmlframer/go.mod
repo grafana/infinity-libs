@@ -1,6 +1,6 @@
 module github.com/grafana/infinity-libs/lib/go/xmlframer
 
-go 1.23.5
+go 1.24.1
 
 require (
 	github.com/basgys/goxml2json v1.1.0
