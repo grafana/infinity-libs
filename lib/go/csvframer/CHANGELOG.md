@@ -1,5 +1,9 @@
 # @grafana/infinity-csvframer
 
+## 1.0.2
+
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
 ## 1.0.1
 
 - ⚙️ **Chore**: improved error messages
