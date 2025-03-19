@@ -1,5 +1,9 @@
 # @grafana/infinity-macros
 
+## 1.0.2
+
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
 ## 1.0.1
 
 - Fix interpolating of time macros using UTC timezone

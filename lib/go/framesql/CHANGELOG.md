@@ -1,5 +1,9 @@
 # @grafana/infinity-framesql
 
+## 1.0.3
+
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
 ## 1.0.2
 
 - ⚙️ **Chore**: improved error messages

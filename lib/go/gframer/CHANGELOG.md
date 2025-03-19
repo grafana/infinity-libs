@@ -1,5 +1,9 @@
 # @grafana/infinity-gframer
 
+## 1.1.1
+
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
 ## 1.1.0
 
 - Added support for json type fields

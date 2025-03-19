@@ -1,7 +1,7 @@
 {
   "name": "@grafana/infinity-macros",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "tidy": "go mod tidy",
     "test:backend": "go test -v  ./..."
