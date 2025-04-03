@@ -60,81 +60,80 @@ func ToFrames(jsonString string, options FramerOptions) (frames []*data.Frame, e
 	if err != nil {
 		return frames, err
 	}
-	switch options.FramerType {
-	default:
-		outString, err := GetRootData(jsonString, options.RootSelector, options.FramerType)
-		if err != nil {
-			return frames, err
-		}
-		outString, err = getColumnValuesFromResponseString(outString, options.Columns)
-		if err != nil {
-			return frames, err
-		}
-		result := gjson.Parse(outString)
-		if result.IsArray() {
-			nonArrayItemsFound := false
-			for _, item := range result.Array() {
-				if item.Exists() && !item.IsArray() {
-					nonArrayItemsFound = true
-				}
+
+	outString, err := GetRootData(jsonString, options.RootSelector, options.FramerType)
+	if err != nil {
+		return frames, err
+	}
+	outString, err = getColumnValuesFromResponseString(outString, options.Columns)
+	if err != nil {
+		return frames, err
+	}
+	result := gjson.Parse(outString)
+	if result.IsArray() {
+		nonArrayItemsFound := false
+		for _, item := range result.Array() {
+			if item.Exists() && !item.IsArray() {
+				nonArrayItemsFound = true
 			}
-			if nonArrayItemsFound {
-				frame, err := getFrameFromResponseString(outString, options)
-				if err != nil {
-					return frames, err
-				}
-				frames = append(frames, frame)
+		}
+		if nonArrayItemsFound {
+			frame, err := getFrameFromResponseString(outString, options)
+			if err != nil {
 				return frames, err
 			}
-			for _, v := range result.Array() {
-				frame, err := getFrameFromResponseString(v.Raw, options)
-				if err != nil {
-					return frames, err
-				}
-				if frame != nil {
-					if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
-						frame, err = data.LongToWide(frame, nil)
-						if err != nil {
-							return frames, err
-						}
-					}
-					frames = append(frames, frame)
-				}
-			}
-			if options.FrameFormat == FrameFormatTimeSeries && len(frames) > 1 {
-				for k := range frames {
-					if frames[k].Meta == nil {
-						frames[k].Meta = &data.FrameMeta{}
-					}
-					frames[k].Meta.Type = data.FrameTypeTimeSeriesMulti
-					frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
-				}
-			}
-			if options.FrameFormat == FrameFormatNumeric && len(frames) > 1 {
-				for k := range frames {
-					if frames[k].Meta == nil {
-						frames[k].Meta = &data.FrameMeta{}
-					}
-					frames[k].Meta.Type = data.FrameTypeNumericMulti
-					frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
-				}
-			}
-			return frames, err
-		}
-		frame, err := getFrameFromResponseString(outString, options)
-		if err != nil {
-			return frames, err
-		}
-		if frame != nil {
-			if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
-				frame, err = data.LongToWide(frame, nil)
-				if err != nil {
-					return frames, err
-				}
-			}
 			frames = append(frames, frame)
+			return frames, err
 		}
+		for _, v := range result.Array() {
+			frame, err := getFrameFromResponseString(v.Raw, options)
+			if err != nil {
+				return frames, err
+			}
+			if frame != nil {
+				if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
+					frame, err = data.LongToWide(frame, nil)
+					if err != nil {
+						return frames, err
+					}
+				}
+				frames = append(frames, frame)
+			}
+		}
+		if options.FrameFormat == FrameFormatTimeSeries && len(frames) > 1 {
+			for k := range frames {
+				if frames[k].Meta == nil {
+					frames[k].Meta = &data.FrameMeta{}
+				}
+				frames[k].Meta.Type = data.FrameTypeTimeSeriesMulti
+				frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+			}
+		}
+		if options.FrameFormat == FrameFormatNumeric && len(frames) > 1 {
+			for k := range frames {
+				if frames[k].Meta == nil {
+					frames[k].Meta = &data.FrameMeta{}
+				}
+				frames[k].Meta.Type = data.FrameTypeNumericMulti
+				frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+			}
+		}
+		return frames, err
 	}
+	frame, err := getFrameFromResponseString(outString, options)
+	if err != nil {
+		return frames, err
+	}
+	if frame != nil {
+		if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
+			frame, err = data.LongToWide(frame, nil)
+			if err != nil {
+				return frames, err
+			}
+		}
+		frames = append(frames, frame)
+	}
+
 	return frames, err
 }
 
@@ -183,7 +182,7 @@ func GetRootData(jsonString string, rootSelector string, framerType FramerType) 
 			}
 			out = append(out, v)
 		}
-		// if the result is array of 1 element array, the  ignore the outer array and return that single element from inner array
+		// if the result is array of 1 element array, ignore the outer array and return that single element from inner array
 		if len(out) == 1 {
 			if v, ok := out[0].([]any); ok {
 				outStr, err := json.Marshal(v)
@@ -199,6 +198,7 @@ func GetRootData(jsonString string, rootSelector string, framerType FramerType) 
 		}
 		return string(outStr), nil
 	}
+
 	r := gjson.Get(string(jsonString), rootSelector)
 	if r.Exists() {
 		return r.String(), nil
