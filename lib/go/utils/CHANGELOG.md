@@ -1,8 +1,10 @@
 # @grafana/infinity-utils
 
-## 1.0.0
+## 1.0.1
 
-### Major Changes
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
+## 1.0.0
 
 - chore release
 

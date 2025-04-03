@@ -1,5 +1,9 @@
 # @grafana/infinity-transformations
 
+## 1.0.4
+
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
 ## 1.0.3
 
 - ⚙️ **Chore**: improved error messages
