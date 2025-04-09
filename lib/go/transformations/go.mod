@@ -7,6 +7,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/grafana/grafana-plugin-sdk-go v0.274.0
 	github.com/grafana/infinity-libs/lib/go/framesql v1.0.2
+	github.com/grafana/infinity-libs/lib/go/utils v1.0.1
 	github.com/stretchr/testify v1.10.0
 	gopkg.in/Knetic/govaluate.v3 v3.0.0
 )
