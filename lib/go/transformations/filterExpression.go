@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/framesql"
@@ -62,10 +63,7 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 		var err error
 		parameters := map[string]any{"frame": frame, "null": nil, "nil": nil, "rowIndex": inRowIdx}
 		for _, field := range frame.Fields {
-			v := framesql.GetValue(field.At(inRowIdx))
-			if field.Nullable() && field.NilAt(inRowIdx) {
-				v = nil
-			}
+			v := GetNormalizedValueForExpressionEvaluation(field, inRowIdx)
 			parameters[framesql.SlugifyFieldName(field.Name)] = v
 			parameters[field.Name] = v
 		}
@@ -94,4 +92,24 @@ func checkIfInvalidFilterExpression(err error) bool {
 	// Check if the error is due to an invalid token
 	// This error is not exported by the govaluate library, so we need to check the error message
 	return strings.Contains(err.Error(), "Invalid token:")
+}
+
+// GetNormalizedValueForExpressionEvaluation normalizes the value of a field at a specific row index
+// for use in expression evaluation. It handles nullable fields, time fields, and ensures the value
+// is in a consistent format for evaluation.
+func GetNormalizedValueForExpressionEvaluation(field *data.Field, index int) (v any) {
+	switch field.Type() {
+	case data.FieldTypeTime:
+		return framesql.GetValue(field.At(index)).(time.Time).UTC().Unix()
+	case data.FieldTypeNullableTime:
+		if field.NilAt(index) {
+			return 0
+		}
+		return field.At(index).(*time.Time).UTC().Unix()
+	default:
+		if (field.Nullable() && !field.NilAt(index)) || !field.Nullable() {
+			v = framesql.GetValue(field.At(index))
+		}
+		return v
+	}
 }

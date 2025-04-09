@@ -1,7 +1,9 @@
 package transformations_test
 
 import (
+	"fmt"
 	"testing"
+	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/transformations"
@@ -92,6 +94,22 @@ func TestApplyFilter(t *testing.T) {
 				data.NewField("price", nil, []int64{799, 349, 599, 499}),
 			),
 		},
+		{
+			// Without Filter: 	2024-01-01, 2025-01-01, 2026-01-01, 2027-01-01
+			// With Filter:		2025-01-01, 2026-01-01
+			name:             "non nullable date field expression",
+			frame:            data.NewFrame("test", data.NewField("time", nil, []time.Time{time.Unix(1704067200, 0).UTC(), time.Unix(1735689600, 0).UTC(), time.Unix(1767225600, 0).UTC(), time.Unix(1798761600, 0).UTC()})),
+			filterExpression: "time > 1704067200 && time < 1798761600",
+			want:             data.NewFrame("test", data.NewField("time", nil, []time.Time{time.Unix(1735689600, 0).UTC(), time.Unix(1767225600, 0).UTC()})),
+		},
+		{
+			// Without Filter: 	2024-01-01, 2025-01-01, 2026-01-01, 2027-01-01, 2028-01-01
+			// With Filter:		2025-01-01, 2026-01-01
+			name:             "nullable date field expression",
+			frame:            data.NewFrame("test", data.NewField("time", nil, []*time.Time{utils.P(time.Unix(1704067200, 0).UTC()), utils.P(time.Unix(1735689600, 0).UTC()), nil, utils.P(time.Unix(1798761600, 0).UTC()), utils.P(time.Unix(1830297600, 0).UTC())})),
+			filterExpression: "time > 1704067200 && time < 1798761600",
+			want:             data.NewFrame("test", data.NewField("time", nil, []*time.Time{utils.P(time.Unix(1735689600, 0).UTC())})),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -105,6 +123,48 @@ func TestApplyFilter(t *testing.T) {
 			require.Nil(t, err)
 			require.NotNil(t, got)
 			assert.Equal(t, tt.want, got)
+		})
+	}
+}
+
+func Test_GetNormalizedValueForExpressionEvaluation(t *testing.T) {
+	tests := []struct {
+		field *data.Field
+		wantV any
+	}{
+		{field: data.NewField("int64", nil, []int64{1}), wantV: float64(1)},
+		{field: data.NewField("int32", nil, []int32{1}), wantV: float64(1)},
+		{field: data.NewField("int16", nil, []int16{1}), wantV: float64(1)},
+		{field: data.NewField("int8", nil, []int8{1}), wantV: float64(1)},
+		{field: data.NewField("float64", nil, []float64{1}), wantV: float64(1)},
+		{field: data.NewField("float32", nil, []float32{1}), wantV: float64(1)},
+		{field: data.NewField("bool", nil, []bool{true}), wantV: true},
+		{field: data.NewField("string", nil, []string{"test"}), wantV: "test"},
+		{field: data.NewField("time", nil, []time.Time{time.Unix(1704067200, 0).UTC()}), wantV: time.Unix(1704067200, 0).UTC().Unix()},
+
+		{field: data.NewField("nullable int64", nil, []*int64{utils.P(int64(1))}), wantV: float64(1)},
+		{field: data.NewField("nullable int32", nil, []*int32{utils.P(int32(1))}), wantV: float64(1)},
+		{field: data.NewField("nullable int16", nil, []*int16{utils.P(int16(1))}), wantV: float64(1)},
+		{field: data.NewField("nullable int8", nil, []*int8{utils.P(int8(1))}), wantV: float64(1)},
+		{field: data.NewField("nullable float64", nil, []*float64{utils.P(float64(1))}), wantV: float64(1)},
+		{field: data.NewField("nullable float32", nil, []*float32{utils.P(float32(1))}), wantV: float64(1)},
+		{field: data.NewField("nullable bool", nil, []*bool{utils.P(true)}), wantV: true},
+		{field: data.NewField("nullable string", nil, []*string{utils.P("test")}), wantV: "test"},
+		{field: data.NewField("nullable time", nil, []*time.Time{utils.P(time.Unix(1704067200, 0).UTC())}), wantV: time.Unix(1704067200, 0).UTC().Unix()},
+
+		{field: data.NewField("null int64", nil, []*int64{nil}), wantV: nil},
+		{field: data.NewField("null int32", nil, []*int32{nil}), wantV: nil},
+		{field: data.NewField("null int16", nil, []*int16{nil}), wantV: nil},
+		{field: data.NewField("null int8", nil, []*int8{nil}), wantV: nil},
+		{field: data.NewField("null float64", nil, []*float64{nil}), wantV: nil},
+		{field: data.NewField("null float32", nil, []*float32{nil}), wantV: nil},
+		{field: data.NewField("null bool", nil, []*bool{nil}), wantV: nil},
+		{field: data.NewField("null string", nil, []*string{nil}), wantV: nil},
+		{field: data.NewField("null time", nil, []*time.Time{nil}), wantV: int(0)},
+	}
+	for ti, tt := range tests {
+		t.Run(fmt.Sprintf("%v %v", ti, tt.field.Name), func(t *testing.T) {
+			require.Equal(t, tt.wantV, transformations.GetNormalizedValueForExpressionEvaluation(tt.field, 0))
 		})
 	}
 }
