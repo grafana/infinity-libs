@@ -18,11 +18,11 @@ func anyToNullableString(input []any, fieldName string, labels data.Labels, o []
 		currentValue := o[i]
 		switch cvt := currentValue.(type) {
 		case string:
-			field.Set(i, ToPointer(currentValue.(string)))
+			field.Set(i, pointer(currentValue.(string)))
 		case float64, float32, int, int16, int32, int64, uint, uint8, uint16, uint32, uint64:
-			field.Set(i, ToPointer(fmt.Sprintf("%v", currentValue)))
+			field.Set(i, pointer(fmt.Sprintf("%v", currentValue)))
 		case bool:
-			field.Set(i, ToPointer(fmt.Sprintf("%v", currentValue.(bool))))
+			field.Set(i, pointer(fmt.Sprintf("%v", currentValue.(bool))))
 		default:
 			noOperation(cvt)
 			field.Set(i, nil)
@@ -40,12 +40,12 @@ func anyToNullableBool(input []any, fieldName string, labels data.Labels, o []in
 		switch cvt := currentValue.(type) {
 		case bool:
 			if val, ok := (currentValue.(bool)); ok {
-				field.Set(i, ToPointer(val))
+				field.Set(i, pointer(val))
 			}
 		case string:
 			val, ok := (currentValue.(string))
 			if ok && strings.ToLower(val) == "true" {
-				field.Set(i, ToPointer(true))
+				field.Set(i, pointer(true))
 			}
 		default:
 			noOperation(cvt)
@@ -64,10 +64,22 @@ func anyToNullableNumber(input []any, fieldName string, labels data.Labels, o []
 		switch cvt := currentValue.(type) {
 		case string:
 			if item, err := strconv.ParseFloat(currentValue.(string), 64); err == nil {
-				field.Set(i, ToPointer(item))
+				field.Set(i, pointer(item))
 			}
 		case float64:
-			field.Set(i, ToPointer(currentValue.(float64)))
+			field.Set(i, pointer(currentValue.(float64)))
+		case float32:
+			field.Set(i, pointer(float64(currentValue.(float32))))
+		case int64:
+			field.Set(i, pointer(float64(currentValue.(int64))))
+		case int32:
+			field.Set(i, pointer(float64(currentValue.(int32))))
+		case int16:
+			field.Set(i, pointer(float64(currentValue.(int16))))
+		case int8:
+			field.Set(i, pointer(float64(currentValue.(int8))))
+		case int:
+			field.Set(i, pointer(float64(currentValue.(int))))
 		default:
 			noOperation(cvt)
 			field.Set(i, nil)
@@ -90,7 +102,7 @@ func anyToNullableTimestamp(input []any, fieldName string, labels data.Labels, o
 					format = timeFormat
 				}
 				if t, err := time.Parse(format, v); err == nil {
-					field.Set(i, ToPointer(t))
+					field.Set(i, pointer(t))
 				}
 			}
 		case string:
@@ -114,10 +126,10 @@ func anyToNullableTimestampEpoch(input []any, fieldName string, labels data.Labe
 		switch cvt := currentValue.(type) {
 		case string:
 			if item, err := strconv.ParseInt(currentValue.(string), 10, 64); err == nil && currentValue.(string) != "" {
-				field.Set(i, ToPointer(time.UnixMilli(item)))
+				field.Set(i, pointer(time.UnixMilli(item)))
 			}
 		case float64:
-			field.Set(i, ToPointer(time.UnixMilli(int64(currentValue.(float64)))))
+			field.Set(i, pointer(time.UnixMilli(int64(currentValue.(float64)))))
 		default:
 			noOperation(cvt)
 			field.Set(i, nil)
@@ -135,10 +147,10 @@ func anyToNullableTimestampEpochSecond(input []any, fieldName string, labels dat
 		switch cvt := currentValue.(type) {
 		case string:
 			if item, err := strconv.ParseInt(currentValue.(string), 10, 64); err == nil && currentValue.(string) != "" {
-				field.Set(i, ToPointer(time.Unix(item, 0)))
+				field.Set(i, pointer(time.Unix(item, 0)))
 			}
 		case float64:
-			field.Set(i, ToPointer(time.Unix(int64(currentValue.(float64)), 0)))
+			field.Set(i, pointer(time.Unix(int64(currentValue.(float64)), 0)))
 		default:
 			noOperation(cvt)
 			field.Set(i, nil)
