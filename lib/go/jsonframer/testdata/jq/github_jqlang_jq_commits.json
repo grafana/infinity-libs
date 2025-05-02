@@ -1,0 +1,412 @@
+[
+  {
+    "sha": "aea8efaf0bc99ad5776038380f68939fef2fd0cb",
+    "node_id": "C_kwDOAE3WVdoAKGFlYThlZmFmMGJjOTlhZDU3NzYwMzgzODBmNjg5MzlmZWYyZmQwY2I",
+    "commit": {
+      "author": {
+        "name": "Emanuele Torre",
+        "email": "torreemanuele6@gmail.com",
+        "date": "2025-03-28T22:16:46Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2025-03-28T22:16:46Z"
+      },
+      "message": "jv_unique: don't leak non-unique elements that are not returned (#3304)",
+      "tree": {
+        "sha": "775cf1992985decdbffbb1004f526142e3928fb4",
+        "url": "https://api.github.com/repos/jqlang/jq/git/trees/775cf1992985decdbffbb1004f526142e3928fb4"
+      },
+      "url": "https://api.github.com/repos/jqlang/jq/git/commits/aea8efaf0bc99ad5776038380f68939fef2fd0cb",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJn5x/OCRC1aQ7uu5UhlAAAxR8QAB5cLKdPBONU88jXSrfrQ9Ci\nWSli9SG1XIOuqBx+DgiPd190mArLVMkP/2waPJAZ53ZlbSmbt7wqaReIHLRLjFTc\ni4KppcJZ5Sy70SrZnugdac11q5F0fqu5Riji5PZz/4u9xV1CiHdbnUpTxr4UYKc9\n2pqNBNT+ESvKWIh3PbzpEcOv0BEoxEg8ts5YPS3Fks5BIrfNZo+IchNkFGu9HvBy\n5F3DJIdHIoEkcNe3o64dvlmfTOrkSayqa9W9JbO85rsQdTI6FIfwv7KmW6IKubKQ\nmtrBgYTDMEZznxy5ZeKC8brX6IS1Jd4H0hBghjsp9BRn2hoZBiAHRgie564ecR3r\noryYQuVhViBksOJMxvLCB3DGUMvVgcNeotghzrz5K9Is/xK/b/FyvYEOsHJfS9+4\niGSnmbN3jctDXF/OMlkXVPSylZ3Jf38n6lkizWL5hWdjh2KcY9abTgqVgSirALeL\nNR5YsKdimaABZJiUjp3dkIg9oTQpGZUk2menkWRCWfIq6KcSoN+oa8HqTpoUJd17\nIbHJOCKBWv9+ECZ3sOucINmfxUAoKvzG5FqthK20/XECjU2nM6nt80XqazCZKPem\nUmHOIPshamAb6zcRYcJGpIMfobVYRn49kozrMW0vC+OfRsT9XUxQ3oz0p8jia8Ea\nUC42IjStP9wKpDc2bayJ\n=lHyY\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree 775cf1992985decdbffbb1004f526142e3928fb4\nparent 947fcbbb1fedbdd6021ef3f93782a500e32d5dcd\nauthor Emanuele Torre <torreemanuele6@gmail.com> 1743200206 +0100\ncommitter GitHub <noreply@github.com> 1743200206 +0900\n\njv_unique: don't leak non-unique elements that are not returned (#3304)\n\n",
+        "verified_at": "2025-03-28T22:16:50Z"
+      }
+    },
+    "url": "https://api.github.com/repos/jqlang/jq/commits/aea8efaf0bc99ad5776038380f68939fef2fd0cb",
+    "html_url": "https://github.com/jqlang/jq/commit/aea8efaf0bc99ad5776038380f68939fef2fd0cb",
+    "comments_url": "https://api.github.com/repos/jqlang/jq/commits/aea8efaf0bc99ad5776038380f68939fef2fd0cb/comments",
+    "author": {
+      "login": "emanuele6",
+      "id": 20175435,
+      "node_id": "MDQ6VXNlcjIwMTc1NDM1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20175435?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/emanuele6",
+      "html_url": "https://github.com/emanuele6",
+      "followers_url": "https://api.github.com/users/emanuele6/followers",
+      "following_url": "https://api.github.com/users/emanuele6/following{/other_user}",
+      "gists_url": "https://api.github.com/users/emanuele6/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/emanuele6/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/emanuele6/subscriptions",
+      "organizations_url": "https://api.github.com/users/emanuele6/orgs",
+      "repos_url": "https://api.github.com/users/emanuele6/repos",
+      "events_url": "https://api.github.com/users/emanuele6/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/emanuele6/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "947fcbbb1fedbdd6021ef3f93782a500e32d5dcd",
+        "url": "https://api.github.com/repos/jqlang/jq/commits/947fcbbb1fedbdd6021ef3f93782a500e32d5dcd",
+        "html_url": "https://github.com/jqlang/jq/commit/947fcbbb1fedbdd6021ef3f93782a500e32d5dcd"
+      }
+    ]
+  },
+  {
+    "sha": "947fcbbb1fedbdd6021ef3f93782a500e32d5dcd",
+    "node_id": "C_kwDOAE3WVdoAKDk0N2ZjYmJiMWZlZGJkZDYwMjFlZjNmOTM3ODJhNTAwZTMyZDVkY2Q",
+    "commit": {
+      "author": {
+        "name": "dependabot[bot]",
+        "email": "49699333+dependabot[bot]@users.noreply.github.com",
+        "date": "2025-03-28T00:57:51Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2025-03-28T00:57:51Z"
+      },
+      "message": "build(deps): bump jsonschema from 4.18.4 to 4.23.0 in /docs (#3302)\n\nBumps [jsonschema](https://github.com/python-jsonschema/jsonschema) from 4.18.4 to 4.23.0.\n- [Release notes](https://github.com/python-jsonschema/jsonschema/releases)\n- [Changelog](https://github.com/python-jsonschema/jsonschema/blob/main/CHANGELOG.rst)\n- [Commits](https://github.com/python-jsonschema/jsonschema/compare/v4.18.4...v4.23.0)\n\n---\nupdated-dependencies:\n- dependency-name: jsonschema\n  dependency-type: direct:production\n  update-type: version-update:semver-minor\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+      "tree": {
+        "sha": "8b30ae1036b74c4acf02c674f75db8f1ce014aa4",
+        "url": "https://api.github.com/repos/jqlang/jq/git/trees/8b30ae1036b74c4acf02c674f75db8f1ce014aa4"
+      },
+      "url": "https://api.github.com/repos/jqlang/jq/git/commits/947fcbbb1fedbdd6021ef3f93782a500e32d5dcd",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJn5fQPCRC1aQ7uu5UhlAAAyUYQAB884K6ZVnwPKjnvGhBzPgBY\nPpWyqMQseUCtrnJi6/QcNzTspg72PtK7Ecn57s9mspRx0ezWbgF36b3BmO4u+J7a\nbNix2YDpiJdqkDRJTc0pRUIHSb0JNYz4H4Ms6m3na2a1qsqYrCFC028SA75JRtTW\n353Z2249//Pn8f/WhBpKdniP3TgNJ0x8qiPPTqPF3CDwGLu0JlQCu0hX+v5wRKvC\nSBUV/yCGPy7+SG72fyFhmUrKXQC8Vq0q6Fb6jh0VaajR3d+JQoYy+6c0ZLo00Shp\nKrf+7N2+w0kLncNe1Z3UrhFxTS8CzPUbgj+YWNCC45LO0mjxewgti4Uu17RV0C/n\nAp9ALJ3oKV3UZoq+64E2ybd0aWiIbHYSXCjS6FtKRN5A++yZ23stGtg82+H8POwS\nyfyAKFYCZ0Z0blhwWxTfMySU/1oBXlMykB5fr16qfbOUN3UO7JN/ypFNW8JLgswj\naHeBw0Ow30RM6GbRATwDTs+gAJDa6cmrCWVq5XKxNECPNZ/Zswgq4hu6REoIKx85\nhFwvWEDjLCtuYVL3zSPRTWzN1HRd55uQW0AUf0lNMK5mPJg4CUwOMNN+ZjZFo2zM\n2/7nH3pHhZ8QBXs5VIUx/v1jP5sCuUXKDyq1uU9dTsRfJodhaYzOHw3MTaW+MQ0s\n4BY7QRIoyDm6Hx1AB/Xf\n=Y/QF\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree 8b30ae1036b74c4acf02c674f75db8f1ce014aa4\nparent 1e22960cf5877c04e4f507f34e1c2d64074fabe6\nauthor dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> 1743123471 +0900\ncommitter GitHub <noreply@github.com> 1743123471 +0900\n\nbuild(deps): bump jsonschema from 4.18.4 to 4.23.0 in /docs (#3302)\n\nBumps [jsonschema](https://github.com/python-jsonschema/jsonschema) from 4.18.4 to 4.23.0.\n- [Release notes](https://github.com/python-jsonschema/jsonschema/releases)\n- [Changelog](https://github.com/python-jsonschema/jsonschema/blob/main/CHANGELOG.rst)\n- [Commits](https://github.com/python-jsonschema/jsonschema/compare/v4.18.4...v4.23.0)\n\n---\nupdated-dependencies:\n- dependency-name: jsonschema\n  dependency-type: direct:production\n  update-type: version-update:semver-minor\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+        "verified_at": "2025-03-28T00:57:55Z"
+      }
+    },
+    "url": "https://api.github.com/repos/jqlang/jq/commits/947fcbbb1fedbdd6021ef3f93782a500e32d5dcd",
+    "html_url": "https://github.com/jqlang/jq/commit/947fcbbb1fedbdd6021ef3f93782a500e32d5dcd",
+    "comments_url": "https://api.github.com/repos/jqlang/jq/commits/947fcbbb1fedbdd6021ef3f93782a500e32d5dcd/comments",
+    "author": {
+      "login": "dependabot[bot]",
+      "id": 49699333,
+      "node_id": "MDM6Qm90NDk2OTkzMzM=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/29110?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dependabot%5Bbot%5D",
+      "html_url": "https://github.com/apps/dependabot",
+      "followers_url": "https://api.github.com/users/dependabot%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/dependabot%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dependabot%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dependabot%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dependabot%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/dependabot%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/dependabot%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/dependabot%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dependabot%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "1e22960cf5877c04e4f507f34e1c2d64074fabe6",
+        "url": "https://api.github.com/repos/jqlang/jq/commits/1e22960cf5877c04e4f507f34e1c2d64074fabe6",
+        "html_url": "https://github.com/jqlang/jq/commit/1e22960cf5877c04e4f507f34e1c2d64074fabe6"
+      }
+    ]
+  },
+  {
+    "sha": "1e22960cf5877c04e4f507f34e1c2d64074fabe6",
+    "node_id": "C_kwDOAE3WVdoAKDFlMjI5NjBjZjU4NzdjMDRlNGY1MDdmMzRlMWMyZDY0MDc0ZmFiZTY",
+    "commit": {
+      "author": {
+        "name": "dependabot[bot]",
+        "email": "49699333+dependabot[bot]@users.noreply.github.com",
+        "date": "2025-03-28T00:56:51Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2025-03-28T00:56:51Z"
+      },
+      "message": "build(deps): bump lxml from 4.9.3 to 5.3.1 in /docs (#3301)\n\nBumps [lxml](https://github.com/lxml/lxml) from 4.9.3 to 5.3.1.\n- [Release notes](https://github.com/lxml/lxml/releases)\n- [Changelog](https://github.com/lxml/lxml/blob/master/CHANGES.txt)\n- [Commits](https://github.com/lxml/lxml/compare/lxml-4.9.3...lxml-5.3.1)\n\n---\nupdated-dependencies:\n- dependency-name: lxml\n  dependency-type: direct:production\n  update-type: version-update:semver-major\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+      "tree": {
+        "sha": "cfc31a9ba0455d53368e6749161285b98925c529",
+        "url": "https://api.github.com/repos/jqlang/jq/git/trees/cfc31a9ba0455d53368e6749161285b98925c529"
+      },
+      "url": "https://api.github.com/repos/jqlang/jq/git/commits/1e22960cf5877c04e4f507f34e1c2d64074fabe6",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJn5fPTCRC1aQ7uu5UhlAAAJo4QAFaAq5s+w7Hcod0h0MLMHsjE\nkWAVd0y/Wgb99BUEyn84mTRTteFfA7ntOC25gZ/SO3ferxkbSQIUqVvnwIimkWSM\nLC1i6qDud9CyKuSQcYaky/uoj+v5Yz60ICyM5m/EkRjz4+xXCG3ZeBL6NUledTmc\nE5MpyUsd9e5oRGYdJs9a8XGj7v5li9a2knKM47db3of70rJtAIsdk6/D6n7w5UJa\nRqpLk19qfSdELLeKsmXv39sWXnohm+rlN8Mop1oqLmPjA5Q1XdabVBnYEJ0UGMKL\nyKWzqlyrtjLz03l2OtRO+gZzgVV7srsrxhrKej9UL+RFRGfH4AFqdtVRtn26m0bT\nmQWGl0k58/ULnz079tWtysOkiD6bKbrdCJ6cHevzMk7rPXEjgM/lGqfOqIFduIR4\nWq1sINe9Jgq9rbqKM6GbDpTOrVdAhzx+9vVX6U2tzDnnPePx3WqUNJF1RfgJBk2S\neN15vzg9A7IgEZmjtMpATZ7qhwPFYQrwrBpnH0BWSefaOVen7d8vQ0m1iGbQEEwQ\nYl3Pl7ZnhPZWh7o8kgjbBnCe7+4lbBMjm+gqb/iDK1qthoiSstr5h51HttBhxQh8\nSrYxnEPfpPXopQTlhg0MemI8weeWNB5ce9sazSqV+LR35BbsriXVK7o2SsvkfT8c\nrV+ZTBWY6zIGG7I/Jcg+\n=2WYU\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree cfc31a9ba0455d53368e6749161285b98925c529\nparent 0b2bda81089056d511031d3cf1b4b5f3db4f39c2\nauthor dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> 1743123411 +0900\ncommitter GitHub <noreply@github.com> 1743123411 +0900\n\nbuild(deps): bump lxml from 4.9.3 to 5.3.1 in /docs (#3301)\n\nBumps [lxml](https://github.com/lxml/lxml) from 4.9.3 to 5.3.1.\n- [Release notes](https://github.com/lxml/lxml/releases)\n- [Changelog](https://github.com/lxml/lxml/blob/master/CHANGES.txt)\n- [Commits](https://github.com/lxml/lxml/compare/lxml-4.9.3...lxml-5.3.1)\n\n---\nupdated-dependencies:\n- dependency-name: lxml\n  dependency-type: direct:production\n  update-type: version-update:semver-major\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+        "verified_at": "2025-03-28T00:56:56Z"
+      }
+    },
+    "url": "https://api.github.com/repos/jqlang/jq/commits/1e22960cf5877c04e4f507f34e1c2d64074fabe6",
+    "html_url": "https://github.com/jqlang/jq/commit/1e22960cf5877c04e4f507f34e1c2d64074fabe6",
+    "comments_url": "https://api.github.com/repos/jqlang/jq/commits/1e22960cf5877c04e4f507f34e1c2d64074fabe6/comments",
+    "author": {
+      "login": "dependabot[bot]",
+      "id": 49699333,
+      "node_id": "MDM6Qm90NDk2OTkzMzM=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/29110?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dependabot%5Bbot%5D",
+      "html_url": "https://github.com/apps/dependabot",
+      "followers_url": "https://api.github.com/users/dependabot%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/dependabot%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dependabot%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dependabot%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dependabot%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/dependabot%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/dependabot%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/dependabot%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dependabot%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "0b2bda81089056d511031d3cf1b4b5f3db4f39c2",
+        "url": "https://api.github.com/repos/jqlang/jq/commits/0b2bda81089056d511031d3cf1b4b5f3db4f39c2",
+        "html_url": "https://github.com/jqlang/jq/commit/0b2bda81089056d511031d3cf1b4b5f3db4f39c2"
+      }
+    ]
+  },
+  {
+    "sha": "0b2bda81089056d511031d3cf1b4b5f3db4f39c2",
+    "node_id": "C_kwDOAE3WVdoAKDBiMmJkYTgxMDg5MDU2ZDUxMTAzMWQzY2YxYjRiNWYzZGI0ZjM5YzI",
+    "commit": {
+      "author": {
+        "name": "dependabot[bot]",
+        "email": "49699333+dependabot[bot]@users.noreply.github.com",
+        "date": "2025-03-28T00:55:39Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2025-03-28T00:55:39Z"
+      },
+      "message": "build(deps): bump markdown from 3.4.3 to 3.7 in /docs (#3300)\n\nBumps [markdown](https://github.com/Python-Markdown/markdown) from 3.4.3 to 3.7.\n- [Release notes](https://github.com/Python-Markdown/markdown/releases)\n- [Changelog](https://github.com/Python-Markdown/markdown/blob/master/docs/changelog.md)\n- [Commits](https://github.com/Python-Markdown/markdown/compare/3.4.3...3.7)\n\n---\nupdated-dependencies:\n- dependency-name: markdown\n  dependency-type: direct:production\n  update-type: version-update:semver-minor\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+      "tree": {
+        "sha": "3287a700f2ce7efcbf62c11c35e474b825c48d59",
+        "url": "https://api.github.com/repos/jqlang/jq/git/trees/3287a700f2ce7efcbf62c11c35e474b825c48d59"
+      },
+      "url": "https://api.github.com/repos/jqlang/jq/git/commits/0b2bda81089056d511031d3cf1b4b5f3db4f39c2",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJn5fOLCRC1aQ7uu5UhlAAAe78QAIoaEFpzNNqZGnbr+RnzUwlT\n8Glp7NGIfRi6tqww4HT00OaG3VtJhb/Rd9yWcLuMM7qw3lqOerLoFne0Y+zuokxd\n7lTsqe007Qa1wruQEaSLiNrZ1fFWoH7rhEt9k9NM9dhS1SoM0Ki/NtN8A6t2suAk\nhu3MT34FiAaTTi8jYfrX0hfSt7Tc4X0E/ro6Ww5myxZ8WCnkcS3TZjJPbyATQliD\n38Nn3hMg57jsNOm1Qpkc7rmMIjobVEMTCTSsGiFMOIrBYFEpYgBsezE+DwLsXkiC\nhYnabtuCThPCdWM57hm+qBL2V1V8MuL5auHUJWYndMrRLocqF1uXpQmdXAO3wYrT\nYxqT8Zv3X+4YaIFknLDTPzt+CaAYZNyDLqc6jLo8tur/4aRDssykrP7spFJkbnrk\nnZsvrC/ktzp1HdDtHwHHQJDQl4BwHUkEBDKmr2bzKBuYeSp3gIKtoF+mmqQ+Ozwq\nlPxya637tT4eQkk0nPwCFrOTjVh4GHXp4DF0M1Md+OR1zF99DBBba/9fJpbP/1Sa\nPB7AjNA1lFFhENuknDOCD4UTkA2o2ooO01MZV9s0SkBq/NpIDb3rmfKS/0gNMp9U\nLlVkHJWhO2maTEdwyAXKYaPUMH7eeAdLUfRWzRwuZpp0D4DwAiq5YiY0skcuLBAQ\nnaPhInuwjt+QPvOElaj/\n=zabe\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree 3287a700f2ce7efcbf62c11c35e474b825c48d59\nparent 5f7b1aed16d213445e55f5257248e201a9e5d396\nauthor dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com> 1743123339 +0900\ncommitter GitHub <noreply@github.com> 1743123339 +0900\n\nbuild(deps): bump markdown from 3.4.3 to 3.7 in /docs (#3300)\n\nBumps [markdown](https://github.com/Python-Markdown/markdown) from 3.4.3 to 3.7.\n- [Release notes](https://github.com/Python-Markdown/markdown/releases)\n- [Changelog](https://github.com/Python-Markdown/markdown/blob/master/docs/changelog.md)\n- [Commits](https://github.com/Python-Markdown/markdown/compare/3.4.3...3.7)\n\n---\nupdated-dependencies:\n- dependency-name: markdown\n  dependency-type: direct:production\n  update-type: version-update:semver-minor\n...\n\nSigned-off-by: dependabot[bot] <support@github.com>\nCo-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>",
+        "verified_at": "2025-03-28T00:55:43Z"
+      }
+    },
+    "url": "https://api.github.com/repos/jqlang/jq/commits/0b2bda81089056d511031d3cf1b4b5f3db4f39c2",
+    "html_url": "https://github.com/jqlang/jq/commit/0b2bda81089056d511031d3cf1b4b5f3db4f39c2",
+    "comments_url": "https://api.github.com/repos/jqlang/jq/commits/0b2bda81089056d511031d3cf1b4b5f3db4f39c2/comments",
+    "author": {
+      "login": "dependabot[bot]",
+      "id": 49699333,
+      "node_id": "MDM6Qm90NDk2OTkzMzM=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/29110?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dependabot%5Bbot%5D",
+      "html_url": "https://github.com/apps/dependabot",
+      "followers_url": "https://api.github.com/users/dependabot%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/dependabot%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dependabot%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dependabot%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dependabot%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/dependabot%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/dependabot%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/dependabot%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dependabot%5Bbot%5D/received_events",
+      "type": "Bot",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "5f7b1aed16d213445e55f5257248e201a9e5d396",
+        "url": "https://api.github.com/repos/jqlang/jq/commits/5f7b1aed16d213445e55f5257248e201a9e5d396",
+        "html_url": "https://github.com/jqlang/jq/commit/5f7b1aed16d213445e55f5257248e201a9e5d396"
+      }
+    ]
+  },
+  {
+    "sha": "5f7b1aed16d213445e55f5257248e201a9e5d396",
+    "node_id": "C_kwDOAE3WVdoAKDVmN2IxYWVkMTZkMjEzNDQ1ZTU1ZjUyNTcyNDhlMjAxYTllNWQzOTY",
+    "commit": {
+      "author": {
+        "name": "itchyny",
+        "email": "itchyny@cybozu.co.jp",
+        "date": "2025-03-27T23:43:06Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2025-03-27T23:43:06Z"
+      },
+      "message": "fix usage in help to use `jq` not the invoked command path (#3299)",
+      "tree": {
+        "sha": "e86971c4faad5062f8790bcdaeec0b9ebe2efcae",
+        "url": "https://api.github.com/repos/jqlang/jq/git/trees/e86971c4faad5062f8790bcdaeec0b9ebe2efcae"
+      },
+      "url": "https://api.github.com/repos/jqlang/jq/git/commits/5f7b1aed16d213445e55f5257248e201a9e5d396",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJn5eKKCRC1aQ7uu5UhlAAAizcQAGAbFn04VCiwBWOTr1JRsuL4\nQB6uHT48YOlokPeuIb/Dto5DXqzYvkZUwjH7JrBCR9jsu6YER5+OqbEp2Sy91MQJ\nzgaTJv9E83AGI95HEBdQqNxfVwYwqkBGNtaZcP+mJdF7FabRKyssHHHcvWBaSaAp\niXH8/kJu9+WaDVVwKVLOnL3RS7DKcM+SaP4Hv7YK3A3QVO1jZAyKlhvOD0b4rzc3\n9leTjdDgcbaywXae457bFo1D9z9I9xbKRLl5xDLOJoEA8XttdpDHppLAPWOKveTE\nTUOAAhbNd5CvtDc+/+J5+SEB1bqI4STBFc3xH/nbx5ZqksARtKdcORxdg0K1F/9Q\nkPZv3rsg9pzL4Q/zlpmgMhi+nzKFoLhFrD5etsKg3P17Vaak6GtHZgyuDsUuuJb8\nChdw3/scRMHudMXN1JBxBQgyEXIhOazlJvJGhBqPWPRQtCljw3N9Vx8mJHGoR3h+\numUILSG3cmbNu1pii3IMsxXslGdPu1ncu8QuRKZkSbeAdkUvk98ZavwnWOjXjcsD\n4YnPkZ0f9B+vgfdEQGTFGl6778Rfjxnp7MQEtv/ja3BHO07h9NcOhN+e2eampBL4\niR9YC+3t5LRhkzDV1ftRqdMokGgByw/njASmuxMgVBgro53o3qNvDCYAcnXDTBem\n8XEvAFukS73ZdRi31z9U\n=fnuS\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree e86971c4faad5062f8790bcdaeec0b9ebe2efcae\nparent 8819eb8fb479de3a9b0688c2c2346582289eed64\nauthor itchyny <itchyny@cybozu.co.jp> 1743118986 +0900\ncommitter GitHub <noreply@github.com> 1743118986 +0900\n\nfix usage in help to use `jq` not the invoked command path (#3299)\n\n",
+        "verified_at": "2025-03-27T23:43:09Z"
+      }
+    },
+    "url": "https://api.github.com/repos/jqlang/jq/commits/5f7b1aed16d213445e55f5257248e201a9e5d396",
+    "html_url": "https://github.com/jqlang/jq/commit/5f7b1aed16d213445e55f5257248e201a9e5d396",
+    "comments_url": "https://api.github.com/repos/jqlang/jq/commits/5f7b1aed16d213445e55f5257248e201a9e5d396/comments",
+    "author": {
+      "login": "itchyny",
+      "id": 375258,
+      "node_id": "MDQ6VXNlcjM3NTI1OA==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/375258?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/itchyny",
+      "html_url": "https://github.com/itchyny",
+      "followers_url": "https://api.github.com/users/itchyny/followers",
+      "following_url": "https://api.github.com/users/itchyny/following{/other_user}",
+      "gists_url": "https://api.github.com/users/itchyny/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/itchyny/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/itchyny/subscriptions",
+      "organizations_url": "https://api.github.com/users/itchyny/orgs",
+      "repos_url": "https://api.github.com/users/itchyny/repos",
+      "events_url": "https://api.github.com/users/itchyny/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/itchyny/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "8819eb8fb479de3a9b0688c2c2346582289eed64",
+        "url": "https://api.github.com/repos/jqlang/jq/commits/8819eb8fb479de3a9b0688c2c2346582289eed64",
+        "html_url": "https://github.com/jqlang/jq/commit/8819eb8fb479de3a9b0688c2c2346582289eed64"
+      }
+    ]
+  }
+]

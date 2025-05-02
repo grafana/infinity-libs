@@ -1,0 +1,120 @@
+//  🌟 This was machine generated.  Do not edit. 🌟
+//  
+//  Frame[0] {
+//      "typeVersion": [
+//          0,
+//          0
+//      ]
+//  }
+//  Name: 
+//  Dimensions: 2 Fields by 5 Rows
+//  +--------------------------------------------------------------------------------------------+-----------------+
+//  | Name: message                                                                              | Name: name      |
+//  | Labels:                                                                                    | Labels:         |
+//  | Type: []*string                                                                            | Type: []*string |
+//  +--------------------------------------------------------------------------------------------+-----------------+
+//  | jv_unique: don't leak non-unique elements that are not returned (#3304)                    | GitHub          |
+//  | build(deps): bump jsonschema from 4.18.4 to 4.23.0 in /docs (#3302)                        | GitHub          |
+//  |                                                                                            |                 |
+//  | Bumps [jsonschema](https://github.com/python-jsonschema/jsonschema) from 4.18.4 to 4.23.0. |                 |
+//  | - [Release notes](https://github.com/python-jsonschema/jsonschema/releases)                |                 |
+//  | - [Changelog](https://github.com/python-jsonschema/jsonschema/blob/main/CHANGELOG.rst)     |                 |
+//  | - [Commits](https://github.com/python-jsonschema/jsonschema/compare/v4.18.4...v4.23.0)     |                 |
+//  |                                                                                            |                 |
+//  | ---                                                                                        |                 |
+//  | updated-dependencies:                                                                      |                 |
+//  | - dependency-name: jsonschema                                                              |                 |
+//  |   dependency-type: direct:production                                                       |                 |
+//  |   update-type: version-update:semver-minor                                                 |                 |
+//  | ...                                                                                        |                 |
+//  |                                                                                            |                 |
+//  | Signed-off-by: dependabot[bot] <support@github.com>                                        |                 |
+//  | Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>        |                 |
+//  | build(deps): bump lxml from 4.9.3 to 5.3.1 in /docs (#3301)                                | GitHub          |
+//  |                                                                                            |                 |
+//  | Bumps [lxml](https://github.com/lxml/lxml) from 4.9.3 to 5.3.1.                            |                 |
+//  | - [Release notes](https://github.com/lxml/lxml/releases)                                   |                 |
+//  | - [Changelog](https://github.com/lxml/lxml/blob/master/CHANGES.txt)                        |                 |
+//  | - [Commits](https://github.com/lxml/lxml/compare/lxml-4.9.3...lxml-5.3.1)                  |                 |
+//  |                                                                                            |                 |
+//  | ---                                                                                        |                 |
+//  | updated-dependencies:                                                                      |                 |
+//  | - dependency-name: lxml                                                                    |                 |
+//  |   dependency-type: direct:production                                                       |                 |
+//  |   update-type: version-update:semver-major                                                 |                 |
+//  | ...                                                                                        |                 |
+//  |                                                                                            |                 |
+//  | Signed-off-by: dependabot[bot] <support@github.com>                                        |                 |
+//  | Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>        |                 |
+//  | build(deps): bump markdown from 3.4.3 to 3.7 in /docs (#3300)                              | GitHub          |
+//  |                                                                                            |                 |
+//  | Bumps [markdown](https://github.com/Python-Markdown/markdown) from 3.4.3 to 3.7.           |                 |
+//  | - [Release notes](https://github.com/Python-Markdown/markdown/releases)                    |                 |
+//  | - [Changelog](https://github.com/Python-Markdown/markdown/blob/master/docs/changelog.md)   |                 |
+//  | - [Commits](https://github.com/Python-Markdown/markdown/compare/3.4.3...3.7)               |                 |
+//  |                                                                                            |                 |
+//  | ---                                                                                        |                 |
+//  | updated-dependencies:                                                                      |                 |
+//  | - dependency-name: markdown                                                                |                 |
+//  |   dependency-type: direct:production                                                       |                 |
+//  |   update-type: version-update:semver-minor                                                 |                 |
+//  | ...                                                                                        |                 |
+//  |                                                                                            |                 |
+//  | Signed-off-by: dependabot[bot] <support@github.com>                                        |                 |
+//  | Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>        |                 |
+//  | fix usage in help to use `jq` not the invoked command path (#3299)                         | GitHub          |
+//  +--------------------------------------------------------------------------------------------+-----------------+
+//  
+//  
+//  🌟 This was machine generated.  Do not edit. 🌟
+{
+  "status": 200,
+  "frames": [
+    {
+      "schema": {
+        "meta": {
+          "typeVersion": [
+            0,
+            0
+          ]
+        },
+        "fields": [
+          {
+            "name": "message",
+            "type": "string",
+            "typeInfo": {
+              "frame": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "typeInfo": {
+              "frame": "string",
+              "nullable": true
+            }
+          }
+        ]
+      },
+      "data": {
+        "values": [
+          [
+            "jv_unique: don't leak non-unique elements that are not returned (#3304)",
+            "build(deps): bump jsonschema from 4.18.4 to 4.23.0 in /docs (#3302)\n\nBumps [jsonschema](https://github.com/python-jsonschema/jsonschema) from 4.18.4 to 4.23.0.\n- [Release notes](https://github.com/python-jsonschema/jsonschema/releases)\n- [Changelog](https://github.com/python-jsonschema/jsonschema/blob/main/CHANGELOG.rst)\n- [Commits](https://github.com/python-jsonschema/jsonschema/compare/v4.18.4...v4.23.0)\n\n---\nupdated-dependencies:\n- dependency-name: jsonschema\n  dependency-type: direct:production\n  update-type: version-update:semver-minor\n...\n\nSigned-off-by: dependabot[bot] \u003csupport@github.com\u003e\nCo-authored-by: dependabot[bot] \u003c49699333+dependabot[bot]@users.noreply.github.com\u003e",
+            "build(deps): bump lxml from 4.9.3 to 5.3.1 in /docs (#3301)\n\nBumps [lxml](https://github.com/lxml/lxml) from 4.9.3 to 5.3.1.\n- [Release notes](https://github.com/lxml/lxml/releases)\n- [Changelog](https://github.com/lxml/lxml/blob/master/CHANGES.txt)\n- [Commits](https://github.com/lxml/lxml/compare/lxml-4.9.3...lxml-5.3.1)\n\n---\nupdated-dependencies:\n- dependency-name: lxml\n  dependency-type: direct:production\n  update-type: version-update:semver-major\n...\n\nSigned-off-by: dependabot[bot] \u003csupport@github.com\u003e\nCo-authored-by: dependabot[bot] \u003c49699333+dependabot[bot]@users.noreply.github.com\u003e",
+            "build(deps): bump markdown from 3.4.3 to 3.7 in /docs (#3300)\n\nBumps [markdown](https://github.com/Python-Markdown/markdown) from 3.4.3 to 3.7.\n- [Release notes](https://github.com/Python-Markdown/markdown/releases)\n- [Changelog](https://github.com/Python-Markdown/markdown/blob/master/docs/changelog.md)\n- [Commits](https://github.com/Python-Markdown/markdown/compare/3.4.3...3.7)\n\n---\nupdated-dependencies:\n- dependency-name: markdown\n  dependency-type: direct:production\n  update-type: version-update:semver-minor\n...\n\nSigned-off-by: dependabot[bot] \u003csupport@github.com\u003e\nCo-authored-by: dependabot[bot] \u003c49699333+dependabot[bot]@users.noreply.github.com\u003e",
+            "fix usage in help to use `jq` not the invoked command path (#3299)"
+          ],
+          [
+            "GitHub",
+            "GitHub",
+            "GitHub",
+            "GitHub",
+            "GitHub"
+          ]
+        ]
+      }
+    }
+  ]
+}

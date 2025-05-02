@@ -3,6 +3,7 @@
 ## 1.2.0
 
 - Added support for JQ syntax in root selector
+
 ## 1.1.5
 
 - ⚙️ **Chore**: Updated frontend and backend dependencies
