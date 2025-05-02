@@ -2,6 +2,7 @@
 
 ## 1.0.5
 
+- 🐛 **Bug Fix**: Fixed a bug where summarize function didn't handle empty frames
 - 🐛 **Bug Fix**: Remove additional labels from fields when used with filter expression
 - 🐛 **Bug Fix**: Handle null values correctly in filter expression
 - 🐛 **Bug Fix**: Handle time fields properly in the filter expression

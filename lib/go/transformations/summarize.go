@@ -10,17 +10,28 @@ import (
 )
 
 func GetSummaryFrame(frame *data.Frame, expression string, by string, alias string) (*data.Frame, error) {
-	if alias == "" {
-		alias = expression
+	if frame == nil {
+		return frame, nil
 	}
 	if strings.TrimSpace(expression) == "" {
 		return frame, nil
+	}
+	if alias == "" {
+		alias = expression
+	}
+	summaryFrame := &data.Frame{Name: frame.Name, RefID: frame.RefID, Fields: []*data.Field{}}
+	summaryFrame.SetMeta(frame.Meta)
+	if len(frame.Fields) == 0 || frame.Rows() == 0 {
+		summaryFrame.Fields = append(summaryFrame.Fields, data.NewField(alias, nil, []*float64{}))
+		if strings.TrimSpace(by) != "" {
+			summaryFrame.Fields = append(summaryFrame.Fields, data.NewField(by, nil, []*string{}))
+		}
+		return summaryFrame, nil
 	}
 	if strings.TrimSpace(by) != "" {
 		return GetSummarizeByFrame(frame, expression, by, alias)
 	}
 	summary, err := framesql.EvaluateInFrame(expression, frame)
-	summaryFrame := &data.Frame{Name: frame.Name, RefID: frame.RefID, Fields: []*data.Field{}}
 	if err != nil {
 		return frame, fmt.Errorf("error evaluating summarize expression. %w. Not applying summarize expression", err)
 	}
@@ -64,7 +75,6 @@ func GetSummaryFrame(frame *data.Frame, expression string, by string, alias stri
 	default:
 		err = fmt.Errorf("unsupported format. %v", t)
 	}
-	summaryFrame.SetMeta(frame.Meta)
 	return summaryFrame, err
 }
 
@@ -90,6 +100,7 @@ func GetSummarizeByFrame(frame *data.Frame, expression, by string, alias string)
 		uniqueValues[framesql.GetValue(byField.At(i))] = true
 	}
 	summarizeFrame := data.NewFrame("summary")
+	summarizeFrame.SetMeta(frame.Meta)
 	nameField := framesql.ConvertFieldValuesToField(uniqueValuesArray, by)
 	summarizeFrame.Fields = append(summarizeFrame.Fields, nameField)
 	values := []any{}
