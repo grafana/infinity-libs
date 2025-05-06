@@ -1,6 +1,7 @@
 package transformations_test
 
 import (
+	"errors"
 	"fmt"
 	"testing"
 	"time"
@@ -13,6 +14,11 @@ import (
 )
 
 func TestApplyFilter(t *testing.T) {
+	sampleDataFrame := data.NewFrame("hello", data.NewField("group", nil, []string{"A", "B", "A"}), data.NewField("id", nil, []int64{3, 4, 5}), data.NewField("value", nil, []int64{6, 7, 8})).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"})
+	A := "a"
+	B := "b"
+	zero := int64(0)
+	one := int64(1)
 	devicesFrame := data.NewFrame(
 		"devices",
 		data.NewField("id", nil, []int64{0, 1, 2, 3, 4, 5}),
@@ -27,9 +33,83 @@ func TestApplyFilter(t *testing.T) {
 		wantErr          error
 	}{
 		{
-			name:    "empty frame",
-			want:    data.NewFrame("test"),
-			wantErr: transformations.ErrEvaluatingFilterExpressionWithEmptyFrame,
+			name:             "nil frame should throw error",
+			filterExpression: "group =='A'",
+			wantErr:          transformations.ErrEvaluatingFilterExpressionWithEmptyFrame,
+		},
+		{
+			name:             "frame without fields should return the same",
+			filterExpression: "group =='A'",
+			frame:            data.NewFrame("hello").SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+			want:             data.NewFrame("hello").SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:             "frame with emtpy fields should return the same",
+			filterExpression: "group =='A'",
+			frame:            data.NewFrame("hello", data.NewField("field1", nil, []int64{})).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+			want:             data.NewFrame("hello", data.NewField("field1", nil, []int64{})).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:  "frame with data and without filter should return the same",
+			frame: sampleDataFrame,
+			want:  sampleDataFrame,
+		},
+		{
+			name:             "frame with data and with filter should filter the data with matching condition",
+			filterExpression: "group =='A'",
+			frame:            sampleDataFrame,
+			want: data.NewFrame("hello",
+				data.NewField("group", nil, []string{"A", "A"}),
+				data.NewField("id", nil, []int64{3, 5}),
+				data.NewField("value", nil, []int64{6, 8}),
+			).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:             "frame with data and with filter should filter the data without matching condition",
+			filterExpression: "id == 1",
+			frame:            sampleDataFrame,
+			want: data.NewFrame("hello",
+				data.NewField("group", nil, []string{}),
+				data.NewField("id", nil, []int64{}),
+				data.NewField("value", nil, []int64{}),
+			).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:             "frame with data and with filter should filter the data with incorrect matching condition",
+			filterExpression: "group == 3",
+			frame:            sampleDataFrame,
+			want: data.NewFrame("hello",
+				data.NewField("group", nil, []string{}),
+				data.NewField("id", nil, []int64{}),
+				data.NewField("value", nil, []int64{}),
+			).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:             "null value filter",
+			filterExpression: "value != nil",
+			frame:            data.NewFrame("hello", data.NewField("name", nil, []*string{&A, &B}), data.NewField("value", nil, []*string{&A, nil})).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+			want: data.NewFrame("hello",
+				data.NewField("name", nil, []*string{&A}),
+				data.NewField("value", nil, []*string{&A}),
+			).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:             "null value filter with number",
+			filterExpression: "value != nil",
+			frame:            data.NewFrame("hello", data.NewField("name", nil, []*string{&A, &B, &A}), data.NewField("value", nil, []*int64{&zero, &one, nil})).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+			want:             data.NewFrame("hello", data.NewField("name", nil, []*string{&A, &B}), data.NewField("value", nil, []*int64{&zero, &one})).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:             "invalid filter should throw error",
+			filterExpression: "group ==='A'",
+			frame:            sampleDataFrame,
+			wantErr:          errors.New("invalid filter expression. Invalid token: '==='"),
+		},
+		{
+			name:             "non binary filter should throw error",
+			filterExpression: "1 + 2",
+			frame:            sampleDataFrame,
+			wantErr:          errors.New("filter expression for row 0 didn't produce binary result. Not applying filter"),
 		},
 		{
 			name:             "numeric filter expression",
@@ -113,15 +193,13 @@ func TestApplyFilter(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			frame := tt.frame
-			got, err := transformations.ApplyFilter(frame, tt.filterExpression)
+			got, err := transformations.ApplyFilter(tt.frame, tt.filterExpression)
 			if tt.wantErr != nil {
 				require.NotNil(t, err)
 				assert.Equal(t, tt.wantErr.Error(), err.Error())
 				return
 			}
 			require.Nil(t, err)
-			require.NotNil(t, got)
 			assert.Equal(t, tt.want, got)
 		})
 	}

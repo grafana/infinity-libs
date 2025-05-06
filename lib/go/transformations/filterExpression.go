@@ -31,10 +31,14 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 	if frame == nil {
 		return nil, ErrEvaluatingFilterExpressionWithEmptyFrame
 	}
+	if frame.Rows() == 0 {
+		return frame, nil
+	}
 	if strings.TrimSpace(filterExpression) == "" {
 		return frame, nil
 	}
 	filteredFrame := frame.EmptyCopy()
+	filteredFrame.Meta = frame.Meta
 	for i := range filteredFrame.Fields {
 		if frame.Fields[i].Labels == nil {
 			filteredFrame.Fields[i].Labels = nil
@@ -63,7 +67,8 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 		var err error
 		parameters := map[string]any{"frame": frame, "null": nil, "nil": nil, "rowIndex": inRowIdx}
 		for _, field := range frame.Fields {
-			v := GetNormalizedValueForExpressionEvaluation(field, inRowIdx)
+			var v any = nil
+			v = GetNormalizedValueForExpressionEvaluation(field, inRowIdx)
 			parameters[framesql.SlugifyFieldName(field.Name)] = v
 			parameters[field.Name] = v
 		}
@@ -78,7 +83,7 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 			match = currentMatch
 		}
 		if match == nil {
-			return frame, fmt.Errorf("filter expression for row %d didn't produce binary result. error: %w. Not applying filter", inRowIdx, err)
+			return frame, fmt.Errorf("filter expression for row %d didn't produce binary result. Not applying filter", inRowIdx)
 		}
 		if !*match {
 			continue
