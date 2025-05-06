@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/framesql"
@@ -27,10 +28,22 @@ func FilterExpression(input []*data.Frame, options FilterExpressionOptions) ([]*
 }
 
 func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error) {
+	if frame == nil {
+		return nil, ErrEvaluatingFilterExpressionWithEmptyFrame
+	}
+	if frame.Rows() == 0 {
+		return frame, nil
+	}
 	if strings.TrimSpace(filterExpression) == "" {
 		return frame, nil
 	}
 	filteredFrame := frame.EmptyCopy()
+	filteredFrame.Meta = frame.Meta
+	for i := range filteredFrame.Fields {
+		if frame.Fields[i].Labels == nil {
+			filteredFrame.Fields[i].Labels = nil
+		}
+	}
 	rowLen, err := frame.RowLen()
 	if err != nil {
 		return frame, err
@@ -54,13 +67,14 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 		var err error
 		parameters := map[string]any{"frame": frame, "null": nil, "nil": nil, "rowIndex": inRowIdx}
 		for _, field := range frame.Fields {
-			v := framesql.GetValue(field.At(inRowIdx))
+			var v any = nil
+			v = GetNormalizedValueForExpressionEvaluation(field, inRowIdx)
 			parameters[framesql.SlugifyFieldName(field.Name)] = v
 			parameters[field.Name] = v
 		}
 		result, err := parsedExpression.Evaluate(parameters)
 		if err != nil {
-			return frame, errors.Join(ErrEvaluatingFilterExpression,  fmt.Errorf("error: %w. row %d. Not applying filter", err, inRowIdx))
+			return frame, errors.Join(ErrEvaluatingFilterExpression, fmt.Errorf("error: %w. row %d. Not applying filter", err, inRowIdx))
 		}
 		if currentMatch, ok := result.(bool); ok {
 			match = &currentMatch
@@ -69,7 +83,7 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 			match = currentMatch
 		}
 		if match == nil {
-			return frame, fmt.Errorf("filter expression for row %d didn't produce binary result. error: %w. Not applying filter", inRowIdx, err)
+			return frame, fmt.Errorf("filter expression for row %d didn't produce binary result. Not applying filter", inRowIdx)
 		}
 		if !*match {
 			continue
@@ -79,9 +93,28 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 	return filteredFrame, nil
 }
 
-
 func checkIfInvalidFilterExpression(err error) bool {
 	// Check if the error is due to an invalid token
 	// This error is not exported by the govaluate library, so we need to check the error message
 	return strings.Contains(err.Error(), "Invalid token:")
+}
+
+// GetNormalizedValueForExpressionEvaluation normalizes the value of a field at a specific row index
+// for use in expression evaluation. It handles nullable fields, time fields, and ensures the value
+// is in a consistent format for evaluation.
+func GetNormalizedValueForExpressionEvaluation(field *data.Field, index int) (v any) {
+	switch field.Type() {
+	case data.FieldTypeTime:
+		return framesql.GetValue(field.At(index)).(time.Time).UTC().Unix()
+	case data.FieldTypeNullableTime:
+		if field.NilAt(index) {
+			return 0
+		}
+		return field.At(index).(*time.Time).UTC().Unix()
+	default:
+		if (field.Nullable() && !field.NilAt(index)) || !field.Nullable() {
+			v = framesql.GetValue(field.At(index))
+		}
+		return v
+	}
 }

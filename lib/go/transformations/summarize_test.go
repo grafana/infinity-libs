@@ -5,11 +5,24 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/transformations"
+	"github.com/grafana/infinity-libs/lib/go/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGetSummaryFrame(t *testing.T) {
+	sampleDataFrame := data.NewFrame(
+		"hello",
+		data.NewField("group", nil, []string{"A", "B", "A"}),
+		data.NewField("id", nil, []int64{3, 4, 5}),
+		data.NewField("value", nil, []int64{6, 7, 8}),
+	).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"})
+	sampleDataFrameWithNull := data.NewFrame(
+		"hello",
+		data.NewField("group", nil, []string{"A", "B", "A"}),
+		data.NewField("id", nil, []int64{3, 4, 5}),
+		data.NewField("value", nil, []*int64{utils.P(int64(6)), utils.P(int64(7)), nil}),
+	).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"})
 	tests := []struct {
 		name       string
 		frame      *data.Frame
@@ -45,6 +58,120 @@ func TestGetSummaryFrame(t *testing.T) {
 				"response",
 				data.NewField("summary", nil, []*float64{toFP(2.6)}),
 			),
+		},
+		{
+			name: "summarize with empty data",
+			frame: data.NewFrame(
+				"hello",
+			),
+			expression: "mean(value)",
+			want: data.NewFrame(
+				"hello",
+				data.NewField("mean(value)", nil, []*float64{}),
+			),
+		},
+		{
+			name: "summarize with empty data and alias",
+			frame: data.NewFrame(
+				"hello",
+			),
+			expression: "mean(value)",
+			alias:      "summary",
+			want: data.NewFrame(
+				"hello",
+				data.NewField("summary", nil, []*float64{}),
+			),
+		},
+		{
+			name: "summarize with empty data and summarize by",
+			frame: data.NewFrame(
+				"hello",
+			),
+			expression: "mean(value)",
+			by:         "world",
+			want: data.NewFrame(
+				"hello",
+				data.NewField("mean(value)", nil, []*float64{}),
+				data.NewField("world", nil, []*string{}),
+			),
+		},
+		{
+			name: "summarize with empty data and alias and summarize by",
+			frame: data.NewFrame(
+				"hello",
+			),
+			expression: "mean(value)",
+			alias:      "summary",
+			by:         "world",
+			want: data.NewFrame(
+				"hello",
+				data.NewField("summary", nil, []*float64{}),
+				data.NewField("world", nil, []*string{}),
+			),
+		},
+		{
+			name: "summarize with empty frame and summarize by",
+			frame: data.NewFrame(
+				"world population",
+				data.NewField("country", nil, []*string{}),
+				data.NewField("population", nil, []*float64{}),
+			),
+			expression: "mean(population)",
+			by:         "country",
+			want: data.NewFrame(
+				"world population",
+				data.NewField("mean(population)", nil, []*float64{}),
+				data.NewField("country", nil, []*string{}),
+			),
+		},
+		{
+			name: "summarize with empty frame and alias and summarize by",
+			frame: data.NewFrame(
+				"world population",
+				data.NewField("country", nil, []*string{}),
+				data.NewField("population", nil, []*float64{}),
+			),
+			expression: "mean(population)",
+			alias:      "mean population",
+			by:         "country",
+			want: data.NewFrame(
+				"world population",
+				data.NewField("mean population", nil, []*float64{}),
+				data.NewField("country", nil, []*string{}),
+			),
+		},
+		{
+			name:       "actual data with summarize",
+			frame:      sampleDataFrame,
+			expression: "sum(value)",
+			want: data.NewFrame(
+				"hello",
+				data.NewField("sum(value)", nil, []*float64{utils.P(float64(21))}),
+			).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:       "actual data with summarize and by",
+			frame:      sampleDataFrame,
+			expression: "sum(value)",
+			by:         "group",
+			alias:      "sum of value",
+			want: data.NewFrame(
+				"summary",
+				data.NewField("group", nil, []*string{utils.P(string("A")), utils.P(string("B"))}),
+				data.NewField("sum of value", nil, []*float64{utils.P(float64(14)), utils.P(float64(7))}),
+			).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
+		},
+		{
+			name:       "actual data with summarize and by",
+			frame:      sampleDataFrameWithNull,
+			expression: "sum(value)",
+			by:         "group",
+			alias:      "sum of value",
+			want: data.NewFrame(
+				"summary",
+				data.NewField("group", nil, []*string{utils.P(string("A")), utils.P(string("B"))}),
+				data.NewField("sum of value", nil, []*float64{utils.P(float64(6)), utils.P(float64(7))}),
+			).SetMeta(&data.FrameMeta{PreferredVisualizationPluginID: "text"}),
 		},
 	}
 	for _, tt := range tests {

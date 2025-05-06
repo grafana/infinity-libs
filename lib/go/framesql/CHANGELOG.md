@@ -2,6 +2,8 @@
 
 ## 1.0.3
 
+- 🐛 **Bug Fix**: Fixed a bug where summarize function didn't handle empty frames
+
 - ⚙️ **Chore**: Updated frontend and backend dependencies
 
 ## 1.0.2
