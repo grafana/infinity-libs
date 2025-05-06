@@ -135,3 +135,42 @@ func TestToDataFrameSlices(t *testing.T) {
 		}
 	}
 }
+
+func TestJsonFieldType(t *testing.T) {
+	t.Run("mixed json content without null values", func(t *testing.T) {
+		gotFrame, err := gframer.ToDataFrame([]any{
+			map[string]any{"num": int64(1), "str": "two", "json": []int{3}, "bool": false},
+			map[string]any{"num": int64(11), "str": "two-two", "json": map[string]any{"something": "else"}, "bool": true},
+		}, gframer.FramerOptions{Columns: []gframer.ColumnSelector{{Selector: "num", Type: "number"}, {Selector: "str", Type: "string"}, {Selector: "json", Type: "json"}, {Selector: "bool", Type: "boolean"}}})
+		require.Nil(t, err)
+		require.NotNil(t, gotFrame)
+		experimental.CheckGoldenJSONFrame(t, "testdata/jsonfield", strings.ReplaceAll(t.Name(), "TestJsonFieldType/", ""), gotFrame, true)
+	})
+	t.Run("mixed json content without null values and override columns", func(t *testing.T) {
+		gotFrame, err := gframer.ToDataFrame([]any{
+			map[string]any{"num": int64(1), "str": "two", "json": []int{3}, "bool": false},
+			map[string]any{"num": int64(11), "str": "two-two", "json": map[string]any{"something": "else"}, "bool": true},
+		}, gframer.FramerOptions{OverrideColumns: []gframer.ColumnSelector{{Selector: "num", Type: "json"}, {Selector: "str", Type: "json"}, {Selector: "json", Type: "json"}, {Selector: "bool", Type: "json"}}})
+		require.Nil(t, err)
+		require.NotNil(t, gotFrame)
+		experimental.CheckGoldenJSONFrame(t, "testdata/jsonfield", strings.ReplaceAll(t.Name(), "TestJsonFieldType/", ""), gotFrame, true)
+	})
+	t.Run("mixed json content with null values", func(t *testing.T) {
+		gotFrame, err := gframer.ToDataFrame([]any{
+			map[string]any{"num": int64(1), "str": "two", "json": []int{3}, "bool": false},
+			map[string]any{"num": nil, "str": nil, "json": nil, "bool": nil},
+		}, gframer.FramerOptions{Columns: []gframer.ColumnSelector{{Selector: "num", Type: "number"}, {Selector: "str", Type: "string"}, {Selector: "json", Type: "json"}, {Selector: "bool", Type: "boolean"}}})
+		require.Nil(t, err)
+		require.NotNil(t, gotFrame)
+		experimental.CheckGoldenJSONFrame(t, "testdata/jsonfield", strings.ReplaceAll(t.Name(), "TestJsonFieldType/", ""), gotFrame, true)
+	})
+	t.Run("mixed json content with null values as first", func(t *testing.T) {
+		gotFrame, err := gframer.ToDataFrame([]any{
+			map[string]any{"num": nil, "str": nil, "json": nil, "bool": nil},
+			map[string]any{"num": int64(1), "str": "two", "json": []int{3}, "bool": false},
+		}, gframer.FramerOptions{Columns: []gframer.ColumnSelector{{Selector: "num", Type: "number"}, {Selector: "str", Type: "string"}, {Selector: "json", Type: "json"}, {Selector: "bool", Type: "boolean"}}})
+		require.Nil(t, err)
+		require.NotNil(t, gotFrame)
+		experimental.CheckGoldenJSONFrame(t, "testdata/jsonfield", strings.ReplaceAll(t.Name(), "TestJsonFieldType/", ""), gotFrame, true)
+	})
+}

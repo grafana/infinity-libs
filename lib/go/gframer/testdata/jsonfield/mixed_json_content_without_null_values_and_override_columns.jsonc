@@ -1,0 +1,79 @@
+//  🌟 This was machine generated.  Do not edit. 🌟
+//  
+//  Frame[0] 
+//  Name: 
+//  Dimensions: 4 Fields by 2 Rows
+//  +--------------------------+----------------------------+--------------------------+--------------------------+
+//  | Name: bool               | Name: json                 | Name: num                | Name: str                |
+//  | Labels:                  | Labels:                    | Labels:                  | Labels:                  |
+//  | Type: []*json.RawMessage | Type: []*json.RawMessage   | Type: []*json.RawMessage | Type: []*json.RawMessage |
+//  +--------------------------+----------------------------+--------------------------+--------------------------+
+//  | false                    | "[3]"                      | 1                        | "two"                    |
+//  | true                     | "{\"something\":\"else\"}" | 11                       | "two-two"                |
+//  +--------------------------+----------------------------+--------------------------+--------------------------+
+//  
+//  
+//  🌟 This was machine generated.  Do not edit. 🌟
+{
+  "status": 200,
+  "frames": [
+    {
+      "schema": {
+        "fields": [
+          {
+            "name": "bool",
+            "type": "other",
+            "typeInfo": {
+              "frame": "json.RawMessage",
+              "nullable": true
+            }
+          },
+          {
+            "name": "json",
+            "type": "other",
+            "typeInfo": {
+              "frame": "json.RawMessage",
+              "nullable": true
+            }
+          },
+          {
+            "name": "num",
+            "type": "other",
+            "typeInfo": {
+              "frame": "json.RawMessage",
+              "nullable": true
+            }
+          },
+          {
+            "name": "str",
+            "type": "other",
+            "typeInfo": {
+              "frame": "json.RawMessage",
+              "nullable": true
+            }
+          }
+        ]
+      },
+      "data": {
+        "values": [
+          [
+            false,
+            true
+          ],
+          [
+            "[3]",
+            "{\"something\":\"else\"}"
+          ],
+          [
+            1,
+            11
+          ],
+          [
+            "two",
+            "two-two"
+          ]
+        ]
+      }
+    }
+  ]
+}

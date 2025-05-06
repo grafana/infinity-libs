@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/framesql"
@@ -28,7 +29,7 @@ func FilterExpression(input []*data.Frame, options FilterExpressionOptions) ([]*
 
 func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error) {
 	if frame == nil {
-		return frame, nil
+		return nil, ErrEvaluatingFilterExpressionWithEmptyFrame
 	}
 	if frame.Rows() == 0 {
 		return frame, nil
@@ -38,6 +39,11 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 	}
 	filteredFrame := frame.EmptyCopy()
 	filteredFrame.Meta = frame.Meta
+	for i := range filteredFrame.Fields {
+		if frame.Fields[i].Labels == nil {
+			filteredFrame.Fields[i].Labels = nil
+		}
+	}
 	rowLen, err := frame.RowLen()
 	if err != nil {
 		return frame, err
@@ -62,9 +68,7 @@ func ApplyFilter(frame *data.Frame, filterExpression string) (*data.Frame, error
 		parameters := map[string]any{"frame": frame, "null": nil, "nil": nil, "rowIndex": inRowIdx}
 		for _, field := range frame.Fields {
 			var v any = nil
-			if fieldOriginalValue, ok := field.ConcreteAt(inRowIdx); fieldOriginalValue != nil && ok {
-				v = framesql.GetValue(fieldOriginalValue)
-			}
+			v = GetNormalizedValueForExpressionEvaluation(field, inRowIdx)
 			parameters[framesql.SlugifyFieldName(field.Name)] = v
 			parameters[field.Name] = v
 		}
@@ -93,4 +97,24 @@ func checkIfInvalidFilterExpression(err error) bool {
 	// Check if the error is due to an invalid token
 	// This error is not exported by the govaluate library, so we need to check the error message
 	return strings.Contains(err.Error(), "Invalid token:")
+}
+
+// GetNormalizedValueForExpressionEvaluation normalizes the value of a field at a specific row index
+// for use in expression evaluation. It handles nullable fields, time fields, and ensures the value
+// is in a consistent format for evaluation.
+func GetNormalizedValueForExpressionEvaluation(field *data.Field, index int) (v any) {
+	switch field.Type() {
+	case data.FieldTypeTime:
+		return framesql.GetValue(field.At(index)).(time.Time).UTC().Unix()
+	case data.FieldTypeNullableTime:
+		if field.NilAt(index) {
+			return 0
+		}
+		return field.At(index).(*time.Time).UTC().Unix()
+	default:
+		if (field.Nullable() && !field.NilAt(index)) || !field.Nullable() {
+			v = framesql.GetValue(field.At(index))
+		}
+		return v
+	}
 }

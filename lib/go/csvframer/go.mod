@@ -1,11 +1,11 @@
 module github.com/grafana/infinity-libs/lib/go/csvframer
 
-go 1.22.1
+go 1.24.1
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.259.0
-	github.com/grafana/infinity-libs/lib/go/gframer v1.0.0
-	github.com/stretchr/testify v1.9.0
+	github.com/grafana/infinity-libs/lib/go/gframer v1.1.0
+	github.com/stretchr/testify v1.10.0
 )
 
 require (
