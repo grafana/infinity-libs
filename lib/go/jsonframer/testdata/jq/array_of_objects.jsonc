@@ -1,0 +1,66 @@
+//  🌟 This was machine generated.  Do not edit. 🌟
+//  
+//  Frame[0] {
+//      "typeVersion": [
+//          0,
+//          0
+//      ]
+//  }
+//  Name: 
+//  Dimensions: 2 Fields by 2 Rows
+//  +-----------------+-----------------+
+//  | Name: bar       | Name: foo       |
+//  | Labels:         | Labels:         |
+//  | Type: []*string | Type: []*string |
+//  +-----------------+-----------------+
+//  | bar1            | foo1            |
+//  | bar2            | foo2            |
+//  +-----------------+-----------------+
+//  
+//  
+//  🌟 This was machine generated.  Do not edit. 🌟
+{
+  "status": 200,
+  "frames": [
+    {
+      "schema": {
+        "meta": {
+          "typeVersion": [
+            0,
+            0
+          ]
+        },
+        "fields": [
+          {
+            "name": "bar",
+            "type": "string",
+            "typeInfo": {
+              "frame": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "foo",
+            "type": "string",
+            "typeInfo": {
+              "frame": "string",
+              "nullable": true
+            }
+          }
+        ]
+      },
+      "data": {
+        "values": [
+          [
+            "bar1",
+            "bar2"
+          ],
+          [
+            "foo1",
+            "foo2"
+          ]
+        ]
+      }
+    }
+  ]
+}

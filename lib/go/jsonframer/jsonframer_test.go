@@ -229,5 +229,31 @@ func TestGetRootData(t *testing.T) {
 				experimental.CheckGoldenJSONFrame(t, "testdata/jq", strings.ReplaceAll(strings.ReplaceAll(t.Name(), "TestGetRootData/jq/downstream_tests/", ""), " ", ""), gotFrame, true)
 			})
 		})
+		t.Run("basic tests", func(t *testing.T) {
+			t.Run("simple object", func(t *testing.T) {
+				jsonContent := `{ "foo" : "foo1", "bar" : "bar1" }`
+				options := jsonframer.FramerOptions{FramerType: jsonframer.FramerTypeJQ, RootSelector: "."}
+				gotFrame, err := jsonframer.ToFrame(jsonContent, options)
+				require.Nil(t, err)
+				require.NotNil(t, gotFrame)
+				experimental.CheckGoldenJSONFrame(t, "testdata/jq", strings.ReplaceAll(strings.ReplaceAll(t.Name(), "TestGetRootData/jq/basic_tests/", ""), " ", ""), gotFrame, true)
+			})
+			t.Run("array of object", func(t *testing.T) {
+				jsonContent := `[{ "foo" : "foo1", "bar" : "bar1" }]`
+				options := jsonframer.FramerOptions{FramerType: jsonframer.FramerTypeJQ, RootSelector: "."}
+				gotFrame, err := jsonframer.ToFrame(jsonContent, options)
+				require.Nil(t, err)
+				require.NotNil(t, gotFrame)
+				experimental.CheckGoldenJSONFrame(t, "testdata/jq", strings.ReplaceAll(strings.ReplaceAll(t.Name(), "TestGetRootData/jq/basic_tests/", ""), " ", ""), gotFrame, true)
+			})
+			t.Run("array of objects", func(t *testing.T) {
+				jsonContent := `[{ "foo" : "foo1", "bar" : "bar1" }, { "foo" : "foo2", "bar" : "bar2" }]`
+				options := jsonframer.FramerOptions{FramerType: jsonframer.FramerTypeJQ, RootSelector: "."}
+				gotFrame, err := jsonframer.ToFrame(jsonContent, options)
+				require.Nil(t, err)
+				require.NotNil(t, gotFrame)
+				experimental.CheckGoldenJSONFrame(t, "testdata/jq", strings.ReplaceAll(strings.ReplaceAll(t.Name(), "TestGetRootData/jq/basic_tests/", ""), " ", ""), gotFrame, true)
+			})
+		})
 	})
 }
