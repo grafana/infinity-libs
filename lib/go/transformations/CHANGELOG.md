@@ -1,5 +1,10 @@
 # @grafana/infinity-transformations
 
+## 1.0.6
+
+- 🐛 **Bug Fix**: Fixed a bug where null values aren't handled properly with filter expression
+- ⚙️ **Chore**: Update grafana plugin SDK from v0.240.0 to v0.277.0
+
 ## 1.0.5
 
 - 🐛 **Bug Fix**: Fixed a bug where summarize function didn't handle empty frames
