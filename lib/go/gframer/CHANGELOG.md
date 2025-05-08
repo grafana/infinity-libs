@@ -1,5 +1,9 @@
 # @grafana/infinity-gframer
 
+## 1.1.2
+
+- ⚙️ **Chore**: Update grafana plugin SDK from v0.240.0 to v0.277.0
+
 ## 1.1.1
 
 - ⚙️ **Chore**: Updated frontend and backend dependencies

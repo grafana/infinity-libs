@@ -1,5 +1,14 @@
 # @grafana/infinity-jsonframer
 
+## 1.3.0
+
+- 🎉 **JQ**: Added support for jq based root selector
+- ⚙️ **Chore**: Update grafana plugin SDK from v0.240.0 to v0.277.0
+
+## 1.2.0
+
+- Added support for JQ syntax in root selector
+
 ## 1.1.5
 
 - ⚙️ **Chore**: Updated frontend and backend dependencies

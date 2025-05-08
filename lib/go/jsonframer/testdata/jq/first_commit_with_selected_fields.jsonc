@@ -1,0 +1,63 @@
+//  🌟 This was machine generated.  Do not edit. 🌟
+//  
+//  Frame[0] {
+//      "typeVersion": [
+//          0,
+//          0
+//      ]
+//  }
+//  Name: 
+//  Dimensions: 2 Fields by 1 Rows
+//  +-------------------------------------------------------------------------+-----------------+
+//  | Name: message                                                           | Name: name      |
+//  | Labels:                                                                 | Labels:         |
+//  | Type: []*string                                                         | Type: []*string |
+//  +-------------------------------------------------------------------------+-----------------+
+//  | jv_unique: don't leak non-unique elements that are not returned (#3304) | GitHub          |
+//  +-------------------------------------------------------------------------+-----------------+
+//  
+//  
+//  🌟 This was machine generated.  Do not edit. 🌟
+{
+  "status": 200,
+  "frames": [
+    {
+      "schema": {
+        "meta": {
+          "typeVersion": [
+            0,
+            0
+          ]
+        },
+        "fields": [
+          {
+            "name": "message",
+            "type": "string",
+            "typeInfo": {
+              "frame": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "typeInfo": {
+              "frame": "string",
+              "nullable": true
+            }
+          }
+        ]
+      },
+      "data": {
+        "values": [
+          [
+            "jv_unique: don't leak non-unique elements that are not returned (#3304)"
+          ],
+          [
+            "GitHub"
+          ]
+        ]
+      }
+    }
+  ]
+}

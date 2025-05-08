@@ -8,6 +8,7 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/gframer"
+	"github.com/itchyny/gojq"
 	"github.com/tidwall/gjson"
 	jsonata "github.com/xiatechs/jsonata-go"
 )
@@ -15,7 +16,9 @@ import (
 type FramerType string
 
 const (
-	FramerTypeGJSON FramerType = "gjson"
+	FramerTypeGJSON   FramerType = "gjson"
+	FramerTypeJsonata FramerType = "jsonata"
+	FramerTypeJQ      FramerType = "jq"
 )
 
 type FrameFormat string
@@ -27,7 +30,7 @@ const (
 )
 
 type FramerOptions struct {
-	FramerType      FramerType // `gjson`
+	FramerType      FramerType // `gjson` | `jsonata` | `jq`
 	FrameName       string
 	RootSelector    string
 	Columns         []ColumnSelector
@@ -57,81 +60,80 @@ func ToFrames(jsonString string, options FramerOptions) (frames []*data.Frame, e
 	if err != nil {
 		return frames, err
 	}
-	switch options.FramerType {
-	default:
-		outString, err := GetRootData(jsonString, options.RootSelector)
-		if err != nil {
-			return frames, err
-		}
-		outString, err = getColumnValuesFromResponseString(outString, options.Columns)
-		if err != nil {
-			return frames, err
-		}
-		result := gjson.Parse(outString)
-		if result.IsArray() {
-			nonArrayItemsFound := false
-			for _, item := range result.Array() {
-				if item.Exists() && !item.IsArray() {
-					nonArrayItemsFound = true
-				}
+
+	outString, err := GetRootData(jsonString, options.RootSelector, options.FramerType)
+	if err != nil {
+		return frames, err
+	}
+	outString, err = getColumnValuesFromResponseString(outString, options.Columns)
+	if err != nil {
+		return frames, err
+	}
+	result := gjson.Parse(outString)
+	if result.IsArray() {
+		nonArrayItemsFound := false
+		for _, item := range result.Array() {
+			if item.Exists() && !item.IsArray() {
+				nonArrayItemsFound = true
 			}
-			if nonArrayItemsFound {
-				frame, err := getFrameFromResponseString(outString, options)
-				if err != nil {
-					return frames, err
-				}
-				frames = append(frames, frame)
+		}
+		if nonArrayItemsFound {
+			frame, err := getFrameFromResponseString(outString, options)
+			if err != nil {
 				return frames, err
 			}
-			for _, v := range result.Array() {
-				frame, err := getFrameFromResponseString(v.Raw, options)
-				if err != nil {
-					return frames, err
-				}
-				if frame != nil {
-					if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
-						frame, err = data.LongToWide(frame, nil)
-						if err != nil {
-							return frames, err
-						}
-					}
-					frames = append(frames, frame)
-				}
-			}
-			if options.FrameFormat == FrameFormatTimeSeries && len(frames) > 1 {
-				for k := range frames {
-					if frames[k].Meta == nil {
-						frames[k].Meta = &data.FrameMeta{}
-					}
-					frames[k].Meta.Type = data.FrameTypeTimeSeriesMulti
-					frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
-				}
-			}
-			if options.FrameFormat == FrameFormatNumeric && len(frames) > 1 {
-				for k := range frames {
-					if frames[k].Meta == nil {
-						frames[k].Meta = &data.FrameMeta{}
-					}
-					frames[k].Meta.Type = data.FrameTypeNumericMulti
-					frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
-				}
-			}
-			return frames, err
-		}
-		frame, err := getFrameFromResponseString(outString, options)
-		if err != nil {
-			return frames, err
-		}
-		if frame != nil {
-			if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
-				frame, err = data.LongToWide(frame, nil)
-				if err != nil {
-					return frames, err
-				}
-			}
 			frames = append(frames, frame)
+			return frames, err
 		}
+		for _, v := range result.Array() {
+			frame, err := getFrameFromResponseString(v.Raw, options)
+			if err != nil {
+				return frames, err
+			}
+			if frame != nil {
+				if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
+					frame, err = data.LongToWide(frame, nil)
+					if err != nil {
+						return frames, err
+					}
+				}
+				frames = append(frames, frame)
+			}
+		}
+		if options.FrameFormat == FrameFormatTimeSeries && len(frames) > 1 {
+			for k := range frames {
+				if frames[k].Meta == nil {
+					frames[k].Meta = &data.FrameMeta{}
+				}
+				frames[k].Meta.Type = data.FrameTypeTimeSeriesMulti
+				frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+			}
+		}
+		if options.FrameFormat == FrameFormatNumeric && len(frames) > 1 {
+			for k := range frames {
+				if frames[k].Meta == nil {
+					frames[k].Meta = &data.FrameMeta{}
+				}
+				frames[k].Meta.Type = data.FrameTypeNumericMulti
+				frames[k].Meta.TypeVersion = data.FrameTypeVersion{0, 1}
+			}
+		}
+		return frames, err
 	}
+	frame, err := getFrameFromResponseString(outString, options)
+	if err != nil {
+		return frames, err
+	}
+	if frame != nil {
+		if options.FrameFormat == FrameFormatTimeSeries && frame.TimeSeriesSchema().Type == data.TimeSeriesTypeLong {
+			frame, err = data.LongToWide(frame, nil)
+			if err != nil {
+				return frames, err
+			}
+		}
+		frames = append(frames, frame)
+	}
+
 	return frames, err
 }
 
@@ -140,7 +142,7 @@ func ToFrame(jsonString string, options FramerOptions) (frame *data.Frame, err e
 	if err != nil {
 		return frame, err
 	}
-	outString, err := GetRootData(jsonString, options.RootSelector)
+	outString, err := GetRootData(jsonString, options.RootSelector, options.FramerType)
 	if err != nil {
 		return frame, err
 	}
@@ -151,35 +153,77 @@ func ToFrame(jsonString string, options FramerOptions) (frame *data.Frame, err e
 	return getFrameFromResponseString(outString, options)
 }
 
-func GetRootData(jsonString string, rootSelector string) (string, error) {
-	if rootSelector != "" {
-		r := gjson.Get(string(jsonString), rootSelector)
-		if r.Exists() {
-			return r.String(), nil
-		}
-		expr, err := jsonata.Compile(rootSelector)
+func GetRootData(jsonString string, rootSelector string, framerType FramerType) (string, error) {
+	if rootSelector == "" {
+		return jsonString, nil
+	}
+	if framerType == FramerTypeJQ {
+		query, err := gojq.Parse(rootSelector)
 		if err != nil {
-			return "", errors.Join(ErrInvalidRootSelector, err)
-		}
-		if expr == nil {
-			return "", errors.Join(ErrInvalidRootSelector)
+			return "", errors.Join(ErrInvalidJQSelector, err)
 		}
 		var data any
 		err = json.Unmarshal([]byte(jsonString), &data)
 		if err != nil {
-			return "", errors.Join(ErrInvalidJSONContent, err)
+			return "", errors.Join(ErrUnMarshalingJSON, err)
 		}
-		res, err := expr.Eval(data)
+		iter := query.Run(data)
+		out := []any{}
+		for {
+			v, ok := iter.Next()
+			if !ok {
+				break
+			}
+			if err, ok := v.(error); ok {
+				if err, ok := err.(*gojq.HaltError); ok && err.Value() == nil {
+					break
+				}
+				return "", errors.Join(ErrExecutingJQ, err)
+			}
+			out = append(out, v)
+		}
+		// if the result is array of 1 element array, ignore the outer array and return that single element from inner array
+		if len(out) == 1 {
+			if v, ok := out[0].([]any); ok {
+				outStr, err := json.Marshal(v)
+				if err != nil {
+					return "", errors.Join(ErrMarshalingJSON, err)
+				}
+				return string(outStr), nil
+			}
+		}
+		outStr, err := json.Marshal(out)
 		if err != nil {
-			return "", errors.Join(ErrEvaluatingJSONata, err)
+			return "", errors.Join(ErrMarshalingJSON, err)
 		}
-		r2, err := json.Marshal(res)
-		if err != nil {
-			return "", errors.Join(ErrInvalidJSONContent, err)
-		}
-		return string(r2), nil
+		return string(outStr), nil
 	}
-	return jsonString, nil
+
+	r := gjson.Get(string(jsonString), rootSelector)
+	if r.Exists() {
+		return r.String(), nil
+	}
+	expr, err := jsonata.Compile(rootSelector)
+	if err != nil {
+		return "", errors.Join(ErrInvalidRootSelector, err)
+	}
+	if expr == nil {
+		return "", errors.Join(ErrInvalidRootSelector)
+	}
+	var data any
+	err = json.Unmarshal([]byte(jsonString), &data)
+	if err != nil {
+		return "", errors.Join(ErrInvalidJSONContent, err)
+	}
+	res, err := expr.Eval(data)
+	if err != nil {
+		return "", errors.Join(ErrEvaluatingJSONata, err)
+	}
+	r2, err := json.Marshal(res)
+	if err != nil {
+		return "", errors.Join(ErrInvalidJSONContent, err)
+	}
+	return string(r2), nil
 }
 
 func getColumnValuesFromResponseString(responseString string, columns []ColumnSelector) (string, error) {

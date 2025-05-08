@@ -10,6 +10,7 @@ import (
 )
 
 type FramerOptions struct {
+	FramerType   string
 	FrameName    string
 	RootSelector string
 	Columns      []jsonframer.ColumnSelector
@@ -22,10 +23,13 @@ func ToFrame(xmlString string, options FramerOptions) (*data.Frame, error) {
 		return nil, errors.Join(errors.New("error converting xml to grafana data frame"), err)
 	}
 	framerOptions := jsonframer.FramerOptions{
-		FramerType:   jsonframer.FramerTypeGJSON,
+		FramerType:   jsonframer.FramerType(options.FramerType),
 		FrameName:    options.FrameName,
 		RootSelector: options.RootSelector,
 		Columns:      options.Columns,
+	}
+	if framerOptions.FramerType == "" {
+		framerOptions.FramerType = jsonframer.FramerTypeGJSON
 	}
 	return jsonframer.ToFrame(jsonStr.String(), framerOptions)
 }
