@@ -26,11 +26,39 @@ func ApplyRootSelector(jsonString string, rootSelector string, framerType Framer
 }
 
 func ApplyRootSelectorUsingGJSON(jsonString string, rootSelector string) (string, error) {
-	r := gjson.Get(string(jsonString), rootSelector)
+	r := gjson.Get(jsonString, rootSelector)
 	if r.Exists() {
 		return r.String(), nil
 	}
 	return jsonString, ErrInvalidRootSelector
+}
+
+func ApplyRootSelectorUsingJSONata(jsonString string, rootSelector string) (string, error) {
+	expr, err := jsonata.Compile(rootSelector)
+	if err != nil {
+		return "", errors.Join(ErrInvalidRootSelector, err)
+	}
+	if expr == nil {
+		return "", errors.Join(ErrInvalidRootSelector)
+	}
+	return ApplyRootSelectorUsingJSONataExpression(jsonString, expr)
+}
+
+func ApplyRootSelectorUsingJSONataExpression(jsonString string, expr *jsonata.Expr) (string, error) {
+	var data any
+	err := json.Unmarshal([]byte(jsonString), &data)
+	if err != nil {
+		return "", errors.Join(ErrInvalidJSONContent, err)
+	}
+	res, err := expr.Eval(data)
+	if err != nil {
+		return "", errors.Join(ErrEvaluatingJSONata, err)
+	}
+	r2, err := json.Marshal(res)
+	if err != nil {
+		return "", errors.Join(ErrInvalidJSONContent, err)
+	}
+	return string(r2), nil
 }
 
 func ApplyRootSelectorUsingJQ(jsonString string, rootSelector string) (string, error) {
@@ -38,8 +66,12 @@ func ApplyRootSelectorUsingJQ(jsonString string, rootSelector string) (string, e
 	if err != nil {
 		return "", errors.Join(ErrInvalidJQSelector, err)
 	}
+	return ApplyRootSelectorUsingJQQuery(jsonString, query)
+}
+
+func ApplyRootSelectorUsingJQQuery(jsonString string, query *gojq.Query) (string, error) {
 	var data any
-	err = json.Unmarshal([]byte(jsonString), &data)
+	err := json.Unmarshal([]byte(jsonString), &data)
 	if err != nil {
 		return "", errors.Join(ErrUnMarshalingJSON, err)
 	}
@@ -58,7 +90,6 @@ func ApplyRootSelectorUsingJQ(jsonString string, rootSelector string) (string, e
 		}
 		out = append(out, v)
 	}
-	// if the result is array of 1 element array, ignore the outer array and return that single element from inner array
 	if len(out) == 1 {
 		if v, ok := out[0].([]any); ok {
 			outStr, err := json.Marshal(v)
@@ -75,54 +106,14 @@ func ApplyRootSelectorUsingJQ(jsonString string, rootSelector string) (string, e
 	return string(outStr), nil
 }
 
-func ApplyRootSelectorUsingJSONata(jsonString string, rootSelector string) (string, error) {
-	expr, err := jsonata.Compile(rootSelector)
-	if err != nil {
-		return "", errors.Join(ErrInvalidRootSelector, err)
-	}
-	if expr == nil {
-		return "", errors.Join(ErrInvalidRootSelector)
-	}
-	var data any
-	err = json.Unmarshal([]byte(jsonString), &data)
-	if err != nil {
-		return "", errors.Join(ErrInvalidJSONContent, err)
-	}
-	res, err := expr.Eval(data)
-	if err != nil {
-		return "", errors.Join(ErrEvaluatingJSONata, err)
-	}
-	r2, err := json.Marshal(res)
-	if err != nil {
-		return "", errors.Join(ErrInvalidJSONContent, err)
-	}
-	return string(r2), nil
-}
-
+// ApplyRootSelectorUsingWithGuess method try to guess the root selector (for legacy reasons)
+// First it will attempt to GJSON based selector (used by many users)
+// If the GJSON based selection failed, it will default fallback to JSONata based selection
+// Intentionally we are not falling back to JQ yet
 func ApplyRootSelectorUsingWithGuess(jsonString string, rootSelector string) (string, error) {
-	r := gjson.Get(string(jsonString), rootSelector)
+	r := gjson.Get(jsonString, rootSelector)
 	if r.Exists() {
 		return r.String(), nil
 	}
-	expr, err := jsonata.Compile(rootSelector)
-	if err != nil {
-		return "", errors.Join(ErrInvalidRootSelector, err)
-	}
-	if expr == nil {
-		return "", errors.Join(ErrInvalidRootSelector)
-	}
-	var data any
-	err = json.Unmarshal([]byte(jsonString), &data)
-	if err != nil {
-		return "", errors.Join(ErrInvalidJSONContent, err)
-	}
-	res, err := expr.Eval(data)
-	if err != nil {
-		return "", errors.Join(ErrEvaluatingJSONata, err)
-	}
-	r2, err := json.Marshal(res)
-	if err != nil {
-		return "", errors.Join(ErrInvalidJSONContent, err)
-	}
-	return string(r2), nil
+	return ApplyRootSelectorUsingJSONata(jsonString, rootSelector)
 }
