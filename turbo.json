@@ -6,6 +6,11 @@
       "inputs": ["go.mod"],
       "outputs": ["go.mod", "go.sum"]
     },
+    "bench:backend": {
+      "cache": false,
+      "inputs": ["**/*.go", "go.mod", "go.sum"],
+      "outputs": []
+    },
     "test:backend": {
       "inputs": ["**/*.go", "go.mod", "go.sum"],
       "outputs": []
