@@ -108,7 +108,7 @@ func ApplyRootSelector(csvArray []any, rootSelector string, framerType jsonframe
 	var outObj any
 	jsonUnMarshallErr := json.Unmarshal([]byte(outString), &outObj)
 	if jsonUnMarshallErr != nil {
-		return nil, err
+		return nil, jsonUnMarshallErr
 	}
 	return outObj, nil
 }
