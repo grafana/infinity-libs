@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"strings"
-
 	"github.com/itchyny/gojq"
 	"github.com/tidwall/gjson"
 	jsonata "github.com/xiatechs/jsonata-go"
