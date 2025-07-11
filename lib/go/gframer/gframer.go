@@ -159,8 +159,8 @@ func sliceToFrame(name string, input []interface{}, options FramerOptions) (fram
 						if fieldType != data.FieldTypeJSON {
 							if len(options.Columns) > 0 {
 								for _, c := range options.Columns {
-									if c.Alias == k || (c.Alias == "" && c.Selector == k) || (c.Alias != "" && c.Selector == k) {
-										if c.Alias != "" && c.Selector == k {
+									if c.Selector == k {
+										if c.Alias != "" {
 											k = c.Alias
 										}
 										switch c.Type {
