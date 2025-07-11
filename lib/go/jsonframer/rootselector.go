@@ -52,7 +52,7 @@ func ApplyRootSelectorUsingJSONataExpression(jsonString string, expr *jsonata.Ex
 	}
 	res, err := expr.Eval(data)
 	if err != nil {
-		if strings.Contains(err.Error(), "argument") { // TODO: Fix error handling in jsonata-go library when dealing with missed argument
+		if errors.Is(err, ErrJSONataArgumentError) { // Check for specific error type
 			return "", ErrEvaluatingJSONata
 		}
 		return "", errors.Join(ErrEvaluatingJSONata, err)
