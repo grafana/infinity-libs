@@ -2,6 +2,7 @@ package csvframer
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -9,6 +10,7 @@ import (
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/gframer"
+	"github.com/grafana/infinity-libs/lib/go/jsonframer"
 )
 
 type FramerOptions struct {
@@ -19,6 +21,8 @@ type FramerOptions struct {
 	Comment            string
 	RelaxColumnCount   bool
 	NoHeaders          bool
+	FramerType         jsonframer.FramerType // `gjson` | `jsonata` | `jq`
+	RootSelector       string
 }
 
 func ToFrame(csvString string, options FramerOptions) (frame *data.Frame, err error) {
@@ -57,7 +61,7 @@ func ToFrame(csvString string, options FramerOptions) (frame *data.Frame, err er
 		header = parsedCSV[0]
 		for idx, hItem := range header {
 			for _, col := range options.Columns {
-				if col.Selector == hItem && col.Alias != "" {
+				if col.Selector == hItem && col.Alias != "" && options.RootSelector == "" {
 					header[idx] = col.Alias
 				}
 			}
@@ -81,9 +85,30 @@ func ToFrame(csvString string, options FramerOptions) (frame *data.Frame, err er
 		}
 		out = append(out, item)
 	}
-	framerOptions := gframer.FramerOptions{
-		FrameName: options.FrameName,
-		Columns:   options.Columns,
+	framerOptions := gframer.FramerOptions{FrameName: options.FrameName, Columns: options.Columns}
+	if options.RootSelector != "" {
+		outObj, err := ApplyRootSelector(out, options.RootSelector, options.FramerType)
+		if err != nil {
+			return nil, err
+		}
+		return gframer.ToDataFrame(outObj, framerOptions)
 	}
 	return gframer.ToDataFrame(out, framerOptions)
+}
+
+func ApplyRootSelector(csvArray []any, rootSelector string, framerType jsonframer.FramerType) (any, error) {
+	outStringBytes, err := json.Marshal(csvArray)
+	if err != nil {
+		return nil, err
+	}
+	outString, err := jsonframer.ApplyRootSelector(string(outStringBytes), rootSelector, framerType)
+	if err != nil {
+		return nil, err
+	}
+	var outObj any
+	jsonUnMarshallErr := json.Unmarshal([]byte(outString), &outObj)
+	if jsonUnMarshallErr != nil {
+		return nil, jsonUnMarshallErr
+	}
+	return outObj, nil
 }
