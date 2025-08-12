@@ -6,9 +6,9 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/casbin/govaluate"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	dataFrameField "github.com/grafana/infinity-libs/lib/go/framesql/field"
-	"gopkg.in/Knetic/govaluate.v3"
 )
 
 func EvaluateInFrame(expression string, input *data.Frame) (any, error) {

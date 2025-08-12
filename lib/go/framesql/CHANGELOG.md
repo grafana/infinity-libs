@@ -1,5 +1,9 @@
 # @grafana/infinity-framesql
 
+## 2.0.0
+
+- ⚙️ **Chore**: Replaced deprecated gopkg.in/Knetic/govaluate.v3 package with github.com/casbin/govaluate
+
 ## 1.0.4
 
 - ⚙️ **Chore**: Update grafana plugin SDK from v0.240.0 to v0.277.0
