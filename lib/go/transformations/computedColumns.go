@@ -3,9 +3,9 @@ package transformations
 import (
 	"strings"
 
+	"github.com/casbin/govaluate"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/infinity-libs/lib/go/framesql"
-	"gopkg.in/Knetic/govaluate.v3"
 )
 
 type ComputedColumn struct {
