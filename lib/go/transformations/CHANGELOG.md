@@ -1,5 +1,9 @@
 # @grafana/infinity-transformations
 
+## 1.1.0
+
+- ⚙️ **Chore**: Replaced deprecated gopkg.in/Knetic/govaluate.v3 package with github.com/casbin/govaluate
+
 ## 1.0.6
 
 - 🐛 **Bug Fix**: Fixed a bug where null values aren't handled properly with filter expression

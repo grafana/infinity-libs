@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/araddon/dateparse"
+	"github.com/casbin/govaluate"
 	"github.com/google/uuid"
-	"gopkg.in/Knetic/govaluate.v3"
 )
 
 var ExpressionFunctions = map[string]govaluate.ExpressionFunction{
