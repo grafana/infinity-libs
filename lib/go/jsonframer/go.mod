@@ -1,6 +1,6 @@
 module github.com/grafana/infinity-libs/lib/go/jsonframer
 
-go 1.24.1
+go 1.24.6
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.277.0
