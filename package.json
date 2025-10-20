@@ -19,7 +19,7 @@
   "packageManager": "yarn@1.22.22",
   "dependencies": {},
   "devDependencies": {
-    "@changesets/cli": "^2.27.12",
+    "@changesets/cli": "^2.29.3",
     "cspell": "8.15.7",
     "turbo": "2.2.3"
   },
