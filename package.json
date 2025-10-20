@@ -20,7 +20,7 @@
   "dependencies": {},
   "devDependencies": {
     "@changesets/cli": "^2.27.12",
-    "cspell": "8.15.7",
+    "cspell": "8.19.4",
     "turbo": "2.2.3"
   },
   "resolutions": {
