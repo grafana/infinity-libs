@@ -5,7 +5,7 @@ go 1.24.6
 require (
 	github.com/basgys/goxml2json v1.1.0
 	github.com/grafana/grafana-plugin-sdk-go v0.277.0
-	github.com/grafana/infinity-libs/lib/go/jsonframer v1.1.0
+	github.com/grafana/infinity-libs/lib/go/jsonframer v1.3.0
 )
 
 require (
@@ -15,8 +15,10 @@ require (
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/google/flatbuffers v25.2.10+incompatible // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/grafana/infinity-libs/lib/go/gframer v1.0.0 // indirect
+	github.com/grafana/infinity-libs/lib/go/gframer v1.1.0 // indirect
 	github.com/grafana/infinity-libs/lib/go/utils v1.0.0 // indirect
+	github.com/itchyny/gojq v0.12.17 // indirect
+	github.com/itchyny/timefmt-go v0.1.6 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.10 // indirect
