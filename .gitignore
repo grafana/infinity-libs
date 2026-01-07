@@ -1,5 +1,6 @@
 # packages
 node_modules
+.yarn/install-state.gz
 
 # build
 .turbo
