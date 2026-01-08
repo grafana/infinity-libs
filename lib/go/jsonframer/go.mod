@@ -4,7 +4,7 @@ go 1.24.6
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.284.0
-	github.com/grafana/infinity-libs/lib/go/gframer v1.1.0
+	github.com/grafana/infinity-libs/lib/go/gframer v1.1.2
 	github.com/itchyny/gojq v0.12.18
 	github.com/stretchr/testify v1.11.1
 	github.com/tidwall/gjson v1.18.0
