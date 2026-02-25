@@ -4,7 +4,7 @@ go 1.25.6
 
 require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
-	github.com/casbin/govaluate v1.9.0
+	github.com/casbin/govaluate v1.10.0
 	github.com/google/uuid v1.6.0
 	github.com/grafana/grafana-plugin-sdk-go v0.289.0
 	github.com/grafana/infinity-libs/lib/go/framesql v1.1.0
