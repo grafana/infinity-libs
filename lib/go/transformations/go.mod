@@ -1,12 +1,12 @@
 module github.com/grafana/infinity-libs/lib/go/transformations
 
-go 1.25.6
+go 1.25.7
 
 require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/casbin/govaluate v1.10.0
 	github.com/google/uuid v1.6.0
-	github.com/grafana/grafana-plugin-sdk-go v0.289.0
+	github.com/grafana/grafana-plugin-sdk-go v0.290.0
 	github.com/grafana/infinity-libs/lib/go/framesql v1.1.0
 	github.com/grafana/infinity-libs/lib/go/utils v1.0.1
 	github.com/stretchr/testify v1.11.1
