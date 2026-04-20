@@ -4,7 +4,7 @@ go 1.25.7
 
 require (
 	github.com/casbin/govaluate v1.10.0
-	github.com/grafana/grafana-plugin-sdk-go v0.291.0
+	github.com/grafana/grafana-plugin-sdk-go v0.291.1
 	github.com/grafana/infinity-libs/lib/go/utils v1.0.1
 	github.com/stretchr/testify v1.11.1
 )
