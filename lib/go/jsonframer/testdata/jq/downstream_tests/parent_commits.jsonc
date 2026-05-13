@@ -15,51 +15,42 @@
 //  +--------------------------------------------------------------------------------------------+-----------------+----------------------------------------------------------------------------------+
 //  | jv_unique: don't leak non-unique elements that are not returned (#3304)                    | GitHub          | ["https://github.com/jqlang/jq/commit/947fcbbb1fedbdd6021ef3f93782a500e32d5dcd"] |
 //  | build(deps): bump jsonschema from 4.18.4 to 4.23.0 in /docs (#3302)                        | GitHub          | ["https://github.com/jqlang/jq/commit/1e22960cf5877c04e4f507f34e1c2d64074fabe6"] |
-//  |                                                                                            |                 |                                                                                  |
 //  | Bumps [jsonschema](https://github.com/python-jsonschema/jsonschema) from 4.18.4 to 4.23.0. |                 |                                                                                  |
 //  | - [Release notes](https://github.com/python-jsonschema/jsonschema/releases)                |                 |                                                                                  |
 //  | - [Changelog](https://github.com/python-jsonschema/jsonschema/blob/main/CHANGELOG.rst)     |                 |                                                                                  |
 //  | - [Commits](https://github.com/python-jsonschema/jsonschema/compare/v4.18.4...v4.23.0)     |                 |                                                                                  |
-//  |                                                                                            |                 |                                                                                  |
 //  | ---                                                                                        |                 |                                                                                  |
 //  | updated-dependencies:                                                                      |                 |                                                                                  |
 //  | - dependency-name: jsonschema                                                              |                 |                                                                                  |
 //  |   dependency-type: direct:production                                                       |                 |                                                                                  |
 //  |   update-type: version-update:semver-minor                                                 |                 |                                                                                  |
 //  | ...                                                                                        |                 |                                                                                  |
-//  |                                                                                            |                 |                                                                                  |
 //  | Signed-off-by: dependabot[bot] <support@github.com>                                        |                 |                                                                                  |
 //  | Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>        |                 |                                                                                  |
 //  | build(deps): bump lxml from 4.9.3 to 5.3.1 in /docs (#3301)                                | GitHub          | ["https://github.com/jqlang/jq/commit/0b2bda81089056d511031d3cf1b4b5f3db4f39c2"] |
-//  |                                                                                            |                 |                                                                                  |
 //  | Bumps [lxml](https://github.com/lxml/lxml) from 4.9.3 to 5.3.1.                            |                 |                                                                                  |
 //  | - [Release notes](https://github.com/lxml/lxml/releases)                                   |                 |                                                                                  |
 //  | - [Changelog](https://github.com/lxml/lxml/blob/master/CHANGES.txt)                        |                 |                                                                                  |
 //  | - [Commits](https://github.com/lxml/lxml/compare/lxml-4.9.3...lxml-5.3.1)                  |                 |                                                                                  |
-//  |                                                                                            |                 |                                                                                  |
 //  | ---                                                                                        |                 |                                                                                  |
 //  | updated-dependencies:                                                                      |                 |                                                                                  |
 //  | - dependency-name: lxml                                                                    |                 |                                                                                  |
 //  |   dependency-type: direct:production                                                       |                 |                                                                                  |
 //  |   update-type: version-update:semver-major                                                 |                 |                                                                                  |
 //  | ...                                                                                        |                 |                                                                                  |
-//  |                                                                                            |                 |                                                                                  |
 //  | Signed-off-by: dependabot[bot] <support@github.com>                                        |                 |                                                                                  |
 //  | Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>        |                 |                                                                                  |
 //  | build(deps): bump markdown from 3.4.3 to 3.7 in /docs (#3300)                              | GitHub          | ["https://github.com/jqlang/jq/commit/5f7b1aed16d213445e55f5257248e201a9e5d396"] |
-//  |                                                                                            |                 |                                                                                  |
 //  | Bumps [markdown](https://github.com/Python-Markdown/markdown) from 3.4.3 to 3.7.           |                 |                                                                                  |
 //  | - [Release notes](https://github.com/Python-Markdown/markdown/releases)                    |                 |                                                                                  |
 //  | - [Changelog](https://github.com/Python-Markdown/markdown/blob/master/docs/changelog.md)   |                 |                                                                                  |
 //  | - [Commits](https://github.com/Python-Markdown/markdown/compare/3.4.3...3.7)               |                 |                                                                                  |
-//  |                                                                                            |                 |                                                                                  |
 //  | ---                                                                                        |                 |                                                                                  |
 //  | updated-dependencies:                                                                      |                 |                                                                                  |
 //  | - dependency-name: markdown                                                                |                 |                                                                                  |
 //  |   dependency-type: direct:production                                                       |                 |                                                                                  |
 //  |   update-type: version-update:semver-minor                                                 |                 |                                                                                  |
 //  | ...                                                                                        |                 |                                                                                  |
-//  |                                                                                            |                 |                                                                                  |
 //  | Signed-off-by: dependabot[bot] <support@github.com>                                        |                 |                                                                                  |
 //  | Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>        |                 |                                                                                  |
 //  | fix usage in help to use `jq` not the invoked command path (#3299)                         | GitHub          | ["https://github.com/jqlang/jq/commit/8819eb8fb479de3a9b0688c2c2346582289eed64"] |
