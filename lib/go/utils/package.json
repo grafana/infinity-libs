@@ -6,5 +6,8 @@
   "scripts": {
     "tidy": "go mod tidy",
     "test:backend": "go test -v  ./..."
+  },
+  "engines": {
+    "node": ">=24"
   }
 }
