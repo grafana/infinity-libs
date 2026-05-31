@@ -8,12 +8,12 @@ defaults:
   run:
     shell: bash
     working-directory: ./
-permissions:
-  contents: read
 env:
   DO_NOT_TRACK: 1
 jobs:
   build:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
