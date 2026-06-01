@@ -1,5 +1,9 @@
 # @grafana/infinity-csvframer
 
+## 1.0.4
+
+- ⚙️ **Chore**: updated deps
+
 ## 1.0.3
 
 - ⚙️ **Chore**: Update grafana plugin SDK from v0.240.0 to v0.277.0
