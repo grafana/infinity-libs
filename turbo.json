@@ -1,18 +1,31 @@
 {
-  "$schema": "https://turbo.build/schema.json",
+  "$schema": "https://v2-9-16.turborepo.dev/schema.json",
   "tasks": {
     "tidy": {
       "cache": false,
-      "inputs": ["go.mod"],
-      "outputs": ["go.mod", "go.sum"]
+      "inputs": [
+        "go.mod"
+      ],
+      "outputs": [
+        "go.mod",
+        "go.sum"
+      ]
     },
     "bench:backend": {
       "cache": false,
-      "inputs": ["**/*.go", "go.mod", "go.sum"],
+      "inputs": [
+        "**/*.go",
+        "go.mod",
+        "go.sum"
+      ],
       "outputs": []
     },
     "test:backend": {
-      "inputs": ["**/*.go", "go.mod", "go.sum"],
+      "inputs": [
+        "**/*.go",
+        "go.mod",
+        "go.sum"
+      ],
       "outputs": []
     }
   }

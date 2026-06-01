@@ -1,5 +1,9 @@
 # @grafana/infinity-transformations
 
+## 1.1.1
+
+- ⚙️ **Chore**: updated deps
+
 ## 1.1.0
 
 - ⚙️ **Chore**: Replaced deprecated gopkg.in/Knetic/govaluate.v3 package with github.com/casbin/govaluate
