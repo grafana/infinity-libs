@@ -2,7 +2,7 @@
 
 ## 1.3.1
 
-- ⚙️ **Chore**: pdated deps
+- ⚙️ **Chore**: updated deps
 
 ## 1.3.0
 
