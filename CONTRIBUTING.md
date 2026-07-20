@@ -4,7 +4,7 @@
 
 - Git
 - NodeJS 24.15.0
-- Yarn 4.15.0
+- npm 11.18.0
 - go 1.26.3
 - Mage 1.16.0
 - Docker
@@ -12,8 +12,8 @@
 ## How to run this locally
 
 - Clone the repo locally `git clone https://github.com/grafana/infinity-libs infinity-libs` and `cd infinity-libs`
-- Install packages `yarn install --immutable`
-- Run the backend tests with `yarn test`
+- Install packages `npm ci`
+- Run the backend tests with `npm test`
 
 ## Releasing
 
