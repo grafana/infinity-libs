@@ -16,11 +16,11 @@
     "watch": "turbo watch test:backend",
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\""
   },
-  "packageManager": "yarn@4.15.0",
+  "packageManager": "yarn@4.17.1",
   "devDependencies": {
-    "@changesets/cli": "2.31.0",
+    "@changesets/cli": "2.31.1",
     "cspell": "10.0.1",
-    "turbo": "2.9.16"
+    "turbo": "2.10.5"
   },
   "engines": {
     "node": ">=24",
