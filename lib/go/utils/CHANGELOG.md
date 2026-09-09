@@ -1,5 +1,9 @@
 # @grafana/infinity-utils
 
+## 1.0.2
+
+- ⚙️ **Chore**: updated deps
+
 ## 1.0.1
 
 - ⚙️ **Chore**: Updated frontend and backend dependencies
