@@ -1,5 +1,9 @@
 # @grafana/infinity-macros
 
+## 1.0.5
+
+- ⚙️ **Chore**: updated deps
+
 ## 1.0.4
 
 - ⚙️ **Chore**: updated deps

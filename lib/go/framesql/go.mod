@@ -1,6 +1,6 @@
 module github.com/grafana/infinity-libs/lib/go/framesql
 
-go 1.26.5
+go 1.27.0
 
 require (
 	github.com/casbin/govaluate v1.10.0
