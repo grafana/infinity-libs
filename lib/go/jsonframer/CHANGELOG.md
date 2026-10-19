@@ -1,5 +1,11 @@
 # @grafana/infinity-jsonframer
 
+## 1.3.2
+
+### Patch Changes
+
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
 ## 1.3.1
 
 - ⚙️ **Chore**: updated deps

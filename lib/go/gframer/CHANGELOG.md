@@ -1,5 +1,11 @@
 # @grafana/infinity-gframer
 
+## 1.1.4
+
+### Patch Changes
+
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
 ## 1.1.3
 
 - ⚙️ **Chore**: updated deps
