@@ -1,5 +1,11 @@
 # @grafana/infinity-xmlframer
 
+## 1.0.5
+
+### Patch Changes
+
+- ⚙️ **Chore**: Updated frontend and backend dependencies
+
 ## 1.0.4
 
 - ⚙️ **Chore**: updated deps
