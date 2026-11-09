@@ -7,7 +7,7 @@ require (
 	github.com/grafana/infinity-libs/lib/go/gframer v1.1.13
 	github.com/itchyny/gojq v0.12.20
 	github.com/stretchr/testify v1.12.1
-	github.com/tidwall/gjson v1.20.0
+	github.com/tidwall/gjson v1.20.1
 	github.com/xiatechs/jsonata-go v1.8.8
 )
 
