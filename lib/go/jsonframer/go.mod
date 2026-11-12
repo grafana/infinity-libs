@@ -7,7 +7,7 @@ require (
 	github.com/grafana/infinity-libs/lib/go/gframer v1.1.13
 	github.com/itchyny/gojq v0.12.20
 	github.com/stretchr/testify v1.12.1
-	github.com/tidwall/gjson v1.20.1
+	github.com/tidwall/gjson v1.20.2
 	github.com/xiatechs/jsonata-go v1.8.8
 )
 
@@ -63,7 +63,7 @@ require (
 	github.com/prometheus/procfs v0.22.0 // indirect
 	github.com/shopspring/decimal v1.6.0 // indirect
 	github.com/tidwall/match v1.2.0 // indirect
-	github.com/tidwall/pretty v1.2.2 // indirect
+	github.com/tidwall/pretty v1.3.0 // indirect
 	github.com/zeebo/xxh3 v1.1.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.72.0 // indirect
