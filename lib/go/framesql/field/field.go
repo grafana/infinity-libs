@@ -1,8 +1,14 @@
 package field
 
 import (
+	"errors"
+
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
+
+// ErrNoNumericValues is returned by Min and Max when no value in the field is a number:
+// the field is empty, or every value is null or not numeric.
+var ErrNoNumericValues = errors.New("no numeric values")
 
 func Count(field *data.Field) (float64, error) {
 	return float64(field.Len()), nil
@@ -51,6 +57,9 @@ func Min(field *data.Field) (float64, error) {
 			}
 		}
 	}
+	if min == nil {
+		return 0, ErrNoNumericValues
+	}
 	return *min, nil
 }
 
@@ -62,6 +71,9 @@ func Max(field *data.Field) (float64, error) {
 				max = v
 			}
 		}
+	}
+	if max == nil {
+		return 0, ErrNoNumericValues
 	}
 	return *max, nil
 }
