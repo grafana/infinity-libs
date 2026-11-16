@@ -203,6 +203,36 @@ func TestGetSummaryFrame(t *testing.T) {
 				data.NewField("max of value", nil, []*float64{utils.P(float64(8)), utils.P(float64(0))}),
 			),
 		},
+		{
+			name: "min of a field without numbers",
+			frame: data.NewFrame(
+				"response",
+				data.NewField("value", nil, []*string{nil, nil}),
+			),
+			expression: "min(value)",
+			alias:      "summary",
+			want: data.NewFrame(
+				"response",
+				data.NewField("summary", nil, []*float64{nil}),
+			),
+		},
+		{
+			// Summarize by turns a null summary into 0 (framesql.GetValue), as it does for first and last.
+			name: "min with summarize by and a group without numbers",
+			frame: data.NewFrame(
+				"hello",
+				data.NewField("group", nil, []string{"A", "B", "A"}),
+				data.NewField("value", nil, []*int64{utils.P(int64(6)), nil, utils.P(int64(8))}),
+			),
+			expression: "min(value)",
+			by:         "group",
+			alias:      "min of value",
+			want: data.NewFrame(
+				"summary",
+				data.NewField("group", nil, []*string{utils.P(string("A")), utils.P(string("B"))}),
+				data.NewField("min of value", nil, []*float64{utils.P(float64(6)), utils.P(float64(0))}),
+			),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
