@@ -316,6 +316,7 @@ github.com/invopop/yaml v0.2.0 h1:7zky/qH+O0DwAyoobXUqvVBwgBFRxKoQ/3FjcVpjTMY=
 github.com/invopop/yaml v0.2.0/go.mod h1:2XuRLgs/ouIrW3XNzuNj7J3Nvu/Dig5MXvbCEdiBN3Q=
 github.com/itchyny/go-yaml v0.0.0-20251001235044-fca9a0999f15 h1:m4jKsIK0QS9ihQzOxUN2zJcPdrACwqIWCwvdzv9skMQ=
 github.com/itchyny/go-yaml v0.0.0-20251001235044-fca9a0999f15/go.mod h1:Tmbz8uw5I/I6NvVpEGuhzlElCGS5hPoXJkt7l+ul6LE=
+github.com/itchyny/go-yaml v0.0.0-20261030110000-18a91f8189a6/go.mod h1:Tmbz8uw5I/I6NvVpEGuhzlElCGS5hPoXJkt7l+ul6LE=
 github.com/josharian/intern v1.0.0 h1:vlS4z54oSdjm0bgjRigI+G1HpF+tI+9rE5LLzOg8HmY=
 github.com/josharian/intern v1.0.0/go.mod h1:5DoeVV0s6jJacbCEi61lwdGj/aVlrQvzHFFd8Hwg//Y=
 github.com/jpillora/backoff v1.0.0 h1:uvFg412JmmHBHw7iwprIxkPMI+sGQ4kzOWsMeHnm2EA=
@@ -463,6 +464,7 @@ github.com/substrait-io/substrait-protobuf/go v0.75.0/go.mod h1:hn+Szm1NmZZc91Fw
 github.com/substrait-io/substrait-protobuf/go v0.81.0/go.mod h1:hn+Szm1NmZZc91FwWK9EXD/lmuGBSRTJ5IvHhlG1YnQ=
 github.com/substrait-io/substrait-protobuf/go v0.85.0/go.mod h1:hn+Szm1NmZZc91FwWK9EXD/lmuGBSRTJ5IvHhlG1YnQ=
 github.com/tidwall/gjson v1.14.2/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
+github.com/tidwall/match v1.1.1/go.mod h1:eRSPERbgtNPcGhD8UCthc6PmLEQXEWd3PRB5JTxsfmM=
 github.com/tidwall/sjson v1.2.5 h1:kLy8mja+1c9jlljvWTlSazM7cKDRfJuR/bOJhcY5NcY=
 github.com/tidwall/sjson v1.2.5/go.mod h1:Fvgq9kS/6ociJEDnK0Fk1cpYF4FIW6ZF7LAe+6jwd28=
 github.com/unknwon/bra v0.0.0-20200517080246-1e3013ecaff8 h1:aVGB3YnaS/JNfOW3tiHIlmNmTDg618va+eT0mVomgyI=
