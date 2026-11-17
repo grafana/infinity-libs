@@ -107,6 +107,31 @@ func TestExpressionFunctions(t *testing.T) {
 			require.Nil(t, err)
 		})
 	})
+	for _, fn := range []string{"min", "max"} {
+		t.Run(fn, func(t *testing.T) {
+			t.Run("with nil pointer", func(t *testing.T) {
+				out, err := framesql.ExpressionFunctions[fn](data.NewField("values", nil, []*float64{nil, utils.P(2.0), utils.P(1.0)}))
+				require.Nil(t, err)
+				require.Equal(t, map[string]float64{"min": 1, "max": 2}[fn], out)
+			})
+			// A field without a number used to panic with a nil pointer dereference.
+			t.Run("no values", func(t *testing.T) {
+				out, err := framesql.ExpressionFunctions[fn](data.NewField("values", nil, []*float64{}))
+				require.Nil(t, err)
+				require.Equal(t, (*float64)(nil), out)
+			})
+			t.Run("all nil pointers", func(t *testing.T) {
+				out, err := framesql.ExpressionFunctions[fn](data.NewField("values", nil, []*float64{nil, nil}))
+				require.Nil(t, err)
+				require.Equal(t, (*float64)(nil), out)
+			})
+			t.Run("no numeric values", func(t *testing.T) {
+				out, err := framesql.ExpressionFunctions[fn](data.NewField("values", nil, []*string{utils.P("n/a"), nil}))
+				require.Nil(t, err)
+				require.Equal(t, (*float64)(nil), out)
+			})
+		})
+	}
 }
 
 func TestEvaluateInFrame(t *testing.T) {

@@ -70,14 +70,14 @@ var ExpressionFunctions = map[string]govaluate.ExpressionFunction{
 		if err != nil {
 			return nil, err
 		}
-		return dataFrameField.Min(field)
+		return nullIfNoNumericValues(dataFrameField.Min(field))
 	},
 	"max": func(arguments ...any) (any, error) {
 		field, err := getFieldFromArguments("max", arguments...)
 		if err != nil {
 			return nil, err
 		}
-		return dataFrameField.Max(field)
+		return nullIfNoNumericValues(dataFrameField.Max(field))
 	},
 	"mean": func(arguments ...any) (any, error) {
 		field, err := getFieldFromArguments("mean", arguments...)
@@ -86,6 +86,18 @@ var ExpressionFunctions = map[string]govaluate.ExpressionFunction{
 		}
 		return dataFrameField.Mean(field)
 	},
+}
+
+// nullIfNoNumericValues makes min and max of a field without numbers a null result, as first
+// and last return for a field without values, instead of failing the whole expression.
+func nullIfNoNumericValues(value float64, err error) (any, error) {
+	if errors.Is(err, dataFrameField.ErrNoNumericValues) {
+		return (*float64)(nil), nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	return value, nil
 }
 
 func SlugifyFieldName(input string) string {
