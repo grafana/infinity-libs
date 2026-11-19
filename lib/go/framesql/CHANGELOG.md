@@ -1,5 +1,11 @@
 # @grafana/infinity-framesql
 
+## 1.1.2
+
+### Patch Changes
+
+- 🐛 **Bug Fix**: `min()` and `max()` no longer panic when a field has no numeric values (only nulls or text); they return null
+
 ## 1.1.1
 
 - ⚙️ **Chore**: updated deps
